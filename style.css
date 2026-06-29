@@ -1,5 +1,5 @@
 /* ==========================================================================
-   #コンパス風 サイバーダークテーマスタイル（ヘッダースペース均等化版）
+   #コンパス風 サイバーダークテーマスタイル（ヘッダースペース拡張版）
    ========================================================================== */
 
 /* 🌐 全体ベース設定 */
@@ -20,36 +20,36 @@ body {
     font-size: 16px;
 }
 
-/* 🌐 固定ヘッダー（スペースを美しく均等化） */
+/* 🌐 固定ヘッダー（上下と左右のスペースを拡張！） */
 .site-header {
     width: 100%;
     background-color: rgba(30, 31, 34, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-bottom: 2px solid #5865f2;
+    border-bottom: 3px solid #5865f2; /* 💡 下線を少し太くして存在感をアップ */
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.6);
 }
 
 .header-nav {
-    max-width: 1200px;
+    max-width: 1300px; /* 💡 最大幅を1200pxから1300pxに拡張 */
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px; /* 💡 左右の余白を20pxから30pxに拡大 */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 100px; /* 💡 ヘッダーの全体の高さを80pxから100pxへ大幅に拡張！ */
     box-sizing: border-box;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 26px; /* 💡 ロゴの文字サイズを24pxから26pxに拡大 */
     font-weight: 900;
     color: #ffffff;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(88, 101, 242, 0.8), 0 0 20px rgba(0, 255, 242, 0.4);
+    letter-spacing: 3px; /* 💡 文字の間隔を少し広げて視認性アップ */
+    text-shadow: 0 0 12px rgba(88, 101, 242, 0.85), 0 0 24px rgba(0, 255, 242, 0.5);
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -61,21 +61,21 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 8px; /* ボタン同士の間隔 */
+    gap: 16px; /* 💡 ボタン同士の横の隙間を8pxから16pxへと2倍に拡張！ */
     align-items: center;
     height: 100%;
 }
 
-/* 💡 メニューボタンをすべて同じ条件の均等スペースに調整 */
+/* メニューボタンのサイズとスペース調整 */
 .nav-link {
     color: #b5bac1;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
-    min-width: 90px; /* すべてのボタンに一律の最低横幅を設定して均等化 */
-    text-align: center; /* 文字をボタンのちょうど真ん中に配置 */
-    padding: 10px 0; /* 左右のバラバラな余白をリセットし、上下だけ固定 */
-    border-radius: 6px;
+    min-width: 100px; /* 💡 各ボタンの均等な横幅を90pxから100pxに拡張 */
+    text-align: center;
+    padding: 12px 0; /* 💡 上下のクッション（厚み）を10pxから12pxに拡大 */
+    border-radius: 8px; /* 💡 角丸を少し滑らかに */
     transition: all 0.2s ease;
     border: 1px solid transparent;
     display: inline-block;
@@ -93,7 +93,7 @@ body {
     color: #ffffff;
     background-color: #5865f2;
     border-color: #5865f2;
-    box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
+    box-shadow: 0 0 18px rgba(88, 101, 242, 0.7);
 }
 
 /* 📦 メインレイアウト */
@@ -330,36 +330,34 @@ h1 {
    ========================================================================== */
 
 @media (max-width: 768px) {
-    /* 🌐 ヘッダーを縦並びにしてスマホでも収める */
+    /* スマホでは縦長になりすぎないよう、コンパクトなヘッダー幅に自動調整 */
     .header-nav {
         flex-direction: column;
         height: auto;
-        padding: 15px 10px;
+        padding: 20px 15px;
         gap: 15px;
     }
 
     .logo {
-        font-size: 20px;
+        font-size: 22px;
         height: auto;
         justify-content: center;
     }
 
-    /* メニュースクロール・折り返し表示 */
     .nav-list {
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 8px; /* スマホでもボタン同士がくっつきすぎない間隔 */
         height: auto;
     }
 
     .nav-link {
         font-size: 14px;
-        padding: 8px 10px;
-        min-width: 75px; /* スマホ画面用に少しだけボタンの横幅をスリム化 */
+        padding: 8px 12px;
+        min-width: 80px;
     }
 
-    /* 📦 コンテナの余白を狭める */
     .container {
         padding: 20px 10px;
     }
@@ -372,7 +370,6 @@ h1 {
         font-size: 14px;
     }
 
-    /* 🔗 Discordボタンを少し小さく押しやすく */
     .discord-btn {
         font-size: 15px;
         padding: 12px 25px;
@@ -381,7 +378,6 @@ h1 {
         justify-content: center;
     }
 
-    /* 🔍 フィルターセクションの調整 */
     .filter-section {
         padding: 15px;
     }
@@ -391,7 +387,6 @@ h1 {
         padding: 8px 14px;
     }
 
-    /* 👥 メンバーリストを強制的に1列に変更 */
     .member-list {
         grid-template-columns: 1fr;
         gap: 16px;
