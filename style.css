@@ -1,5 +1,5 @@
 /* ==========================================================================
-   #コンパス風 サイバーダークテーマスタイル（文字大きめ＆スマホ対応＆ヘッダー修正版）
+   #コンパス風 サイバーダークテーマスタイル（ヘッダースペース均等化版）
    ========================================================================== */
 
 /* 🌐 全体ベース設定 */
@@ -20,7 +20,7 @@ body {
     font-size: 16px;
 }
 
-/* 🌐 固定ヘッダー（ずれを修正！） */
+/* 🌐 固定ヘッダー（スペースを美しく均等化） */
 .site-header {
     width: 100%;
     background-color: rgba(30, 31, 34, 0.85);
@@ -40,7 +40,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px; /* 高さを統一 */
+    height: 80px;
     box-sizing: border-box;
 }
 
@@ -50,7 +50,7 @@ body {
     color: #ffffff;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(88, 101, 242, 0.8), 0 0 20px rgba(0, 255, 242, 0.4);
-    white-space: nowrap; /* ロゴの途中で改行させない */
+    white-space: nowrap;
     display: flex;
     align-items: center;
     height: 100%;
@@ -61,21 +61,25 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 12px;
-    align-items: center; /* メニューの上下中央揃え */
+    gap: 8px; /* ボタン同士の間隔 */
+    align-items: center;
     height: 100%;
 }
 
+/* 💡 メニューボタンをすべて同じ条件の均等スペースに調整 */
 .nav-link {
     color: #b5bac1;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
-    padding: 10px 18px;
+    min-width: 90px; /* すべてのボタンに一律の最低横幅を設定して均等化 */
+    text-align: center; /* 文字をボタンのちょうど真ん中に配置 */
+    padding: 10px 0; /* 左右のバラバラな余白をリセットし、上下だけ固定 */
     border-radius: 6px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
     display: inline-block;
+    box-sizing: border-box;
 }
 
 .nav-link:hover {
@@ -351,7 +355,8 @@ h1 {
 
     .nav-link {
         font-size: 14px;
-        padding: 8px 12px;
+        padding: 8px 10px;
+        min-width: 75px; /* スマホ画面用に少しだけボタンの横幅をスリム化 */
     }
 
     /* 📦 コンテナの余白を狭める */
