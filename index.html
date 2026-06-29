@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>コンパスギルド - コミュニティポータル</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 追加デザイン */
+        .home-welcome {
+            text-align: center;
+            background: linear-gradient(135deg, #1e1f22 0%, #151618 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #2b2d31;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .home-section-title {
+            color: #00ffcc;
+            font-size: 20px;
+            border-bottom: 2px solid #2b2d31;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .role-counter-box {
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid #5865f2;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.2);
+        }
+        .role-counter-number {
+            color: #00ffcc;
+            font-size: 26px;
+            margin: 0 5px;
+            text-shadow: 0 0 10px rgba(0, 255, 210, 0.5);
+        }
+        .all-roles-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background-color: #1e1f22;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #2b2d31;
+        }
+        .role-user-count {
+            background-color: #232428;
+            color: #00ffcc;
+            font-size: 10px;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: 5px;
+            border: 1px solid rgba(0, 255, 210, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="site-header">
+        <div class="header-nav">
+            <div class="logo">#COMPASS GUILD</div>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link active" onclick="switchPage('home', this)">ホーム</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('rule', this)">ルール</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('news', this)">ニュース</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('member', this)">メンバー</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('role', this)">ロール</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('activity', this)">活動</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('detail', this)">詳細</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div id="page-home" class="page-content active">
+            <div class="home-welcome">
+                <h1>ギルド公式ポータルへようこそ！</h1>
+                <p class="subtitle">#コンパスの熱いバトルと、おなじみのゲーム仲間が集まるコミュニティ</p>
+                <div style="margin-top: 25px;">
+                    <a href="https://discord.gg/pHNKy4Ng" target="_blank" class="discord-btn">
+                        <svg viewBox="0 0 127.14 96.36">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.9-.65,1.76-1.34,2.58-2a75.59,75.59,0,0,0,73,0c.83.68,1.69,1.37,2.58,2a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.91,50.54,123.82,27.78,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                        </svg>
+                        Discordサーバーに参加して仲間と遊ぶ
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-rule" class="page-content">
+            <div class="fallback-text"><h2>ギルドルール</h2><p>禁止事項やDiscordサーバーの規則を掲載します。</p></div>
+        </div>
+
+        <div id="page-news" class="page-content">
+            <div class="fallback-text"><h2>ニュース一覧</h2><p>アプデ情報や、イベント告知を掲載します。</p></div>
+        </div>
+
+        <div id="page-member" class="page-content">
+            <header>
+                <h1>ギルドメンバー紹介</h1>
+                <div class="subtitle">当コミュニティに所属している頼もしいプレイヤーたちです</div>
+            </header>
+            <div class="member-list" id="allMemberList"></div>
+        </div>
+
+        <div id="page-role" class="page-content">
+            <header>
+                <h1>ロール図鑑 ＆ メンバー検索</h1>
+                <div class="subtitle">サーバー内の全ロール一覧と、ロールごとの所属メンバー</div>
+            </header>
+
+            <div class="role-counter-box">
+                現在サーバー内に登録されているロール総数:<span class="role-counter-number" id="totalRoleCount">0</span>種類
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">ロールでメンバーを絞り込み（所属人数つき）</div>
+                <div class="filter-buttons" id="filterButtons"></div>
+            </div>
+
+            <div class="member-list" id="memberList"></div>
+
+            <div class="home-section-title" style="margin-top: 50px;">一覧：すべての登録ロール（現在の所属人数）</div>
+            <div class="all-roles-grid" id="allRolesGrid"></div>
+        </div>
+
+        <div id="page-activity" class="page-content">
+            <div class="fallback-text"><h2>ギルド活動記録</h2><p>過去の大会結果、対戦動画クリップ、スクショギャラリーなど。</p></div>
+        </div>
+
+        <div id="page-detail" class="page-content">
+            <div class="fallback-text"><h2>詳細ページ</h2><p>当ギルドについての詳しい説明やお問い合わせ等。</p></div>
+        </div>
+
+    </div>
+
+    <script>
+        // 全Discordロールマスターリスト
+        const ALL_DISCORD_ROLES = [
+            "深夜帯メンション可⭕", "深夜帯メンション不可❌", "原神民", "FGO民", "ポケモン民",
+            "マイクラ民", "モンスト民", "第5人格民", "スタレ民", "雀魂民",
+            "プロセカ民", "エンドフィールド民", "シャドバ民", "ゼンゼロ民", "TRPG民",
+            "グラブル民", "鳴潮民", "お絵描き民", "アークナイツ民", "Skyの民",
+            "DDFFの民", "SAO民", "スプラ民", "ブルアカ民", "APEX民",
+            "ガルパ民", "学マス民", "ウマ娘民", "ヘブバン民", "NIKKEの民",
+            "ゴッフィ民", "遊戯王民", "PUBGモバイル民", "パズドラ民", "モンハン民",
+            "REPO民", "トリッカル民", "スマブラ民", "プリコネ民", "あんスタ民",
+            "東方民", "荒野民", "ギルギア民", "VALORANT民", "アズールレーン民",
+            "キングダムハーツ民", "フォトナ民", "アモアス民", "ツイステ民", "LoL民",
+            "ステラソラ民", "にゃんこの民", "スト6の民", "ペルソナ民", "ヒロアカ民",
+            "ポーカーの民", "ぷにぷに民", "ピグパ民", "リンバス民", "ARC Raiders民",
+            "DRAPLINE民", "パワプロ民", "ハリポタ民", "ドラクエ民", "OW民(オーバーウォッチ)",
+            "NTEの民", "ラグナド民", "エレナイ民", "偽りのアリス民", "デュエマ民",
+            "オセロニアの民", "ポケツイ・ポケコロ民", "イナイレ民", "艦これ民", "メメントモリ民",
+            "グラクロ民", "クッキーランキングダム民", "エイトリ民", "パチスロ民", "ピュアニスタ民",
+            "ブロスタ民", "テラリア民", "星の翼民", "放サモ民", "Dbd民",
+            "エルデンリング民", "グラセフ民", "朝活の民☀️", "夜活の民🌙", "サブ垢", "壁の教祖"
+        ];
+
+        // 共通メンバーデータ
+        const members = [
+            { name: "たっけん", role: "アタッカー", roles: ["深夜帯メンション可⭕", "原神民", "スタレ民", "ゼンゼロ民", "夜活の民🌙"] },
+            { name: "サンプルメンバーB", role: "タンク", roles: ["マイクラ民", "スプラ民", "APEX民", "夜活の民🌙"] },
+            { name: "サンプルメンバーC", role: "スプリンター", roles: ["学マス民", "プロセカ民", "お絵描き民", "朝活の民☀️", "原神民"] },
+            { name: "サンプルメンバーD", role: "ガンナー", roles: ["深夜帯メンション不可❌", "ブルアカ民", "鳴潮民", "LoL民", "スタレ民"] }
+        ];
+
+        let currentFilter = "ALL";
+
+        // ロールごとの人数を自動集計
+        function getRoleMemberCounts() {
+            const counts = {};
+            ALL_DISCORD_ROLES.forEach(role => counts[role] = 0);
+            members.forEach(member => {
+                member.roles.forEach(role => {
+                    if (counts[role] !== undefined) {
+                        counts[role]++;
+                    }
+                });
+            });
+            return counts;
+        }
+
+        // ページ切り替え
+        function switchPage(pageId, element) {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.remove('active'));
+
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+        }
+
+        // 絞り込みフィルターボタンの自動生成
+        function generateFilterButtons() {
+            const btnContainer = document.getElementById('filterButtons');
+            if(!btnContainer) return;
+
+            const activeRoles = new Set();
+            members.forEach(m => m.roles.forEach(r => activeRoles.add(r)));
+
+            const roleCounts = getRoleMemberCounts();
+
+            let buttonsHTML = `<button class="btn ${currentFilter === 'ALL' ? 'active' : ''}" onclick="filterGame('ALL', this)">すべて <span class="role-user-count">${members.length}</span></button>`;
+
+            ALL_DISCORD_ROLES.forEach(role => {
+                if (activeRoles.has(role)) {
+                    buttonsHTML += `
+                        <button class="btn ${currentFilter === role ? 'active' : ''}" onclick="filterGame('${role}', this)">
+                            ${role} <span class="role-user-count">${roleCounts[role]}人</span>
+                        </button>`;
+                }
+            });
+
+            btnContainer.innerHTML = buttonsHTML;
+        }
+
+        // カードHTML生成ヘルパー
+        function createCardHTML(member) {
+            let tagsHTML = "";
+            member.roles.forEach(r => {
+                tagsHTML += `<span class="tag">${r}</span>`;
+            });
+            return `
+                <div class="card role-${member.role}">
+                    <div class="member-name">${member.name}</div>
+                    <div class="compass-role">${member.role}</div>
+                    <div class="tags">${tagsHTML}</div>
+                </div>
+            `;
+        }
+
+        // ロールページ用メンバー出力
+        function displayMembers() {
+            const container = document.getElementById('memberList');
+            if(!container) return;
+            container.innerHTML = "";
+
+            members.forEach(member => {
+                if (currentFilter === 'ALL' || member.roles.includes(currentFilter)) {
+                    container.innerHTML += createCardHTML(member);
+                }
+            });
+        }
+
+        // 👥 メンバーページ用メンバー出力
+        function displayAllMembersPage() {
+            const container = document.getElementById('allMemberList');
+            if(!container) return;
+            container.innerHTML = "";
+            members.forEach(member => {
+                container.innerHTML += createCardHTML(member);
+            });
+        }
+
+        // ロール情報の書き出し処理
+        function displayRoleStats() {
+            const countEl = document.getElementById('totalRoleCount');
+            if(countEl) countEl.innerText = ALL_DISCORD_ROLES.length;
+
+            const gridEl = document.getElementById('allRolesGrid');
+            if(gridEl) {
+                const roleCounts = getRoleMemberCounts();
+                gridEl.innerHTML = ALL_DISCORD_ROLES.map(role => {
+                    return `<span class="tag">${role} <span class="role-user-count">${roleCounts[role]}</span></span>`;
+                }).join('');
+            }
+        }
+
+        function filterGame(roleName, buttonElement) {
+            currentFilter = roleName;
+            generateFilterButtons();
+            displayMembers();
+        }
+
+        // 初期実行
+        generateFilterButtons();
+        displayMembers();
+        displayAllMembersPage();
+        displayRoleStats();
+    </script>
+</body>
+</html>
