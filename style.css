@@ -1,5 +1,5 @@
 /* ==========================================================================
-   #コンパス風 サイバーダークテーマスタイル（文字大きめ＆スマホ対応版）
+   #コンパス風 サイバーダークテーマスタイル（文字大きめ＆スマホ対応＆ヘッダー修正版）
    ========================================================================== */
 
 /* 🌐 全体ベース設定 */
@@ -20,7 +20,7 @@ body {
     font-size: 16px;
 }
 
-/* 🌐 固定ヘッダー（すりガラス効果） */
+/* 🌐 固定ヘッダー（ずれを修正！） */
 .site-header {
     width: 100%;
     background-color: rgba(30, 31, 34, 0.85);
@@ -40,7 +40,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 80px; /* 高さを統一 */
+    box-sizing: border-box;
 }
 
 .logo {
@@ -49,6 +50,10 @@ body {
     color: #ffffff;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(88, 101, 242, 0.8), 0 0 20px rgba(0, 255, 242, 0.4);
+    white-space: nowrap; /* ロゴの途中で改行させない */
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .nav-list {
@@ -57,6 +62,8 @@ body {
     padding: 0;
     margin: 0;
     gap: 12px;
+    align-items: center; /* メニューの上下中央揃え */
+    height: 100%;
 }
 
 .nav-link {
@@ -68,6 +75,7 @@ body {
     border-radius: 6px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    display: inline-block;
 }
 
 .nav-link:hover {
@@ -314,7 +322,7 @@ h1 {
 
 
 /* ==========================================================================
-   📱 【追加】スマートフォン・タブレット用 レスポンシブ対応
+   📱 スマートフォン・タブレット用 レスポンシブ対応
    ========================================================================== */
 
 @media (max-width: 768px) {
@@ -328,14 +336,17 @@ h1 {
 
     .logo {
         font-size: 20px;
+        height: auto;
+        justify-content: center;
     }
 
-    /* メニューを横スクロール、または折り返して表示 */
+    /* メニュースクロール・折り返し表示 */
     .nav-list {
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
         gap: 6px;
+        height: auto;
     }
 
     .nav-link {
@@ -343,13 +354,13 @@ h1 {
         padding: 8px 12px;
     }
 
-    /* 📦 コンテナの余白をスマホ用に狭める */
+    /* 📦 コンテナの余白を狭める */
     .container {
         padding: 20px 10px;
     }
 
     h1 {
-        font-size: 26px; /* タイトルをスマホサイズに */
+        font-size: 26px;
     }
 
     .subtitle {
@@ -360,7 +371,7 @@ h1 {
     .discord-btn {
         font-size: 15px;
         padding: 12px 25px;
-        width: 100%; /* 横幅いっぱいに広げて押しやすく */
+        width: 100%;
         box-sizing: border-box;
         justify-content: center;
     }
