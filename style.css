@@ -400,3 +400,120 @@ h1 {
         font-size: 18px;
     }
 }
+/* ==========================================================================
+   📜 ルールページ専用追加デザイン
+   ========================================================================== */
+.rule-container {
+    background: linear-gradient(180deg, #1e1f22 0%, #151618 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #2b2d31;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.rule-container h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
+}
+
+.rule-subtitle {
+    color: #949ba4;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.rule-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    background-color: #2b2d31;
+    padding: 18px 24px;
+    border-radius: 10px;
+    border-left: 4px solid #5865f2; /* 通常ルールの左ライン */
+}
+
+.rule-item.danger {
+    border-left-color: #ff3333; /* 禁止事項の左ライン（赤） */
+    background-color: rgba(255, 51, 51, 0.05);
+}
+
+.rule-emoji {
+    font-size: 24px;
+    margin-right: 18px;
+    flex-shrink: 0;
+}
+
+.rule-item p {
+    margin: 0;
+    color: #dbdee1;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* 警告文章ボックス */
+.rule-note-box {
+    background-color: rgba(255, 170, 0, 0.05);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.rule-note-box h3 {
+    color: #ffaa00;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.rule-note-box p {
+    color: #b5bac1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 10px 0;
+}
+
+.rule-note-box p:last-child {
+    margin-bottom: 0;
+}
+
+.rule-note-box strong {
+    color: #ffffff;
+}
+
+.alert-text {
+    color: #ff5555 !important;
+    font-weight: bold;
+    background-color: rgba(255, 51, 51, 0.1);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid #ff3333;
+    margin-top: 15px !important;
+}
+
+/* スマホ用の余白微調整 */
+@media (max-width: 768px) {
+    .rule-container {
+        padding: 20px 15px;
+    }
+    .rule-item {
+        padding: 14px 16px;
+    }
+    .rule-emoji {
+        margin-right: 12px;
+    }
+    .rule-item p {
+        font-size: 14px;
+    }
+}
