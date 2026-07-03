@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>コンパスギルド - ネトゲ廃人ロキシーコール - コミュニティポータル</title>
+    <title>コンパスギルド - コミュティポータル</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* 追加デザイン */
@@ -66,15 +66,18 @@
 
     <nav class="site-header">
         <div class="header-nav">
-            <div class="logo">ネトゲ廃人ロキシーコール</div>
+            <div class="logo">
+                <img src="images/IMG_20240808_054529_Original.JPG" alt="Roxy Icon" class="header-icon">
+                <span>ネトゲ廃人ロキシーコール</span>
+            </div>
+
             <ul class="nav-list">
                 <li><a href="#" class="nav-link active" onclick="switchPage('home', this)">ホーム</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('rule', this)">ルール</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('news', this)">ニュース</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('activity', this)">活動</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('member', this)">メンバー</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('role', this)">ロール</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('activity', this)">活動</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('detail', this)">詳細</a></li>
             </ul>
         </div>
     </nav>
@@ -85,6 +88,15 @@
             <div class="home-welcome">
                 <h1>ネトゲ廃人ロキシーコールへようこそ！</h1>
                 <p class="subtitle">#コンパスを通じて、様々なゲームの仲間が集まるコミュニティ</p>
+
+                <div class="home-images-layout">
+                    <div class="image-box roxy">
+                        <img src="images/IMG_20240808_054529_Original.JPG" alt="ロキシー">
+                    </div>
+                    <div class="image-box ayaka">
+                        <img src="images/IMG_0626.PNG" alt="キャラクター">
+                    </div>
+                </div>
                 <div style="margin-top: 25px;">
                     <a href="https://discord.gg/pHNKy4Ng" target="_blank" class="discord-btn">
                         <svg viewBox="0 0 127.14 96.36">
@@ -93,6 +105,8 @@
                         Discordサーバーに参加する
                     </a>
                 </div>
+            </div>
+        </div>
             </div>
         </div>
 
@@ -130,16 +144,72 @@
                 </div>
             </div>
         </div>
-        </div>
 
         <div id="page-news" class="page-content">
-            <div class="fallback-text"><h2>ニュース一覧</h2><p>メンバー募集情報や、イベント告知を掲載します。</p></div>
+                <header class="news-header">
+                    <h1>ギルドニュース</h1>
+                    <div class="subtitle">ギルドの重要なお知らせ＆アップデート情報</div>
+                </header>
+
+                <div class="news-list-container">
+
+                    <div class="news-card important">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.03</span>
+                            <span class="news-badge emergency">重要</span>
+                        </div>
+                        <h2 class="news-title">公式Webポータルサイトがオープン！🎉</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ギルドの公式Webページが新しく完成しました！メンバーの皆さんがいつでも使いやすいポータルを目指していきます。</p>
+
+                            <div class="news-features">
+                                <h3>🔰 このサイトでできること</h3>
+                                <ul>
+                                    <li><span>📜</span> <strong>ルール確認:</strong> ギルドの大切なマナーをいつでもチェック可能</li>
+                                    <li><span>👥</span> <strong>メンバー紹介:</strong> 総勢26名の個性豊かな仲間たちのプロフィール掲載</li>
+                                    <li><span>🔍</span> <strong>ロール検索:</strong> Discordの役職ごとに遊んでいるゲームの仲間を即検索</li>
+                                </ul>
+                            </div>
+
+                            <p class="footer-text">今後もメンバー追加や新機能のアップデートを随時行っていきますので、ぜひスマホやPCのブラウザに<strong>ブックマーク（お気に入り登録）</strong>してご活用ください！</p>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.03</span>
+                            <span class="news-badge recruitment">メンバー募集</span>
+                        </div>
+                        <h2 class="news-title">【7月度】新規ギルドメンバー募集スタート！✨</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ただいま当コミュニティでは、7月の新しい仲間を大募集しています！ギルドをもっと盛り上げていきましょう！</p>
+
+                            <div class="news-highlight-box">
+                                <p><strong>🎮 こんな方は大歓迎です！</strong></p>
+                                <p>#コンパスが大好きな方はもちろん、Discordでワイワイいろんなゲーム（原神、スタレ、音ゲー、FPSなど）を一緒にエンジョイしたい方も大歓迎！年齢層は一切関係ありません！</p>
+                            </div>
+
+                            <div class="news-action-call">
+                                <p><strong>🔗 誘い方について</strong><br>
+                                「一緒に遊びたい！」という身内やお友達がいたら、ホーム画面やヘッダーにある<strong>Discord招待リンク</strong>を自由にシェアして招待してあげてください。マナーを守って楽しく絡める方をお待ちしています！👍⭐️</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="page-activity" class="page-content">
+            <div class="fallback-text"><h2>ギルド活動記録</h2><p>過去の大会結果、対戦動画クリップ、スクショギャラリーなど。</p></div>
         </div>
 
         <div id="page-member" class="page-content">
             <header>
                 <h1>ギルドメンバー紹介</h1>
-                <div class="subtitle">当コミュニティに所属している頼もしいプレイヤーたちです。</div>
+                <div class="subtitle">当コミュニティに所属している頼もしいプレイヤーたちです</div>
             </header>
             <div class="member-list" id="allMemberList"></div>
         </div>
@@ -147,7 +217,7 @@
         <div id="page-role" class="page-content">
             <header>
                 <h1>ロール図鑑 ＆ メンバー検索</h1>
-                <div class="subtitle">サーバー内の全ロール一覧と、ロールごとの所属メンバーを検索できます。</div>
+                <div class="subtitle">サーバー内の全ロール一覧と、ロールごとの所属メンバー</div>
             </header>
 
             <div class="role-counter-box">
@@ -165,16 +235,6 @@
             <div class="all-roles-grid" id="allRolesGrid"></div>
         </div>
 
-        <div id="page-activity" class="page-content">
-            <div class="fallback-text"><h2>ギルド活動記録</h2><p>過去のギルド交流会結果、動画クリップ、スクショギャラリーなど。</p></div>
-        </div>
-
-        <div id="page-detail" class="page-content">
-            <div class="fallback-text"><h2>詳細ページ</h2><p>当ギルドについての詳しい説明やお問い合わせ等。</p></div>
-        </div>
-
-
-
     <script>
         // 全Discordロールマスターリスト
         const ALL_DISCORD_ROLES = [
@@ -188,7 +248,7 @@
             "REPO民", "トリッカル民", "スマブラ民", "プリコネ民", "あんスタ民",
             "東方民", "荒野民", "ギルギア民", "VALORANT民", "アズールレーン民",
             "キングダムハーツ民", "フォトナ民", "アモアス民", "ツイステ民", "LoL民",
-            "ステラソラ民", "にゃんこの民", "スト6の民", "ペルソナ民", "ヒロアカ民",
+            "ステラソラ民", "にゃん correlation民", "スト6の民", "ペルソナ民", "ヒロアカ民",
             "ポーカーの民", "ぷにぷに民", "ピグパ民", "リンバス民", "ARC Raiders民",
             "DRAPLINE民", "パワプロ民", "ハリポタ民", "ドラクエ民", "OW民(オーバーウォッチ)",
             "NTEの民", "ラグナド民", "エレナイ民", "偽りのアリス民", "デュエマ民",
@@ -199,11 +259,34 @@
         ];
 
         // 共通メンバーデータ
+        // 👥 サンプルメンバーA〜Z（総勢26名）の紹介データ
         const members = [
-            { name: "たっけん", role: "アタッカー", roles: ["深夜帯メンション可⭕", "原神民", "スタレ民", "ゼンゼロ民", "夜活の民🌙"] },
-            { name: "サンプルメンバーB", role: "タンク", roles: ["マイクラ民", "スプラ民", "APEX民", "夜活の民🌙"] },
-            { name: "サンプルメンバーC", role: "スプリンター", roles: ["学マス民", "プロセカ民", "お絵描き民", "朝活の民☀️", "原神民"] },
-            { name: "サンプルメンバーD", role: "ガンナー", roles: ["深夜帯メンション不可❌", "ブルアカ民", "鳴潮民", "LoL民", "スタレ民"] }
+            { name: "サンプルメンバーA", role: "アタッカー", roles: ["深夜帯メンション可⭕", "原神民", "スタレ民", "ゼンゼロ民", "夜活の民🌙"], comment: "対面タイマンなら誰にも負けません！深夜の部活募集、いつでも誘ってください⚔️" },
+            { name: "サンプルメンバーB", role: "タンク", roles: ["マイクラ民", "スプラ民", "APEX民", "夜活の民🌙"], comment: "味方を守る盾になります！息抜きにマイクラの建築やスプラもやってます🐢" },
+            { name: "サンプルメンバーC", role: "スプリンター", roles: ["学マス民", "プロセカ民", "お絵描き民", "朝活の民☀️", "原神民"], comment: "ステージを最速で駆け回ります！音ゲーとファンアートを描くのが趣味です🎨" },
+            { name: "サンプルメンバーD", role: "ガンナー", roles: ["深夜帯メンション不可❌", "ブルアカ民", "鳴潮民", "LoL民", "スタレ民"], comment: "後方から確実な火力支援をお届け！戦略的なゲーム全般が大好きです🎯" },
+            { name: "サンプルメンバーE", role: "アタッカー", roles: ["モンスト民", "パズドラ民", "夜活の民🌙"], comment: "ガンガン攻める特攻隊長。スマホのマルチ対応ゲームなら何でも来い！🔥" },
+            { name: "サンプルメンバーF", role: "タンク", roles: ["第5人格民", "TRPG民", "夜活の民🌙"], comment: "どんな攻撃も耐えきってみせます。読み合いや心理戦が発生するゲームが得意型🎲" },
+            { name: "サンプルメンバーG", role: "スプリンター", roles: ["ポケモン民", "スマブラ民", "朝活の民☀️"], comment: "裏取りとCポータル維持のプロ。対戦アクションゲームは朝からでもいけます塾🏃‍♂️" },
+            { name: "サンプルメンバーH", role: "ガンナー", roles: ["雀魂民", "ポーカーの民", "深夜帯メンション可⭕"], comment: "長射程からじわじわ追い詰めるのが快感。確率と心理の駆け引き、いつでも挑んでね🎴" },
+            { name: "サンプルメンバーI", role: "アタッカー", roles: ["ウマ娘民", "パワプロ民", "朝活の民☀️"], comment: "一撃必殺のロマン火力を追い求めています！育成ゲームのステータス厳選が生き甲斐🐎" },
+            { name: "サンプルメンバーJ", role: "タンク", roles: ["FGO民", "アークナイツ民", "壁の教祖"], comment: "ギルドの絶対防衛ライン。タワーディフェンスや重厚なストーリーのゲームに深掘り中物🛡️" },
+            { name: "サンプルメンバーK", role: "スプリンター", roles: ["シャドバ民", "遊戯王民", "デュエマ民"], comment: "足の速さを活かした変幻自在な立ち回りが得意！カードゲームのデッキ構築脳です🃏" },
+            { name: "サンプルメンバーL", role: "ガンナー", roles: ["プロセカ民", "ガルパ民", "深夜帯メンション不可❌"], comment: "正確なエイムは音ゲーのリズム感から！綺麗なノーツとキルログを刻みます敲🎵" },
+            { name: "サンプルメンバーM", role: "アタッカー", roles: ["マイクラ民", "テラリア民", "夜活の民🌙"], comment: "敵をなぎ倒す快感がたまらない！素材集めやコツコツやる作業ゲーも実は好き⛏️" },
+            { name: "サンプルメンバーN", role: "タンク", roles: ["モンハン民", "Dbd民", "深夜帯メンション可⭕"], comment: "敵のヘイト（注目）を集めて耐えるのが得意。マルチ狩りゲーの盾役もお任せあれ🦖" },
+            { name: "サンプルメンバーO", role: "スプリンター", roles: ["APEX民", "VALORANT民", "夜活の民🌙"], comment: "前線をかき乱すトリックスター！FPSで鍛えた戦況把握能力でバトルを支配します疾💨" },
+            { name: "サンプルメンバーP", role: "ガンナー", roles: ["ブルアカ民", "プリコネ民", "学マス民"], comment: "引き撃ちでじっくりアドバンテージを取るタイプ。可愛いキャラクターに癒されてます至✨" },
+            { name: "サンプルメンバーQ", role: "アタッカー", roles: ["TRPG民", "お絵描き民", "深夜帯メンション不可❌"], comment: "キャラへの愛と火力は誰にも負けません！設定やストーリー考察を語り合いたいな愛" },
+            { name: "サンプルメンバーR", role: "タンク", roles: ["グラブ民", "リンバス民", "夜活の民🌙"], comment: "崩れない安定した立ち回りを意識しています。高難易度マルチの攻略がモチベ💪" },
+            { name: "サンプルメンバーS", role: "スプリンター", roles: ["スプラ民", "フォトナ民", "朝活の民☀️"], comment: "視野の広さを活かしてマップ全体をカバー！みんなで通話しながらワイワイ遊ぶのが好き🎧" },
+            { name: "サンプルメンバーT", role: "ガンナー", roles: ["ゼンゼロ民", "スト6の民", "ギルギア民"], comment: "間合い管理の鬼。格闘ゲームで培った反射神経で敵の接近を許しませんコンボ🥊" },
+            { name: "サンプルメンバーU", role: "アタッカー", roles: ["東方民", "プロセカ民", "夜活の民🌙"], comment: "攻撃こそ最大の防御！弾幕のような圧倒的手数で相手の防衛ラインをぶち破ります💥" },
+            { name: "サンプルメンバーV", role: "タンク", roles: ["アモアス民", "ゴッフィ民", "深夜帯メンション可⭕"], comment: "盤面をコントロールして勝利に導きます。人狼系やボードゲームの騙し合いも得意です嘘" },
+            { name: "サンプルメンバーW", role: "スプリンター", roles: ["原神民", "鳴潮民", "スカイの民"], comment: "自由気ままにフィールドを走り回ってます。オープンワールドの景色巡りも趣味の1つ🍃" },
+            { name: "サンプルメンバーX", role: "ガンナー", roles: ["パチスロ民", "ポーカーの民", "サブ垢"], comment: "クリティカル率や確率に賭けるギャンブラー。ロマン砲が決まった時の脳汁が最高🎰" },
+            { name: "サンプルメンバーY", role: "アタッカー", roles: ["荒野民", "PUBGモバイル民", "夜活の民🌙"], comment: "奇襲と裏取りで確実にキルを奪います。バトロワ仕込みの生存能力を見せてあげるよ🥀" },
+            { name: "サンプルメンバーZ", role: "タンク", roles: ["エルデンリング民", "グラセフ民", "壁の教祖"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"}
         ];
 
         let currentFilter = "ALL";
@@ -261,17 +344,22 @@
             btnContainer.innerHTML = buttonsHTML;
         }
 
-        // カードHTML生成ヘルパー
+        // 💡 カードHTML生成ヘルパー（一言コメントが表示されるように拡張）
         function createCardHTML(member) {
             let tagsHTML = "";
             member.roles.forEach(r => {
                 tagsHTML += `<span class="tag">${r}</span>`;
             });
+
+            // コメントがある場合は表示用のHTMLを作成（なければ空文字）
+            const commentHTML = member.comment ? `<div class="member-comment" style="margin-top: 12px; font-size: 13px; color: #b5bac1; font-style: italic; line-height: 1.4; border-top: 1px dashed #2b2d31; padding-top: 8px;">「 ${member.comment} 」</div>` : "";
+
             return `
                 <div class="card role-${member.role}">
                     <div class="member-name">${member.name}</div>
                     <div class="compass-role">${member.role}</div>
                     <div class="tags">${tagsHTML}</div>
+                    ${commentHTML}
                 </div>
             `;
         }
