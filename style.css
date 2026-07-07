@@ -236,6 +236,35 @@ h1 {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
+.card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.member-avatar {
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    background-color: #16171a;
+    flex-shrink: 0;
+}
+
+.member-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-text {
+    flex: 1;
+}
+
 /* ⚔️ コンパスロール用左バー設定 */
 .card::before {
     content: '';
@@ -265,6 +294,27 @@ h1 {
     letter-spacing: 0.5px;
 }
 
+/* カラフルなグラデーション文字（アニメーション付き） */
+.member-name.colorful {
+    background: linear-gradient(90deg, #ff6b6b, #ffbf66, #ffd166, #a0e7e5, #8ecae6, #bdb2ff, #ff9de2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 400% 400%;
+    animation: gradientShift 8s linear infinite;
+    font-weight: 900;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .member-name.colorful { animation: none; }
+}
+
 .compass-role {
     font-size: 13px;
     font-weight: bold;
@@ -279,6 +329,17 @@ h1 {
 .card.role-ガンナー .compass-role { background-color: rgba(255, 170, 0, 0.2); color: #ffdd99; border: 1px solid rgba(255, 170, 0, 0.4); }
 .card.role-タンク .compass-role { background-color: rgba(0, 191, 255, 0.2); color: #99e6ff; border: 1px solid rgba(0, 191, 255, 0.4); }
 .card.role-スプリンター .compass-role { background-color: rgba(0, 255, 102, 0.2); color: #99ffc2; border: 1px solid rgba(0, 255, 102, 0.4); }
+
+/* ロール別の名前カラーとアバターのアクセント */
+.card.role-アタッカー .member-name { color: #ff6b6b; }
+.card.role-ガンナー .member-name { color: #ffbf66; }
+.card.role-タンク .member-name { color: #66e6ff; }
+.card.role-スプリンター .member-name { color: #99ffb8; }
+
+.card.role-アタッカー .member-avatar { box-shadow: inset 0 0 0 2px rgba(255, 51, 51, 0.12); border-color: rgba(255,51,51,0.25); }
+.card.role-ガンナー .member-avatar { box-shadow: inset 0 0 0 2px rgba(255, 170, 0, 0.12); border-color: rgba(255,170,0,0.2); }
+.card.role-タンク .member-avatar { box-shadow: inset 0 0 0 2px rgba(0, 191, 255, 0.12); border-color: rgba(0,191,255,0.2); }
+.card.role-スプリンター .member-avatar { box-shadow: inset 0 0 0 2px rgba(0, 255, 102, 0.12); border-color: rgba(0,255,102,0.18); }
 
 /* 🏷️ Discord風バッジ役職 */
 .tags {
@@ -387,6 +448,22 @@ h1 {
 
     .member-name {
         font-size: 18px;
+    }
+
+    .card-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .member-avatar {
+        width: 100%;
+        max-width: 180px;
+        min-width: auto;
+        height: 180px;
+    }
+
+    .card-text {
+        width: 100%;
     }
 }
 /* ==========================================================================
