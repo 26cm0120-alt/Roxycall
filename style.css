@@ -125,11 +125,6 @@ h1 {
 }
 
 /* 🔗 Discord招待ボタン */
-.discord-invite-section {
-    margin-bottom: 40px;
-    text-align: center;
-}
-
 .discord-btn {
     display: inline-flex;
     align-items: center;
@@ -218,6 +213,11 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 24px;
+}
+
+.member-list.member-grid-3x3 {
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    grid-auto-rows: minmax(220px, auto);
 }
 
 .card {
@@ -312,17 +312,6 @@ h1 {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.fallback-text {
-    text-align: center;
-    padding: 60px 20px;
-    color: #b5bac1;
-    background-color: #1e1f22;
-    border-radius: 16px;
-    border: 1px solid #2b2d31;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    font-size: 16px;
-}
-.fallback-text h2 { color: #ffffff; margin-bottom: 12px; font-size: 24px; }
 
 
 /* ==========================================================================
@@ -520,11 +509,6 @@ h1 {
 /* ==========================================================================
    📰 新ニュースページ専用・洗練デザイン
    ========================================================================== */
-.news-container {
-    width: 100%;
-    max-width: 850px;
-    margin: 0 auto;
-}
 
 .news-header h1 {
     font-size: 38px;
@@ -800,5 +784,300 @@ h1 {
     .header-icon {
         width: 30px;
         height: 30px;
+    }
+}
+/* ==========================================================================
+   🎨 イラストギャラリー専用デザイン
+   ========================================================================== */
+.gallery-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-header h1 {
+    font-size: 32px;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(0, 255, 210, 0.4);
+}
+
+/* イラストを並べるタイルの設定（自動で横並び・スマホ時は1列になります） */
+.illustration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* イラストカードの枠 */
+.art-card {
+    background: #1e1f22;
+    border-radius: 14px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* マウスを乗せたときにカードが浮き出て光るエフェクト */
+.art-card:hover {
+    transform: translateY(-6px);
+    border-color: #00ffcc;
+    box-shadow: 0 12px 30px rgba(0, 255, 210, 0.2);
+}
+
+/* 画像を切り抜くエリア（ここで縦横比を綺麗に固定します） */
+.art-image-wrapper {
+    width: 100%;
+    height: 320px; /* 縦の大きさを統一 */
+    overflow: hidden;
+    background-color: #151618;
+}
+
+.art-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 cover から contain に変更 */
+    object-position: center; /* 中央に配置 */
+    transition: transform 0.5s ease;
+}
+
+/* マウスを乗せたら画像がじわーっと拡大するアニメーション */
+.art-card:hover .art-image-wrapper img {
+    transform: scale(1.05);
+}
+
+/* イラストタイトルの情報エリア */
+.art-info {
+    padding: 18px;
+    border-top: 1px solid #2b2d31;
+}
+
+.art-title {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    font-weight: bold;
+}
+
+.art-author {
+    color: #949ba4;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 600px) {
+    .art-image-wrapper {
+        height: 260px; /* スマホ画面では少し高さを低くして見やすく */
+    }
+}
+/* ==========================================================================
+   🎮 スクショギャラリー専用追加デザイン
+   ========================================================================== */
+
+/* イラストとスクショのエリアを分ける見出し */
+.gallery-section-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #2b2d31;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.gallery-section-title span {
+    font-size: 22px;
+}
+
+/* スクショ用グリッド（横長に合うよう3列並びベースになります） */
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 10px;
+}
+
+/* スクショカード */
+.shot-card {
+    background: #1e1f22;
+    border-radius: 12px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.shot-card:hover {
+    transform: translateY(-4px);
+    border-color: #5865f2; /* Discord・コンパスブルーに光る */
+}
+
+/* 横長（16:9）に切り抜く画像ラッパー */
+.shot-image-wrapper {
+    width: 100%;
+    height: 190px; /* 横長スクショに最適な高さ */
+    overflow: hidden;
+    background-color: #151618;
+}
+
+.shot-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 cover から contain に変更 */
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.shot-card:hover .shot-image-wrapper img {
+    transform: scale(1.03);
+}
+
+/* スクショ情報エリア */
+.shot-info {
+    padding: 15px;
+}
+
+.shot-title {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 8px 0 4px 0;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 文字が長すぎたら自動で「…」にする */
+}
+
+/* ゲームジャンルバッジ */
+.shot-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.shot-badge.compass {
+    background-color: rgba(0, 255, 210, 0.1);
+    color: #00ffcc;
+    border: 1px solid rgba(0, 255, 210, 0.3);
+}
+.shot-badge.other-game {
+    background-color: rgba(158, 124, 255, 0.1);
+    color: #9e7cff;
+    border: 1px solid rgba(158, 124, 255, 0.3);
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 600px) {
+    .screenshot-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 15px;
+    }
+    .shot-image-wrapper {
+        height: 150px;
+    }
+}
+/* ==========================================================================
+   🎬 動画ギャラリー専用追加デザイン
+   ========================================================================== */
+
+/* 動画用グリッド */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* 動画カードのベース */
+.movie-card {
+    background: #1e1f22;
+    border-radius: 14px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.movie-card:hover {
+    border-color: #ffaa00; /* 動画はYouTubeや映画を意識したゴールドオレンジに光る */
+}
+
+/* 📺 動画を16:9の比率で完全に固定するレスポンシブ枠 */
+.movie-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9の比率 (9 ÷ 16 = 0.5625) */
+    background-color: #000000;
+}
+
+/* iframe(YouTube) と video(mp4) の両方を枠にジャストフィットさせる */
+.movie-wrapper iframe,
+.movie-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: contain; /* 黒帯を入れて動画の比率を維持 */
+}
+
+/* 動画情報エリア */
+.movie-info {
+    padding: 18px;
+}
+
+.movie-title {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 8px 0 4px 0;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+/* 動画用バッジ */
+.movie-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.movie-badge.youtube {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff3333;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+.movie-badge.clip {
+    background-color: rgba(255, 170, 0, 0.1);
+    color: #ffaa00;
+    border: 1px solid rgba(255, 170, 0, 0.3);
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: 1fr; /* スマホでは動画を大きく1列で見せる */
+        gap: 20px;
+    }
+}
+/* 💡 メンバーリストのグリッドを最大3列に固定 */
+#memberList {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 25px;
+}
+
+/* スマホやタブレットなど、画面が狭いときは自動で1列〜2列にする */
+@media (max-width: 960px) {
+    #memberList {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
     }
 }
