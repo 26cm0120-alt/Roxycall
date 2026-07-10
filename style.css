@@ -1,0 +1,1240 @@
+/* ==========================================================================
+   #コンパス風 サイバーダークテーマスタイル（ヘッダースペース拡張版）
+   ========================================================================== */
+
+/* 🌐 全体ベース設定 */
+body {
+    background-color: #0c0d10;
+    /* サイバーグリッド背景 */
+    background-image:
+        linear-gradient(rgba(88, 101, 242, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53, 56, 91, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: #f2f3f5;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+}
+
+/* 🌐 固定ヘッダー（上下と左右のスペースを拡張！） */
+.site-header {
+    width: 100%;
+    background-color: rgba(30, 31, 34, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 3px solid #5865f2; /* 💡 下線を少し太くして存在感をアップ */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.6);
+}
+
+.header-nav {
+    max-width: 1300px; /* 💡 最大幅を1200pxから1300pxに拡張 */
+    margin: 0 auto;
+    padding: 0 30px; /* 💡 左右の余白を20pxから30pxに拡大 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px; /* 💡 ヘッダーの全体の高さを80pxから100pxへ大幅に拡張！ */
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 26px; /* 💡 ロゴの文字サイズを24pxから26pxに拡大 */
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 3px; /* 💡 文字の間隔を少し広げて視認性アップ */
+    text-shadow: 0 0 12px rgba(88, 101, 242, 0.85), 0 0 24px rgba(0, 255, 242, 0.5);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 16px; /* 💡 ボタン同士の横の隙間を8pxから16pxへと2倍に拡張！ */
+    align-items: center;
+    height: 100%;
+}
+
+/* メニューボタンのサイズとスペース調整 */
+.nav-link {
+    color: #b5bac1;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 100px; /* 💡 各ボタンの均等な横幅を90pxから100pxに拡張 */
+    text-align: center;
+    padding: 12px 0; /* 💡 上下のクッション（厚み）を10pxから12pxに拡大 */
+    border-radius: 8px; /* 💡 角丸を少し滑らかに */
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.nav-link:hover {
+    color: #00ffcc;
+    background-color: rgba(88, 101, 242, 0.1);
+    border-color: #00ffcc;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background-color: #5865f2;
+    border-color: #5865f2;
+    box-shadow: 0 0 18px rgba(88, 101, 242, 0.7);
+}
+
+/* 📦 メインレイアウト */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 36px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    text-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #949ba4;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* 🔗 Discord招待ボタン */
+.discord-btn {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #5865f2 0%, #404eed 100%);
+    color: white;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.discord-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #5865f2, 0 0 15px #00ffcc;
+}
+
+.discord-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    fill: white;
+}
+
+/* 🔍 絞り込みセクション */
+.filter-section {
+    background: linear-gradient(180deg, #1e1f22 0%, #151618 100%);
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    border: 1px solid #2b2d31;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.filter-title {
+    font-size: 15px;
+    color: #00ffcc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(0, 255, 210, 0.3);
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.btn {
+    background-color: #2b2d31;
+    color: #b5bac1;
+    border: 1px solid #3f4147;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #35373c;
+    color: #ffffff;
+    border-color: #00ffcc;
+    box-shadow: 0 0 8px rgba(0, 255, 210, 0.2);
+}
+
+.btn.active {
+    background: linear-gradient(135deg, #5865f2 0%, #404eed 100%);
+    color: white;
+    border-color: #5865f2;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.6);
+}
+
+/* 👥 メンバーカードグリッド */
+.member-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.member-list.member-grid-3x3 {
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    grid-auto-rows: minmax(220px, auto);
+}
+
+.card {
+    background-color: #1e1f22;
+    border-radius: 14px;
+    padding: 26px;
+    border: 1px solid #2b2d31;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.member-avatar {
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    background-color: #16171a;
+    flex-shrink: 0;
+}
+
+.member-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-text {
+    flex: 1;
+}
+
+/* ⚔️ コンパスロール用左バー設定 */
+.card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: #4e5058;
+}
+
+/* ホバー時発光エフェクト */
+.card:hover { border-color: rgba(100, 100, 100, 0.6); box-shadow: 0 0 15px rgba(100, 100, 100, 0.2); }
+
+/* 💎 カード用カラーバリエーション */
+.card.color-0::before { background-color: #FF6B9D; }
+.card.color-0:hover { border-color: rgba(255, 107, 157, 0.6); box-shadow: 0 0 15px rgba(255, 107, 157, 0.2); }
+
+.card.color-1::before { background-color: #FFB347; }
+.card.color-1:hover { border-color: rgba(255, 179, 71, 0.6); box-shadow: 0 0 15px rgba(255, 179, 71, 0.2); }
+
+.card.color-2::before { background-color: #87CEEB; }
+.card.color-2:hover { border-color: rgba(135, 206, 235, 0.6); box-shadow: 0 0 15px rgba(135, 206, 235, 0.2); }
+
+.card.color-3::before { background-color: #98FB98; }
+.card.color-3:hover { border-color: rgba(152, 251, 152, 0.6); box-shadow: 0 0 15px rgba(152, 251, 152, 0.2); }
+
+.card.color-4::before { background-color: #DDA0DD; }
+.card.color-4:hover { border-color: rgba(221, 160, 221, 0.6); box-shadow: 0 0 15px rgba(221, 160, 221, 0.2); }
+
+.card.color-5::before { background-color: #F0E68C; }
+.card.color-5:hover { border-color: rgba(240, 230, 140, 0.6); box-shadow: 0 0 15px rgba(240, 230, 140, 0.2); }
+
+.card.color-6::before { background-color: #FFB6C1; }
+.card.color-6:hover { border-color: rgba(255, 182, 193, 0.6); box-shadow: 0 0 15px rgba(255, 182, 193, 0.2); }
+
+.card.color-7::before { background-color: #00CED1; }
+.card.color-7:hover { border-color: rgba(0, 206, 209, 0.6); box-shadow: 0 0 15px rgba(0, 206, 209, 0.2); }
+
+.card.color-8::before { background-color: #FF69B4; }
+.card.color-8:hover { border-color: rgba(255, 105, 180, 0.6); box-shadow: 0 0 15px rgba(255, 105, 180, 0.2); }
+
+.card.color-9::before { background-color: #7FFF00; }
+.card.color-9:hover { border-color: rgba(127, 255, 0, 0.6); box-shadow: 0 0 15px rgba(127, 255, 0, 0.2); }
+
+.member-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* カラフルなグラデーション文字（アニメーション付き） */
+.member-name.colorful {
+    background: linear-gradient(90deg, #ff6b6b, #ffbf66, #ffd166, #a0e7e5, #8ecae6, #bdb2ff, #ff9de2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 400% 400%;
+    animation: gradientShift 8s linear infinite;
+    font-weight: 900;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .member-name.colorful { animation: none; }
+}
+
+.compass-role {
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 18px;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* 🏷️ Discord風バッジ役職 */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background-color: #2b2d31;
+    color: #dbdee1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    border: 1px solid #4e5058;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 📄 ページコンテンツ切替 */
+.page-content {
+    display: none;
+}
+.page-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* ==========================================================================
+   ホームページ専用デザイン（インラインから移行）
+   ========================================================================== */
+.home-welcome {
+    text-align: center;
+    background: linear-gradient(135deg, #1e1f22 0%, #151618 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #2b2d31;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.home-section-title {
+    color: #00ffcc;
+    font-size: 20px;
+    border-bottom: 2px solid #2b2d31;
+    padding-bottom: 8px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+.role-counter-box {
+    background: rgba(88, 101, 242, 0.1);
+    border: 1px solid #5865f2;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 25px;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.2);
+}
+.role-counter-number {
+    color: #00ffcc;
+    font-size: 26px;
+    margin: 0 5px;
+    text-shadow: 0 0 10px rgba(0, 255, 210, 0.5);
+}
+.all-roles-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background-color: #1e1f22;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #2b2d31;
+}
+.role-user-count {
+    background-color: #232428;
+    color: #00ffcc;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+    border: 1px solid rgba(0, 255, 210, 0.3);
+}
+.member-comment {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ffffff;
+    font-style: italic;
+    line-height: 1.4;
+    border-top: 1px dashed #4a4d52;
+    padding-top: 8px;
+}
+/* ==========================================================================
+   📱 スマートフォン・タブレット用 レスポンシブ対応
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* スマホでは縦長になりすぎないよう、コンパクトなヘッダー幅に自動調整 */
+    .header-nav {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 15px;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+        height: auto;
+        justify-content: center;
+    }
+
+    .nav-list {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px; /* スマホでもボタン同士がくっつきすぎない間隔 */
+        height: auto;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        padding: 8px 12px;
+        min-width: 80px;
+    }
+
+    .container {
+        padding: 20px 10px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .discord-btn {
+        font-size: 15px;
+        padding: 12px 25px;
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+
+    .filter-section {
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+
+    .member-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .member-name {
+        font-size: 18px;
+    }
+
+    .card-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .member-avatar {
+        width: 100%;
+        max-width: 180px;
+        min-width: auto;
+        height: 180px;
+    }
+
+    .card-text {
+        width: 100%;
+    }
+}
+/* ==========================================================================
+   📜 ルールページ専用追加デザイン
+   ========================================================================== */
+.rule-container {
+    background: linear-gradient(180deg, #1e1f22 0%, #151618 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #2b2d31;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.rule-container h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
+}
+
+.rule-subtitle {
+    color: #949ba4;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.rule-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    background-color: #2b2d31;
+    padding: 18px 24px;
+    border-radius: 10px;
+    border-left: 4px solid #5865f2; /* 通常ルールの左ライン */
+}
+
+.rule-item.danger {
+    border-left-color: #ff3333; /* 禁止事項の左ライン（赤） */
+    background-color: rgba(255, 51, 51, 0.05);
+}
+
+.rule-emoji {
+    font-size: 24px;
+    margin-right: 18px;
+    flex-shrink: 0;
+}
+
+.rule-item p {
+    margin: 0;
+    color: #dbdee1;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* 警告文章ボックス */
+.rule-note-box {
+    background-color: rgba(255, 170, 0, 0.05);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.rule-note-box h3 {
+    color: #ffaa00;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.rule-note-box p {
+    color: #b5bac1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 10px 0;
+}
+
+.rule-note-box p:last-child {
+    margin-bottom: 0;
+}
+
+.rule-note-box strong {
+    color: #ffffff;
+}
+
+.alert-text {
+    color: #ff5555 !important;
+    font-weight: bold;
+    background-color: rgba(255, 51, 51, 0.1);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid #ff3333;
+    margin-top: 15px !important;
+}
+
+/* スマホ用の余白微調整 */
+@media (max-width: 768px) {
+    .rule-container {
+        padding: 20px 15px;
+    }
+    .rule-item {
+        padding: 14px 16px;
+    }
+    .rule-emoji {
+        margin-right: 12px;
+    }
+    .rule-item p {
+        font-size: 14px;
+    }
+}
+/* ==========================================================================
+   📰 新ニュースページ専用・洗練デザイン
+   ========================================================================== */
+
+.news-header h1 {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(0, 255, 210, 0.3);
+    margin-bottom: 5px;
+}
+
+.news-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px; /* カード同士の間隔を広げてスッキリ */
+}
+
+.news-card {
+    background: #1e1f22;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid #2b2d31;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 左側にアクセントネオンラインを入れて見やすく */
+.news-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #23a55a; /* デフォルトは緑 */
+}
+
+.news-card.important::before {
+    background-color: #5865f2; /* 重要はコンパスブルー */
+}
+
+.news-card.important {
+    border: 1px solid rgba(88, 101, 242, 0.3);
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.news-date {
+    font-family: 'Consolas', monospace;
+    font-size: 15px;
+    color: #949ba4;
+    letter-spacing: 1px;
+}
+
+.news-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.news-badge.emergency {
+    background-color: #f23f43;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(242, 63, 66, 0.4);
+}
+
+.news-badge.recruitment {
+    background-color: rgba(35, 165, 90, 0.15);
+    color: #23a55a;
+    border: 1px solid rgba(35, 165, 90, 0.4);
+}
+
+.news-title {
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+/* 本文内のテキスト装飾 */
+.news-body {
+    color: #dbdee1;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.lead-text {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* 機能一覧のリストボックス */
+.news-features {
+    background: #2b2d31;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 1px solid #35373c;
+}
+
+.news-features h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #00ffcc;
+    text-transform: uppercase;
+}
+
+.news-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.news-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.news-features li span {
+    font-size: 18px;
+}
+
+/* ハイライト枠・引用ブロック */
+.news-highlight-box {
+    background: rgba(88, 101, 242, 0.05);
+    border-left: 3px solid #5865f2;
+    padding: 15px 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 20px 0;
+}
+
+.news-highlight-box p {
+    margin: 0;
+}
+.news-highlight-box p:first-child {
+    color: #5865f2;
+    margin-bottom: 5px;
+}
+
+.news-action-call {
+    margin-top: 25px;
+    border-top: 1px dashed #2b2d31;
+    padding-top: 20px;
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 768px) {
+    .news-card {
+        padding: 22px 18px;
+    }
+    .news-title {
+        font-size: 19px;
+        margin-bottom: 15px;
+    }
+    .lead-text {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .news-body {
+        font-size: 14px;
+    }
+    .news-features {
+        padding: 15px;
+    }
+}
+/* 📸 ホーム画面画像専用の追加デザイン */
+        .home-images-layout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 35px 0;
+            flex-wrap: wrap; /* スマホ時は縦並びにする */
+        }
+
+        .image-box {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #232428;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ロキシー画像（縦長を活かすサイズ） */
+        .image-box.roxy {
+            width: 220px;
+            height: 300px;
+            border: 2px solid #5865f2; /* Discordブルーの枠線 */
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        /* サングラスキャラ画像（スクエアサイズ） */
+        .image-box.ayaka {
+            width: 240px;
+            height: 300px;
+            border: 2px solid #00ffcc; /* ネオングリーンの枠線 */
+            box-shadow: 0 0 20px rgba(0, 255, 210, 0.4);
+        }
+
+        /* ホバーした時に少し浮き上がって発光を強くする効果 */
+        .image-box:hover {
+            transform: translateY(-5px);
+        }
+        .image-box.roxy:hover { box-shadow: 0 0 30px rgba(88, 101, 242, 0.8); }
+        .image-box.ayaka:hover { box-shadow: 0 0 30px rgba(0, 255, 210, 0.8); }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 枠線の中に綺麗に収める設定 */
+            object-position: center;
+        }
+
+        /* スマホ対応：画面が狭いときは画像のサイズを少し小さくする */
+        @media (max-width: 600px) {
+            .home-images-layout {
+                gap: 15px;
+            }
+            .image-box.roxy, .image-box.ayaka {
+                width: 45%;
+                height: 200px;
+            }
+        }
+/* 🌐 ロゴとアイコン画像の配置調整 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 画像と文字の間のすき間 */
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(88, 101, 242, 0.8);
+    white-space: nowrap;
+}
+
+/* 📸 ヘッダーアイコン専用のスタイル */
+.header-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* 画像をきれいな丸型にする */
+    object-fit: cover;   /* 縦横比を崩さずに丸の中に収める */
+    object-position: center top; /* ロキシーの顔付近が中心に来るように調整 */
+    border: 2px solid #5865f2;  /* メンバーとお揃いの青い枠線 */
+    box-shadow: 0 0 8px rgba(88, 101, 242, 0.6);
+}
+
+/* スマホ等で上下2行になったとき用の調整 */
+@media (max-width: 992px) {
+    .logo {
+        justify-content: center;
+        font-size: 18px;
+    }
+    .header-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+/* ==========================================================================
+   🎨 イラストギャラリー専用デザイン
+   ========================================================================== */
+.gallery-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gallery-header h1 {
+    font-size: 32px;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(0, 255, 210, 0.4);
+}
+
+/* イラストを並べるタイルの設定（自動で横並び・スマホ時は1列になります） */
+.illustration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* イラストカードの枠 */
+.art-card {
+    background: #1e1f22;
+    border-radius: 14px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* マウスを乗せたときにカードが浮き出て光るエフェクト */
+.art-card:hover {
+    transform: translateY(-6px);
+    border-color: #00ffcc;
+    box-shadow: 0 12px 30px rgba(0, 255, 210, 0.2);
+}
+
+/* 画像を切り抜くエリア（ここで縦横比を綺麗に固定します） */
+.art-image-wrapper {
+    width: 100%;
+    height: 320px; /* 縦の大きさを統一 */
+    overflow: hidden;
+    background-color: #151618;
+}
+
+.art-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 cover から contain に変更 */
+    object-position: center; /* 中央に配置 */
+    transition: transform 0.5s ease;
+}
+
+/* マウスを乗せたら画像がじわーっと拡大するアニメーション */
+.art-card:hover .art-image-wrapper img {
+    transform: scale(1.05);
+}
+
+/* イラストタイトルの情報エリア */
+.art-info {
+    padding: 18px;
+    border-top: 1px solid #2b2d31;
+}
+
+.art-title {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    font-weight: bold;
+}
+
+.art-author {
+    color: #949ba4;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 600px) {
+    .art-image-wrapper {
+        height: 260px; /* スマホ画面では少し高さを低くして見やすく */
+    }
+}
+/* ==========================================================================
+   🎮 スクショギャラリー専用追加デザイン
+   ========================================================================== */
+
+/* イラストとスクショのエリアを分ける見出し */
+.gallery-section-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #2b2d31;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.gallery-section-title span {
+    font-size: 22px;
+}
+
+/* スクショ用グリッド（横長に合うよう3列並びベースになります） */
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 固定で3列にする */
+    grid-auto-rows: auto;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* スクショカード */
+.shot-card {
+    background: #1e1f22;
+    border-radius: 12px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+/* 各カードを高さ揃えで縦方向に伸ばす（グリッドの行高さを揃えるため） */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.shot-card:hover {
+    transform: translateY(-4px);
+    border-color: #5865f2; /* Discord・コンパスブルーに光る */
+}
+
+/* 横長（16:9）に切り抜く画像ラッパー */
+.shot-image-wrapper {
+    width: 100%;
+    height: 180px; /* 横長スクショに最適な高さ（3x7の一覧表示に合わせ調整） */
+    overflow: hidden;
+    background-color: #151618;
+}
+
+.shot-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 👈 cover から contain に変更 */
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.shot-card:hover .shot-image-wrapper img {
+    transform: scale(1.03);
+}
+
+/* スクショ情報エリア */
+.shot-info {
+    padding: 15px;
+}
+
+.shot-title {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 8px 0 4px 0;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 文字が長すぎたら自動で「…」にする */
+}
+
+/* ゲームジャンルバッジ */
+.shot-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.shot-badge.compass {
+    background-color: rgba(0, 255, 210, 0.1);
+    color: #00ffcc;
+    border: 1px solid rgba(0, 255, 210, 0.3);
+}
+.shot-badge.other-game {
+    background-color: rgba(158, 124, 255, 0.1);
+    color: #9e7cff;
+    border: 1px solid rgba(158, 124, 255, 0.3);
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 600px) {
+    .screenshot-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 15px;
+    }
+    .shot-image-wrapper {
+        height: 150px;
+    }
+}
+/* ==========================================================================
+   🎬 動画ギャラリー専用追加デザイン
+   ========================================================================== */
+
+/* 動画用グリッド */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* 動画カードのベース */
+.movie-card {
+    background: #1e1f22;
+    border-radius: 14px;
+    border: 1px solid #2b2d31;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.movie-card:hover {
+    border-color: #ffaa00; /* 動画はYouTubeや映画を意識したゴールドオレンジに光る */
+}
+
+/* 📺 動画を16:9の比率で完全に固定するレスポンシブ枠 */
+.movie-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9の比率 (9 ÷ 16 = 0.5625) */
+    background-color: #000000;
+}
+
+/* iframe(YouTube) と video(mp4) の両方を枠にジャストフィットさせる */
+.movie-wrapper iframe,
+.movie-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: contain; /* 黒帯を入れて動画の比率を維持 */
+}
+
+/* 動画情報エリア */
+.movie-info {
+    padding: 18px;
+}
+
+.movie-title {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 8px 0 4px 0;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+/* 動画用バッジ */
+.movie-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.movie-badge.youtube {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff3333;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+.movie-badge.clip {
+    background-color: rgba(255, 170, 0, 0.1);
+    color: #ffaa00;
+    border: 1px solid rgba(255, 170, 0, 0.3);
+}
+
+/* 📱 スマホ用表示の最適化 */
+@media (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: 1fr; /* スマホでは動画を大きく1列で見せる */
+        gap: 20px;
+    }
+}
+/* 💡 メンバーリストのグリッドを最大3列に固定 */
+#memberList {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 25px;
+}
+
+/* スマホやタブレットなど、画面が狭いときは自動で1列〜2列にする */
+@media (max-width: 960px) {
+    #memberList {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    }
+}
