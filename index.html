@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンパスギルド-ネトゲ廃人ロキシーコール-コミュティポータル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://i.ytimg.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+
+    <nav class="site-header">
+        <div class="header-nav">
+            <div class="logo">
+                <img src="images/IMG_20240808_054529_Original.JPG" alt="Roxy Icon" class="header-icon" width="35" height="35" decoding="async">
+                <span>ネトゲ廃人ロキシーコール</span>
+            </div>
+
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-list" id="navList">
+                <li><a href="#" class="nav-link active" data-page="home">ホーム</a></li>
+                <li><a href="#" class="nav-link" data-page="rule">ルール</a></li>
+                <li><a href="#" class="nav-link" data-page="news">ニュース</a></li>
+                <li><a href="#" class="nav-link" data-page="activity">活動</a></li>
+                <li><a href="#" class="nav-link" data-page="member">メンバー</a></li>
+                <li><a href="#" class="nav-link" data-page="role">ロール</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <div class="container">
+
+        <div id="page-home" class="page-content active">
+            <div class="home-welcome">
+                <h1>ネトゲ廃人ロキシーコールへようこそ！</h1>
+                <p class="subtitle">#コンパスを通じて、様々なゲームの仲間が<br>集まるコミュニティ</p>
+
+                <div class="home-images-layout">
+                    <div class="image-box roxy">
+                        <img src="images/IMG_20240808_054529_Original.JPG" alt="ロキシー" width="220" height="300" decoding="async" fetchpriority="high">
+                    </div>
+                    <div class="image-box ayaka">
+                        <img src="images/IMG_0626.PNG" alt="キャラクター" width="240" height="300" decoding="async" fetchpriority="high">
+                    </div>
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="https://discord.gg/EQs48QF4" target="_blank" class="discord-btn">
+                        <svg viewBox="0 0 127.14 96.36" width="24" height="24" fill="white">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.9-.65,1.76-1.34,2.58-2a75.59,75.59,0,0,0,73,0c.83.68,1.69,1.37,2.58,2a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.91,50.54,123.82,27.78,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                        </svg>
+                        Discordサーバーに参加する
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-rule" class="page-content">
+            <div class="rule-container">
+                <h2>ギルドルール ＆ マナー</h2>
+                <p class="rule-subtitle">メンバー全員が楽しく、心地よく過ごすための大切な決まり事です。</p>
+
+                <div class="rule-card-list">
+                    <div class="rule-item">
+                        <span class="rule-emoji">✌️</span>
+                        <p>礼儀、マナー、人としてを第1にネット社会やゲームを楽しみましょう！</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <span class="rule-emoji">👌</span>
+                        <p>情報モラルやリテラシーも守った上での発言・発信をしましょう。</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <span class="rule-emoji">👍</span>
+                        <p>年齢層は関係なしで！気軽に絡んでください！⭐️</p>
+                    </div>
+
+                    <div class="rule-item danger">
+                        <span class="rule-emoji">❌</span>
+                        <p>コンパス内やそれ以外の事で誹謗中傷などのトラブルなどにより、<br>ギルドに所属しているメンバーが迷惑になることは辞めてください。</p>
+                    </div>
+                </div>
+
+                <div class="rule-note-box">
+                    <h3>⚠️ コンパス界隈の行動・トラブルについて</h3>
+                    <p>コンパス界隈については無知ですが<br>野良バトアリ、フリバなどでの<strong>煽り行為や晒し行為・凸行為は程々に</strong><br>（完全にダメな訳ではないです）。</p>
+                    <p class="alert-text">ただし、それによりギルドに所属している他のメンバーが叩かれたりする場合は、<br><strong>問題の発端者を蹴ります（除名します）。</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-news" class="page-content">
+                <header class="news-header">
+                    <h1>ギルドニュース</h1>
+                    <div class="subtitle">ギルドの重要なお知らせ＆アップデート情報</div>
+                </header>
+
+                <div class="news-list-container">
+
+                    <div class="news-card important">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.03</span>
+                            <span class="news-badge emergency">重要</span>
+                        </div>
+                        <h2 class="news-title">公式Webサイトがオープン！🎉</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ギルドの公式Webページが新しく完成しました！<br>メンバーの皆さんがいつでも使いやすいページを目指していきます。</p>
+
+                            <div class="news-features">
+                                <h3>🔰 このサイトでできること</h3>
+                                <ul>
+                                    <li><span>📜</span> <strong>ルール確認:</strong> ギルドの大切なマナーをいつでもチェック可能</li>
+                                    <li><span>👥</span> <strong>メンバー紹介:</strong> 総勢58名の個性豊かな仲間たちのプロフィール掲載</li>
+                                    <li><span>🔍</span> <strong>ロール検索:</strong> Discordの役職ごとに遊んでいるゲームの仲間を即検索</li>
+                                </ul>
+                            </div>
+
+                            <p class="footer-text">今後もメンバー追加や新機能のアップデートを<br>随時行っていきますので、<br>ぜひスマホやPCの<br>ブラウザに<strong>ブックマーク（お気に入り登録）</strong>してご活用ください！</p>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.03</span>
+                            <span class="news-badge recruitment">メンバー募集</span>
+                        </div>
+                        <h2 class="news-title">【7月度】新規ギルドメンバー募集スタート！✨</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ただいま当コミュニティでは、7月の新しい仲間を大募集しています！ギルドをもっと盛り上げていきましょう！</p>
+
+                            <div class="news-highlight-box">
+                                <p><strong>🎮 こんな方は大歓迎です！</strong></p>
+                                <p>#コンパスが大好きな方はもちろん、<br>Discordでワイワイいろんなゲームを一緒にエンジョイしたい方も大歓迎！<br>年齢層は一切関係ありません！</p>
+                            </div>
+
+                            <div class="news-action-call">
+                                <p><strong>🔗 誘い方について</strong><br>
+                                「一緒に遊びたい！」という身内やお友達がいたら、<br>コンパスのTL勧誘や<strong>ホームページのリンク</strong>を自由にシェアして招待してあげてください。<br>マナーを守って楽しく絡める方をお待ちしています！👍⭐️</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="page-activity" class="page-content">
+                <div class="gallery-container">
+                    <header class="gallery-header">
+                        <h1>ギルド活動ギャラリー</h1>
+                    <div class="subtitle">メンバーが描いたイラストや、<br>ゲームの思い出の瞬間を大公開！</div>
+                </header>
+
+                <div class="gallery-section-title">
+                    <span>🎨</span> イラストコーナー
+                </div>
+
+                <div class="illustration-grid">
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/uniuni.webp" alt="うにうに" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">星導ショウ</h3>
+                            <p class="art-author">作 うにうに</p>
+                            <p class="art-desc">自認!？Vtuber！？</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/eapu.webp" alt="超絶猛虎殺撃乱斬" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">超絶猛虎殺撃乱斬</h3>
+                            <p class="art-author">作 エアプハイトラル</p>
+                            <p class="art-desc">エアプペルリニエかっこいい...!</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/chikawa.webp" alt="ハチワレとうさぎ" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">ハチワレとうさぎ</h3>
+                            <p class="art-author">作 きり</p>
+                            <p class="art-desc">なんだこれ</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/kitune.webp" alt="狐ヶ咲甘色" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">狐ヶ咲甘色</h3>
+                            <p class="art-author">作 アラサー太郎5歳</p>
+                            <p class="art-desc">おp</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/256.webp" alt="たばこ歩き🚬" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">たばこ歩き🚬"</h3>
+                            <p class="art-author">作 256です</p>
+                            <p class="art-desc">歩きタバコではなく🚬が歩いている！？名作</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/zyaro.webp" alt="ジャローダ" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">ジャローダ</h3>
+                            <p class="art-author">作 サナトリウム</p>
+                            <p class="art-desc">世代です</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/peruu.webp" alt="プレイヤーに頼まれて何故か耳かきをすることになったペルリニエ" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">プレイヤーに頼まれて何故か耳かきをすることになったペルリニエ</h3>
+                            <p class="art-author">作 エアプハイトラル</p>
+                            <p class="art-desc">死ぬほどおもろいペルねえ！</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/reze.webp" alt="レぜ" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">レぜ</h3>
+                            <p class="art-author">作 うに</p>
+                            <p class="art-desc">いいっ！</p>
+                        </div>
+                    </div>
+                    <div class="art-card">
+                        <div class="art-image-wrapper">
+                            <img src="images/koishi.webp" alt="古明地こいし" loading="lazy" decoding="async" width="280" height="320">
+                        </div>
+                        <div class="art-info">
+                            <h3 class="art-title">古明地こいし</h3>
+                            <p class="art-author">作 サナトリウム</p>
+                            <p class="art-desc">幻想的</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-section-title" style="margin-top: 60px;">
+                    <span>🎮</span> コラ画・スクショギャラリー
+                </div>
+
+                <div class="screenshot-grid">
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/card.webp" alt="Screenshot 1" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">最強のカード</h3><p class="art-author">元画像　壁の教祖</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/ouse.webp" alt="Screenshot 2" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">ルチアーノ大好き</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/megu.webp" alt="Screenshot 3" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">めぐめぐに愛されている</h3><p class="art-author">元画像　壁の教祖</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/alice.webp" alt="Screenshot 4" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">アリスに捧げる一コマ</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Ken.webp" alt="Screenshot 5" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">アリス大好き</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Rockman.webp" alt="Screenshot 6" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">修学旅行でもコンパス</h3><p class="art-author">元画像　<br>アスパラゴボウ</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/ruti.webp" alt="Screenshot 7" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">ルチバナナ</h3><p class="art-author">元画像　壁の教祖</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/JK.webp" alt="Screenshot 8" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">来い！ペルソナ！</h3><p class="art-author">元画像　コッペパン</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/HsJas.webp" alt="Screenshot 9" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">HS最強！</h3><p class="art-author">元画像　紅海</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/kitunemm.webp" alt="Screenshot 10" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">絶壁</h3><p class="art-author">元画像　<br>アラサー太郎5歳</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/dezu.webp" alt="Screenshot 11" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">デズで勝率6割ま？</h3><p class="art-author">元画像　れ！</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/derumin.webp" alt="Screenshot 12" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">デルミン最高！</h3><p class="art-author">元画像　<br>エアプハイトラル</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Genshin1.webp" alt="Screenshot 13" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#原神</span><h3 class="shot-title">HP1耐え</h3><p class="art-author">元画像　れ！</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/genshin.webp" alt="Screenshot 14" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#原神</span><h3 class="shot-title">神聖遺物</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/eimes.webp" alt="Screenshot 16" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#鳴潮</span><h3 class="shot-title">エイメス完凸</h3><p class="art-author">元画像　mezian</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/chisa.webp" alt="Screenshot 17" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#鳴潮</span><h3 class="shot-title">千咲完凸</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/yuki.webp" alt="Screenshot 18" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#鳴潮
+                        </span><h3 class="shot-title">緋雪完凸</h3><p class="art-author">元画像　如月アハト</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/FGOar.webp" alt="Screenshot 19" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">あと３つ！</h3><p class="art-author">元画像　コッペパン</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/FGOCC.webp" alt="Screenshot 20" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">Myグランド統一感皆無</h3><p class="art-author">元画像 きり</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/FGOss.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">ぐだぐだグランドパーティ</h3><p class="art-author">元画像　いいむ</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/monster.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#モンスト</span><h3 class="shot-title">黎絶キャローネ攻略</h3><p class="art-author">元画像　コッペパン</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/arknight.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#アークナイツ</span><h3 class="shot-title">癖パ</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/DDFF.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#DDFF</span><h3 class="shot-title">DDFFやってるよ</h3><p class="art-author">元画像　八神</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/endfi.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#エンドフィールド</span><h3 class="shot-title">10連神</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/endpp.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#エンドフィールド</span><h3 class="shot-title">野良3オプ</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/prose.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#プロセカ</span><h3 class="shot-title">これが限界</h3><p class="art-author">元画像　レダー</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/PROSEKA.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#プロセカ</span><h3 class="shot-title">コンパス民はやろう</h3><p class="art-author">元画像　コッペパン</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/ZZZ.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#ゼンゼロ</span><h3 class="shot-title">すり抜けなし</h3><p class="art-author">元画像　シャルル</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/star.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#スターレイル</span><h3 class="shot-title">ロビン完凸だぞ！水着こい</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Zantamap.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#雀魂</span><h3 class="shot-title">早朝麻雀最高</h3><p class="art-author">元画像　shinoji</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/zantama.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#雀魂</span><h3 class="shot-title">国士無双しろと？</h3><p class="art-author">元画像 いいむ</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/TUSB.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#マイクラ</span><h3 class="shot-title">ダンジョン攻略</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/mineclaft.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#マイクラ</span><h3 class="shot-title">ars Nouveau mod</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Spki.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#トリッカル</span><h3 class="shot-title">ﾁｮｱﾖ</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/shadoba.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#シャドバ</span><h3 class="shot-title">エピックきたー</h3><p class="art-author">元画像　もっち〜</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Grabu.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#グラブル</span><h3 class="shot-title">ﾃﾞﾙｼﾞﾊﾞｾﾞﾖ！</h3><p class="art-author">元画像　お宇佐</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/rinami.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#学マス</span><h3 class="shot-title">最高の莉波</h3><p class="art-author">元画像　もち</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/D5uni.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">第五やってるよん</h3><p class="art-author">元画像　うに</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/D5Melon.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">フレンド募集</h3><p class="art-author">元画像　Melon</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/D5tubu.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">よろしくお願いします</h3><p class="art-author">元画像 つぶまる</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Pokech.PNG" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#ポケモン</span><h3 class="shot-title">バトルしようぜ！</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/LimbusCompany.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#リンバス</span><h3 class="shot-title">初めて15層クリア</h3><p class="art-author">元画像　かよゆ</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/nte.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#NTE</span><h3 class="shot-title">みんなNTEやろう！</h3><p class="art-author">元画像　かべ(kabe)</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/NTE_2026-04-29-13-21-10.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#NTE</span><h3 class="shot-title">楽しい</h3><p class="art-author">元画像 うに</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Master_Duel_2026-02-07-05-05-21.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#マスターデュエル</span><h3 class="shot-title">遊戯王やりませんか！</h3><p class="art-author">元画像　お宇佐</p></div>
+                    </div>
+
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/TRPG.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#TRPG</span><h3 class="shot-title">ルールブックを買いました</h3><p class="art-author">元画像　<br>みかんせいみかん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/rock.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#スクラッチ</span><h3 class="shot-title">ゲームを作ったぜ</h3><p class="art-author">元画像　<br>ューちゃ&壁の教祖</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/code.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#コードネーム</span><h3 class="shot-title">Discordでコンパスコードネーム</h3><p class="art-author">元画像　たっけん</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/uma.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#ウマ娘</span><h3 class="shot-title">名鑑100</h3><p class="art-author">元画像　きり</p></div>
+                    </div>
+                    <div class="shot-card">
+                        <div class="shot-image-wrapper"><img src="images/Dueru.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-info"><span class="shot-badge other-game">#デュエマ</span><h3 class="shot-title">沼ったけど初マスター</h3><p class="art-author">元画像　さとつん</p></div>
+                    </div>
+                </div>
+
+
+                <div class="gallery-section-title" style="margin-top: 60px;">
+                    <span>🎬</span> ムービー&クリップ
+                </div>
+
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <div class="movie-wrapper">
+                            <iframe class="youtube-iframe" data-src="https://youtube.com/shorts/H5KWLhMYNUY?si=l_RAvCwbrBzkbo-x" title="YouTube video player" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <span class="movie-badge youtube">YouTube</span>
+                            <h3 class="movie-title">壁の教祖の完璧なプレイ</h3>
+                            <p class="art-author">2025.10.28</p>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-wrapper">
+                            <video controls playsinline preload="none" webkit-playsinline>
+                                <source src="videos/ScreenRecording_04-30-2026_23-31-54_1.mp4" type="video/mp4">
+                                お使いのブラウザは動画の再生に対応していません。
+                            </video>
+                        </div>
+                        <div class="movie-info">
+                            <span class="movie-badge clip">MP4</span>
+                            <h3 class="movie-title">ｵｲ！ｵｲ！タンク使え！</h3>
+                            <p class="art-author">元動画　もち</p>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-wrapper">
+                            <video controls playsinline preload="none" webkit-playsinline>
+                                <source src="videos/ScreenRecording_10-07-2025_12-51-26_1.mp4" type="video/mp4">
+                                お使いのブラウザは動画の再生に対応していません。
+                            </video>
+                        </div>
+                        <div class="movie-info">
+                            <span class="movie-badge clip">MP4</span>
+                            <h3 class="movie-title">ふわもこ理不尽アリス</h3>
+                            <p class="art-author">元動画　もち</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="page-member" class="page-content">
+            <header>
+                <h1>ギルドメンバー紹介</h1>
+                <div class="subtitle">当コミュニティに所属している頼もしいプレイヤーたちです</div>
+            </header>
+            <div class="member-list member-grid-3x3" id="allMemberList"></div>
+        </div>
+
+        <div id="page-role" class="page-content">
+            <header>
+                <h1>ロール図鑑 ＆ メンバー検索</h1>
+                <div class="subtitle">サーバー内の全ロール一覧と、ロールごとの所属メンバー</div>
+            </header>
+
+            <div class="role-counter-box">
+                現在サーバー内に登録されているロール総数:<span class="role-counter-number" id="totalRoleCount">0</span>種類
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">ロールでメンバーを絞り込み</div>
+                <div class="filter-buttons" id="filterButtons"></div>
+            </div>
+
+            <div class="member-list" id="memberList"></div>
+
+            <div class="home-section-title" style="margin-top: 50px;">一覧：すべての登録ロール</div>
+            <div class="all-roles-grid" id="allRolesGrid"></div>
+        </div>
+    </div>
+
+    <script defer>
+    // 全Discordロールマスターリスト
+    const ALL_DISCORD_ROLES = [
+        "深夜帯メンション可⭕", "深夜帯メンション不可❌", "原神民", "FGO民", "ポケモン民",
+        "マイクラ民", "モンスト民", "第5人格民", "スタレ民", "雀魂民",
+        "プロセカ民", "エンドフィールド民", "シャドバ民", "ゼンゼロ民", "TRPG民",
+        "グラブル民", "鳴潮民", "お絵描き民", "アークナイツ民", "Skyの民",
+        "DDFFの民", "SAO民", "スプラ民", "ブルアカ民", "APEX民",
+        "ガルパ民", "学マス民", "ウマ娘民", "ヘブバン民", "NIKKEの民",
+        "ゴッフィ民", "遊戯王民", "PUBGモバイル民", "パズドラ民", "モンハン民",
+        "REPO民", "トリッカル民", "スマブラ民", "プリコネ民", "あんスタ民",
+        "東方民", "荒野民", "ギルギア民", "VALORANT民", "アズールレーン民",
+        "キングダムハーツ民", "フォトナ民", "アモアス民", "ツイステ民", "LoL民",
+        "ステラソラ民", "にゃんこの民", "スト6の民", "ペルソナ民", "ヒロアカ民",
+        "ポーカーの民", "ぷにぷに民", "ピグパ民", "リンバス民", "ARC Raiders民",
+        "DRAPLINE民", "パワプロ民", "ハリポタ民", "ドラクエ民", "OW民(オーバーウォッチ)",
+        "NTEの民", "ラグナド民", "エレナイ民", "偽りのアリス民", "デュエマ民",
+        "オセロニアの民", "ポケツイ・ポケコロ民", "イナイレ民", "艦これ民", "メメントモリ民",
+        "グラクロ民", "クッキーランキングダム民", "エイトリ民", "パチスロ民", "ピュアニスタ民",
+        "ブロスタ民", "テラリア民", "星の翼民", "放サモ民", "Dbd民",
+        "エルデンリング民", "グラセフ民", "朝活の民☀️", "夜活の民🌙", "サブ垢", "壁の教祖","アルチキ民"
+    ];
+
+    const members = [
+        { name: "たっけん", image: "images/IMG_0626.PNG", roles: ["深夜帯メンション可⭕", "原神民", "ポケモン民","マイクラ民","REPO民","FGO民","モンスト民","アークナイツ民","スプラ民","モンハン民","ガルパ民","雀魂民","アルチキ民","SAO民","鳴潮民","トリッカル民","PUBGモバイルの民","にゃんこの民","お絵描き民","夜活の民🌙"], comment: "コンパスが絶望的に下手なギルマスです！🎋" },
+        { name: "はとぽっち", image: "images/Hatopo.webp", roles: ["深夜帯メンション不可❌", "原神民", "学マス民","FGO民", "夜活の民🌙"], comment: "ドリフトチーちゃんで相手を翻弄！🏍️" },
+        { name: "エアプハイトラル", image: "images/eapuDeru.webp", roles: ["深夜帯メンション可⭕", "アークナイツ民","TRPG民","リンバス民","お絵描き民", "DRAPLINE民", "マイクラ民"], comment: "お前をエアプにしてやるペルねえ！🪶👹" },
+        { name: "レダー", image: "images/reda.webp", roles: ["深夜帯メンション可⭕", "ブルアカ民", "マイクラ民", "プロセカ民", "ポケモン民","アークナイツ民","Skyの民","ヘブバン民","グラクロ民","朝活の民☀️"], comment: "ポータルキーは私に媚びたらあげる れだお" },
+        { name: "シャルル", image: "images/sharuu.webp", roles: ["深夜帯メンション不可❌","原神民","FGO民","モンスト民", "スタレ民","ポケモン民","プロセカ民","ゼンゼロ民","夜活の民🌙"], comment: "敵にまわしたら誰も勝てないギルドの最後の砦⛩️" },
+        { name: "サナトリウム", image: "images/sana.webp", roles: ["深夜帯メンション不可❌", "FGO民", "ポケモン民","プロセカ民","グラブル民","お絵描き民","ゴッフィ民","モンハン民","東方民"], comment: "鋭いツッコミとキレのあるプレイングで勝ち筋が決まる！🗡️" },
+        { name: "shinoji", image: "images/shinoji.webp", roles: ["深夜帯メンション可⭕", "原神民","マイクラ民","第5人格民", "スタレ民","ポケモン民","雀魂民","SAO民","REPO民", "スプラ民","APEX民","ガルパ民","ウマ娘民","NIKKE民", "ゴッフィ民","遊戯王民","PUBGモバイル民","スマブラ民","プリコネ民", "あんスタ民","フォトナ民","スト6の民","アルチキ民","パワプロ民","イナイレ民", "艦これ民", "朝活の民☀️","夜活の民🌙"], comment: "裏取りとCポータル維持のプロ。対戦アクションゲームは朝からでもいけます塾🏃‍♂️" },
+        { name: "アスパラゴボウ", image: "images/asupara.PNG", roles: ["深夜帯メンション不可❌", "FGO民", "モンスト民","スタレ民"], comment: "長射程からじわじわ追い詰めるのが快感。確率と心理の駆け引き、いつでも挑んでね🎴" },
+        { name: "桃鍋を許すな", image: "images/momonabe.webp", roles: ["深夜帯メンション不可❌", "TRPG民", "LoL民","メメントモリ民","朝活の民☀️","夜活の民🌙"], comment: "一撃必殺のロマン火力を追い求めています！育成ゲームのステータス厳選が生き甲斐🐎" },
+        { name: "如月アハト", image: "images/Ahato.webp", roles: ["深夜帯メンション可⭕", "FGO民","ポケモン民","モンスト民", "エンドフィールド民","グラブル民","鳴潮民","DDFFの民","SAO民","朝活の民☀️","夜活の民🌙"], comment: "ギルドの絶対防衛ライン。タワーディフェンスや重厚なストーリーのゲームに深掘り中物🛡️" },
+        { name: "きり/ちえる", image: "images/chikawa.webp", roles: ["深夜帯メンション可⭕", "原神民","マイクラ民","FGO民", "モンスト民","APEX民","ガルパ民","ウマ娘民","ヘブバン民", "パズドラ民","モンハン民","プリコネ民","東方民","ドラクエ民", "OW民(オーバーウォッチ)","朝活の民☀️"], comment: "足の速さを活かした変幻自在な立ち回りが得意！カードゲームのデッキ構築脳です🃏" },
+        { name: "じろう", image: "images/jiro.PNG", roles: ["深夜帯メンション可⭕","ポケモン民","マイクラ民","Skyの民","REPO民","APEX民","ゴッフィ民","PUBGモバイル民", "アモアス民","シャドバ民","雀魂民","ドラクエ民","第5人格民","夜活の民🌙"], comment: "正確なエイムは音ゲーのリズム感から！綺麗なノーツとキルログを刻みます敲🎵" },
+        { name: "ティタノマキア", image: "images/makia.PNG", roles: ["深夜帯メンション可⭕", "FGO民","ポケモン民","エンドフィールド民", "ブルアカ民","ステラソラ民"], comment: "敵をなぎ倒す快感がたまらない！素材集めやコツコツやる作業ゲーも実は好き⛏️" },
+        { name: "うに", image: "images/uni.webp", roles: ["深夜帯メンション可⭕", "原神民","マイクラ民","第5人格民", "スタレ民","プロセカ民","ゼンゼロ民","鳴潮民","お絵描き民", "Skyの民","スプラ民","学マス民","ヘブバン民","ゴッフィ民", "NTEの民","ペルソナ民","朝活の民☀️","夜活の民🌙"], comment: "敵のヘイト（注目）を集めて耐えるのが得意。マルチ狩りゲーの盾役もお任せあれ🦖" },
+        { name: "みかんせいみかん", image: "images/mikan.PNG", roles: ["マイクラ民", "プロセカ民", "シャドバ民","TRPG民","遊戯王民"], comment: "前線をかき乱すトリックスター！FPSで鍛えた戦況把握能力でバトルを支配します疾💨" },
+        { name: "らり", image: "images/rari.webp", roles: ["第5人格民", "エンドフィールド民", "Skyの民","あんスタ民"], comment: "引き撃ちでじっくりアドバンテージを取るタイプ。可愛いキャラクターに癒されてます至✨" },
+        { name: "さとつん", image: "images/sato.webp", roles: ["深夜帯メンション可⭕", "FGO民", "雀魂民","グラブル民"
+        ], comment: "キャラへの愛と火力は誰にも負けません！設定やストーリー考察を語り合いたいな愛" },
+        { name: "壁の教祖", image: "images/kyouso.webp", roles: ["深夜帯メンション可⭕", "原神民", "スタレ民","雀魂民", "お絵描き民","DDFFの民", "SAO民", "ブルアカ民","ハリポタ民", "ドラクエ民", "エレナイ民", "朝活の民☀️","壁の教祖"], comment: "視野の広さを活かしてマップ全体をカバー！みんなで通話しながらワイワイ遊ぶのが好き🎧" },
+        { name: "Melon", image: "images/melon.webp", roles: ["深夜帯メンション可⭕", "原神民", "第5人格民","ゼンゼロ民", "スプラ民", "スマブラ民"], comment: "間合い管理の鬼。格闘ゲームで培った反射神経で敵の接近を許しませんコンボ🥊" },
+        { name: "もち", image: "images/moti.webp", roles: ["深夜帯メンション可⭕", "原神民","マイクラ民","第5人格民","スタレ民", "エンドフィールド民","ゼンゼロ民","グラブル民","鳴潮民","アークナイツ民", "REPO民","APEX民","学マス民","ウマ娘民","VARORANT民", "アズールレーン民", "夜活の民🌙"], comment: "攻撃こそ最大の防御！弾幕のような圧倒的手数で相手の防衛ラインをぶち破ります💥" },
+        { name: "かよゆ", image: "images/kayoyu.webp", roles: ["深夜帯メンション可⭕","原神民","Skyの民", "スタレ民","スプラ民","ツイステ民","リンバス民","朝活の民☀️","夜活の民🌙"], comment: "盤面をコントロールして勝利に導きます。人狼系やボードゲームの騙し合いも得意です嘘" },
+        { name: "れいん", image: "images/rein.webp", roles: ["深夜帯メンション可⭕"], comment: "自由気ままにフィールドを走り回ってます。オープンワールドの景色巡りも趣味の1つ🍃" },
+        { name: "來狂", image: "images/airu.webp", roles: ["深夜帯メンション可⭕", "ポケモン民", "NTEの民","スマブラ民"], comment: "クリティカル率や確率に賭けるギャンブラー。ロマン砲が決まった時の脳汁が最高🎰" },
+        { name: "でんぷん酸", image: "images/denpun.webp", roles: ["TRPG民", "アークナイツ民", "偽りのアリス民"], comment: "奇襲と裏取りで確実にキルを奪います。バトロワ仕込みの生存能力を見せてあげるよ🥀" },
+        { name: "かれん", image: "images/karen.webp", roles: ["FGO民", "ポケモン民", "マイクラ民","お絵描き民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "しぐちゃん", image: "images/sigu.webp", roles: ["深夜帯メンション不可❌","FGO民","ポケモン民", "マイクラ民","モンスト民","雀魂民","TRPG民"], comment: "敵にまわしたら誰も勝てないギルドの最後の砦⛩️" },
+        { name: "もっち〜", image: "images/mottii.webp", roles: ["深夜帯メンション可⭕", "ポケモン民", "シャドバ民", "TRPG民", "SAO民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "かべ(kabe)", image: "images/kabe.webp", roles: ["深夜帯メンション可⭕", "マイクラ民", "モンスト民","スタレ民", "シャドバ民","Skyの民", "DDFFの民","トリッカル民","NTEの民","オセロニアの民",], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "ケバブ大明神", image: "images/kebabu.webp", roles: ["深夜帯メンション可⭕", "ポケモン民","雀魂民", "マイクラ民","プロセカ民","にゃんこの民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "ューちゃ", image: "images/yucha.webp", roles: ["深夜帯メンション可⭕", "マイクラ民", "モンスト民","エンドフィールド民", "アークナイツ民", "REPO民","アルチキ民","学マス民", "NIKKEの民", "荒野民", "夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "お宇佐", image: "images/ousa.webp", roles: ["深夜帯メンション可⭕", "FGO民", "ポケモン民","ゼンゼロ民", "グラブル民","ブルアカ民", "遊戯王民","ドラクエ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "紅海", image: "images/koukai.webp", roles: ["原神民","FGO民", "ポケモン民","お絵描き民","アークナイツ民","DDFFの民","PUBGモバイル民","ギルギア民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "けいた", image: "images/keita.webp", roles: ["原神民","マイクラ民","ブルアカ民", "ウマ娘民","NIKKEの民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "mezian", image: "images/mezian.PNG", roles: ["FGO民","スタレ民", "シャドバ民","ゼンゼロ民","鳴潮民","APEX民","ヘブバン民","NIKKEの民", "遊戯王民","トリッカル民", "スマブラ民","ギルギア民","フォトナ民", "ARC Raider民", "夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "さるさる", image: "images/sarusaru.webp", roles: ["ポケモン民", "モンスト民", "パズドラ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "れ！", image: "images/re.webp", roles: ["深夜帯メンション不可❌", "原神民", "ポケモン民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "コッペパァァァァァン！", image: "images/kope.webp", roles: ["深夜帯メンション可⭕","原神民","マイクラ民","モンスト民", "エンドフィールド民","ゼンゼロ民", "ガルパ民","パズドラ民","プリコネ民","アズールレーン民", "ぷにぷに民", "夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "八神", image: "images/yagami.webp", roles: ["深夜帯メンション不可❌", "原神民","スタレ民","エンドフィールド民" ,"ゼンゼロ民", "DDFFの民","SAO民","スプラ民","モンハン民", "キングダムハーツ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "つぶまる", image: "images/tubu.webp", roles: ["マイクラ民", "第5人格民", "TRPG民","グラブル民","VALORANT民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "アラサー太郎5歳", image: "images/arasa.webp", roles: ["深夜帯メンション可⭕", "プロセカ民", "Skyの民","ピグパ民", "ラグナド民", "ポケツイ・ポケコロ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "セナ", image: "images/sena.webp", roles: ["深夜帯メンション可⭕", "原神民","スタレ民","鳴潮民", "あんスタ民","朝活の民☀️","夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "いいむ", image: "images/hime.webp", roles: ["深夜帯メンション可⭕", "FGO民", "DDFFの民","刀剣乱舞の民","エイトリ民", "あんスタ民",], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "ゆた", image: "images/yuta.webp", roles: ["深夜帯メンション可⭕", "ポケモン民", "第5人格民","夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "カルマ", image: "images/karma.webp", roles: ["第5人格民", "雀魂民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "龍馬", image: "images/ryuma.webp", roles: ["原神民", "雀魂民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "たまお", image: "images/tamao.webp", roles: ["ポケモン民", "第5人格民", "ガルパ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "殺生", image: "images/settesyou.webp", roles: ["深夜帯メンション不可❌", "原神民", "学マス民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "しるむ", image: "images/sirumu.webp", roles: ["原神民", "シャドバ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "Rise", image: "images/Rise.webp", roles: ["ポケモン民", "モンスト民", "お絵描き民","デュエマ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "ツバキ", image: "images/tubaki.webp", roles: ["FGO民", "プロセカ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "グスタフ抱いて♡", image: "images/kotoha.webp", roles: ["原神民", "ポケモン民","第5人格民","シャドバ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "静寂の月夜", image: "images/seizaku.webp", roles: ["DDFFの民", "夜活の民🌙"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "ふあああああ！？", image: "images/fuaaaa.webp", roles: ["深夜帯メンション可⭕", "モンスト民", "第5人格民","プロセカ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "のん", image: "images/non.webp", roles: ["モンスト民", "スタレ民", "シャドバ民","パズドラ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "カイザ", image: "images/kaiza.webp", roles: ["原神民", "スタレ民", "プロセカ民"], comment: "ギルドの精神的支柱（自称）。死にゲーで培った不屈の精神で、どんな逆境も耐え抜きます🏆"},
+        { name: "はる", image: "images/ouse.webp", roles: ["深夜帯メンション不可❌", "マイクラ民", "雀魂民","夜活の民🌙"], comment: ""},
+        { name: "まろ", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "APEX民", "雀魂民"], comment: ""},
+        { name: "510", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "マイクラ民", "ペルソナ民","アルチキ民","夜活の民🌙"], comment: ""},
+        { name: "テルテラ", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "FGO民"], comment: ""},
+    ];
+
+    let currentFilter = "ALL";
+
+    function getRoleMemberCounts() {
+        const counts = {};
+        ALL_DISCORD_ROLES.forEach(role => counts[role] = 0);
+        members.forEach(member => {
+            member.roles.forEach(role => {
+                if (counts[role] !== undefined) counts[role]++;
+            });
+        });
+        return counts;
+    }
+
+    function switchPage(pageId, element) {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
+        document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+        const targetPage = document.getElementById('page-' + pageId);
+        if (targetPage) targetPage.classList.add('active');
+    }
+
+    function generateFilterButtons() {
+        const btnContainer = document.getElementById('filterButtons');
+        if (!btnContainer) return;
+        const activeRoles = new Set();
+        members.forEach(m => m.roles.forEach(r => activeRoles.add(r)));
+        const roleCounts = getRoleMemberCounts();
+        let html = '<button class="btn' + (currentFilter === 'ALL' ? ' active' : '') + '" onclick="filterGame(\'ALL\', this)">すべて <span class=\"role-user-count\">' + members.length + '</span></button>';
+        ALL_DISCORD_ROLES.forEach(role => {
+            if (activeRoles.has(role)) {
+                html += '<button class="btn' + (currentFilter === role ? ' active' : '') + '" onclick="filterGame(\'' + role.replace(/'/g, "\\'") + '\', this)">' + role + ' <span class="role-user-count">' + roleCounts[role] + '人</span></button>';
+            }
+        });
+        btnContainer.innerHTML = html;
+    }
+
+    function createCardHTML(member, index) {
+        const tags = member.roles.map(r => '<span class="tag">' + r + '</span>').join('');
+        const colorIndex = index % 10;
+        const comment = member.comment ? '<div class="member-comment" style="margin-top: 12px; font-size: 13px; color: #ffffff; font-style: italic; line-height: 1.4; border-top: 1px dashed #4a4d52; padding-top: 8px;">「 ' + member.comment + ' 」</div>' : '';
+        const imgSrc = member.image || 'images/IMG_0626.png';
+        return '<div class="card color-' + colorIndex + '"><div class="card-content"><div class="member-avatar"><img src="' + imgSrc + '" alt="' + member.name + '" loading="lazy" decoding="async" width="100" height="100"></div><div class="card-text"><div class="member-name colorful">' + member.name + '</div><div class="tags">' + tags + '</div>' + comment + '</div></div></div>';
+    }
+
+    function displayMembers() {
+        const container = document.getElementById('memberList');
+        if (!container) return;
+        const filtered = members.filter(m => currentFilter === 'ALL' || m.roles.includes(currentFilter));
+        container.innerHTML = '';
+        for (let i = 0; i < filtered.length; i++) {
+            container.innerHTML += createCardHTML(filtered[i], i);
+        }
+    }
+
+    function displayAllMembersPage() {
+        const container = document.getElementById('allMemberList');
+        if (!container) return;
+        container.innerHTML = '';
+        members.forEach((member, index) => {
+            container.innerHTML += createCardHTML(member, index);
+        });
+    }
+
+    function displayRoleStats() {
+        const countEl = document.getElementById('totalRoleCount');
+        if (countEl) countEl.innerText = ALL_DISCORD_ROLES.length;
+        const gridEl = document.getElementById('allRolesGrid');
+        if (gridEl) {
+            const counts = getRoleMemberCounts();
+            gridEl.innerHTML = ALL_DISCORD_ROLES.map(r => '<span class="tag">' + r + ' <span class="role-user-count">' + counts[r] + '</span></span>').join('');
+        }
+    }
+
+    function filterGame(roleName, buttonElement) {
+        currentFilter = roleName;
+        generateFilterButtons();
+        displayMembers();
+    }
+
+    // YouTube iframe lazy loading
+    function initYouTubeIframes() {
+        document.querySelectorAll('iframe.youtube-iframe').forEach(function(iframe){
+            var src = iframe.getAttribute('data-src') || '';
+            var id = null;
+            var m = null;
+            m = src.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+            if (m) id = m[1];
+            if (!id) { m = src.match(/(?:shorts|embed)\/([A-Za-z0-9_-]{11})/); if (m) id = m[1]; }
+            if (!id) { m = src.match(/^([A-Za-z0-9_-]{11})$/); if (m) id = m[1]; }
+            if (id) {
+                iframe.src = 'https://www.youtube.com/embed/' + id + '?rel=0&modestbranding=1';
+            }
+        });
+    }
+
+    // ハンバーガーメニュー切替
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navList = document.getElementById('navList');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function toggleMenu(open) {
+        const isOpen = (open !== undefined) ? open : !navList.classList.contains('open');
+        navList.classList.toggle('open', isOpen);
+        hamburgerBtn.classList.toggle('active', isOpen);
+        navOverlay.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    hamburgerBtn.addEventListener('click', function() {
+        toggleMenu();
+    });
+
+    navOverlay.addEventListener('click', function() {
+        toggleMenu(false);
+    });
+
+    // メニュー内リンクをクリックしたら自動で閉じる
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            switchPage(this.getAttribute('data-page'), this);
+            toggleMenu(false);
+        });
+    });
+
+    generateFilterButtons();
+    displayMembers();
+    displayAllMembersPage();
+    displayRoleStats();
+    initYouTubeIframes();
+    </script>
+</body>
+</html>
