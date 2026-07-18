@@ -122,7 +122,7 @@ function generateFilterButtons() {
 function createCardHTML(member, index) {
     const tags = member.roles.map(r => '<span class="tag">' + r + '</span>').join('');
     const colorIndex = index % 10;
-    const comment = member.comment ? '<div class="member-comment" style="margin-top: 12px; font-size: 13px; color: #ffffff; font-style: italic; line-height: 1.4; border-top: 1px dashed #4a4d52; padding-top: 8px;">「 ' + member.comment + ' 」</div>' : '';
+    const comment = member.comment ? '<div class="member-comment" style="margin-top: 12px; font-size: 13px; color: #ffffff; font-style: italic; line-height: 1.4; border-top: 1px dashed #4a4d52; padding-top: 8px;">' + member.comment + '</div>' : '';
     const imgSrc = member.image || 'images/IMG_0626.png';
     return '<div class="card color-' + colorIndex + '"><div class="card-content"><div class="member-avatar"><img src="' + imgSrc + '" alt="' + member.name + '" loading="lazy" decoding="async" width="100" height="100"></div><div class="card-text"><div class="member-name colorful">' + member.name + '</div><div class="tags">' + tags + '</div>' + comment + '</div></div></div>';
 }
