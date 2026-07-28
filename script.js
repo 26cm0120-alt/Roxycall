@@ -80,7 +80,7 @@ const members = [
     { name: "まろ", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "APEX民", "雀魂民"], comment: ""},
     { name: "510", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "マイクラ民", "ペルソナ民","アルチキ民","夜活の民🌙"], comment: ""},
     { name: "テルテラ", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "FGO民"], comment: ""},
-    { name: "赤ずきんの傭兵", image: "images/ouse.webp", roles: ["深夜帯メンション不可❌", "ポケモン民","アークナイツ民","エンドフィールド民","グラブル民","リンバス民"], comment: ""},
+    { name: "赤ずきんの傭兵", image: "images/akazukin.webp", roles: ["深夜帯メンション不可❌", "ポケモン民","アークナイツ民","エンドフィールド民","グラブル民","リンバス民"], comment: ""},
     { name: "もしーん", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕"], comment: ""},
 ];
 
