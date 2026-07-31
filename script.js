@@ -82,6 +82,8 @@ const members = [
     { name: "テルテラ", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕", "FGO民"], comment: ""},
     { name: "赤ずきんの傭兵", image: "images/akazukin.webp", roles: ["深夜帯メンション不可❌", "ポケモン民","アークナイツ民","エンドフィールド民","グラブル民","リンバス民"], comment: ""},
     { name: "もしーん", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕"], comment: ""},
+    { name: "ゆー★", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕","原神民", "ポケモン民"], comment: ""}
+];
 ];
 
 let currentFilter = "ALL";
