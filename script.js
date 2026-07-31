@@ -84,7 +84,6 @@ const members = [
     { name: "もしーん", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕"], comment: ""},
     { name: "ゆー★", image: "images/ouse.webp", roles: ["深夜帯メンション可⭕","原神民", "ポケモン民"], comment: ""}
 ];
-];
 
 let currentFilter = "ALL";
 
