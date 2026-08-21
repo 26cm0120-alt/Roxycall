@@ -63,7 +63,6 @@ const members = [
     { name: "アラサー太郎5歳", image: "images/arasa.webp", roles: ["深夜帯メンション可⭕", "プロセカ民", "Skyの民","ピグパ民", "ラグナド民", "ポケツイ・ポケコロ民"], comment: "零夜使いのｺﾞﾁｬｲのアラサーです👶"},
     { name: "セナ", image: "images/sena.webp", roles: ["深夜帯メンション可⭕", "原神民","スタレ民","鳴潮民", "あんスタ民","朝活の民☀️","夜活の民🌙"], comment: "コンパスやアニメグッズガチ勢　誰か会いましょう🥰"},
     { name: "いいむ", image: "images/hime.webp", roles: ["深夜帯メンション可⭕", "FGO民", "DDFFの民","刀剣乱舞の民","エイトリ民", "あんスタ民"], comment: "イケメンをプロデュースしてます💖"},
-    { name: "ゆた", image: "images/yuta.webp", roles: ["深夜帯メンション可⭕", "ポケモン民", "第5人格民","夜活の民🌙"], comment: "GBG大好き！最近の推しはクソハムちゃん❤️‍🩹"},
     { name: "カルマ", image: "images/karma.webp", roles: ["第5人格民", "雀魂民"], comment: "人生経験豊かなネトゲ廃人　雑談したい！☺︎"},
     { name: "龍馬", image: "images/ryuma.webp", roles: ["原神民", "雀魂民"], comment: "カノーネ難民すぎて、大変です　頑張ります🙃"},
     { name: "たまお", image: "images/tamao.webp", roles: ["ポケモン民", "第5人格民", "ガルパ民"], comment: "デバフ系キャラが好きです　この命燃やし尽くせ！🔥"},
