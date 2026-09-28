@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コンパスギルド-ネトゲ廃人ロキシーコール-コミュティポータル</title>
+    <title>コンパスギルド-ネトゲ廃人ロキシーコール-コミュニティポータル</title>
+    <meta name="description" content="#コンパスを通じて様々なゲームの仲間が集まるコミュニティ「ネトゲ廃人ロキシーコール」の公式ポータルサイトです。ギルドルール、ニュース、活動ギャラリー、メンバー紹介を掲載しています。">
+    <meta property="og:title" content="ネトゲ廃人ロキシーコール - コミュニティポータル">
+    <meta property="og:description" content="#コンパスを通じて様々なゲームの仲間が集まるコミュニティの公式ポータルサイトです。">
+    <meta property="og:type" content="website">
+    <!-- og:imageは個人の顔写真ではなく、ギルドロゴ等の専用画像を用意してから設定することをおすすめします -->
+    <!-- <meta property="og:image" content="images/og-image.png"> -->
     <script defer src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://www.youtube.com">
@@ -20,7 +26,7 @@
                 <span>ネトゲ廃人ロキシーコール</span>
             </div>
 
-            <button class="hamburger-btn" id="hamburgerBtn" aria-label="メニューを開く">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="メニューを開く" aria-expanded="false" aria-controls="navList">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -44,7 +50,7 @@
         <div id="page-home" class="page-content active">
             <div class="home-welcome">
                 <h1>ネトゲ廃人ロキシーコールへようこそ！</h1>
-                <p class="subtitle">#コンパスを通じて、様々なゲームの仲間が<br>集まるコミュニティ</p>
+                <p class="subtitle">#コンパスを通じて、様々なゲームの仲間が<br>集まるコミュニティ<br>お問い合わせはDiscord@takken4649まで</p>
 
                 <div class="home-images-layout">
                     <div class="image-box roxy">
@@ -55,7 +61,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 25px;">
-                    <a href="https://discord.gg/EQs48QF4" target="_blank" class="discord-btn">
+                    <a href="https://discord.gg/b6E3vcp4" target="_blank" class="discord-btn">
                         <svg viewBox="0 0 127.14 96.36" width="24" height="24" fill="white">
                             <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.9-.65,1.76-1.34,2.58-2a75.59,75.59,0,0,0,73,0c.83.68,1.69,1.37,2.58,2a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31.06-18.83C129.91,50.54,123.82,27.78,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
                         </svg>
@@ -103,8 +109,18 @@
         <div id="page-news" class="page-content">
                 <header class="news-header">
                     <h1>ギルドニュース</h1>
-                    <div class="subtitle">ギルドの重要なお知らせ＆アップデート情報</div>
+                    <div class="subtitle">ギルドの重要なお知らせ＆イベント情報</div>
                 </header>
+
+                <div class="news-controls" aria-label="ニュースの絞り込み">
+                    <span class="news-controls-label">表示するニュース</span>
+                    <div class="news-filter-buttons" role="group" aria-label="ニュースカテゴリ">
+                        <button type="button" class="news-filter-btn active" data-news-filter="all">すべて</button>
+                        <button type="button" class="news-filter-btn" data-news-filter="emergency">重要</button>
+                        <button type="button" class="news-filter-btn" data-news-filter="recruitment">メンバー募集</button>
+                        <button type="button" class="news-filter-btn" data-news-filter="event">交流会・イベント</button>
+                    </div>
+                </div>
 
                 <div class="news-list-container">
 
@@ -122,7 +138,7 @@
                                 <h3>🔰 このサイトでできること</h3>
                                 <ul>
                                     <li><span>📜</span> <strong>ルール確認:</strong> ギルドの大切なマナーを<br>いつでもチェック可能</li>
-                                    <li><span>👥</span> <strong>メンバー<br>紹介:</strong> 総勢63名の個性豊かな<br>仲間たちの<br>プロフィール掲載</li>
+                                    <li><span>👥</span> <strong>メンバー<br>紹介:</strong> 総勢64名の個性豊かな<br>仲間たちの<br>プロフィール掲載</li>
                                     <li><span>🔍</span> <strong>ロール<br>検索:</strong> Discordの役職ごとに<br>遊んでいるゲーム<br>仲間を即検索</li>
                                 </ul>
                             </div>
@@ -153,6 +169,163 @@
                         </div>
                     </div>
 
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.17</span>
+                            <span class="news-badge event">ギルド内交流会</span>
+                        </div>
+                        <h2 class="news-title">ギルド内交流会をしました！</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ギルドメンバーで抜きカス、、？<br>というものをしました！<br>様々な性癖が垣間見えましたね、、</p>
+
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/egiru.webp" alt="ギルド内交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>交流会の様子⚔️</strong></p>
+                                <p>思考を凝らした熱い戦いが繰り広げられ、<br>変なカードや特殊性癖などの<br>ヘンテコデッキが飛び出す盛り上がり！<br>ギルマスの私はエギルを使用し<br>罪を償うのでした、、</p>
+                            </div>
+
+                            <p class="footer-text">また定期的に交流会を企画していくので、<br>次回はぜひ皆さんもご参加ください！<br>エンジョイなので聞き専や<br>ネタデッキも大歓迎です👍</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.20</span>
+                            <span class="news-badge event">別ゲー交流会</span>
+                        </div>
+                        <h2 class="news-title">雀魂交流会をしました！🎲</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ギルドメンバーで雀魂交流会を開催しました！<br>みんなでワイワイ麻雀を楽しみました！</p>
+
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/Zantamakouryuu.webp" alt="雀魂交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>🀄 交流会の様子</strong></p>
+                                <p>東風戦の4人麻雀が繰り広げられ、<br>国士無双や四暗刻などの<br>大役満が飛び出す大盛り上がり！<br>初心者もベテランも関係なく<br>楽しい時間を過ごせました！</p>
+                            </div>
+
+                            <p class="footer-text">来月はポケモンチャンピオンズをやります！<br>定期的に別ゲー交流会も開催するので<br>良ければご参加ください！<br>やったことない初心者でも大歓迎です👍</p>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.07.26</span>
+                            <span class="news-badge event">リアイベ</span>
+                        </div>
+                        <h2 class="news-title">高崎キャラバン🔥</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ギルマスとして高崎キャラバンに<br>遊びに行きました！<br>他にもメンバーの方々が来ており<br>楽しかったです！</p>
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/takasaki.webp" alt="雀魂交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>📍 まさかのコラボ発表・・・</strong></p>
+                                <p>雀魂コラボなんて誰が予想できるねん！<br>今後の環境が楽しみですね・・・<br>今年の10周年コンパスフェスも<br>行く予定なので<br>良ければ行きましょう！</p>
+                            </div>
+
+                            <p class="footer-text">行ける方はDiscordで<br>リアクションまたはギルマスまで連絡ください！<br>コンパスフェスも楽しみましょう！</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.08.21</span>
+                            <span class="news-badge event">ギルド内交流会</span>
+                        </div>
+                        <h2 class="news-title">ギルド内交流会をしました！</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">今月もやりました！<br>新規で参加してくださる方がいて<br>感謝感激です！</p>
+
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/GT1.webp" alt="ギルド内交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>交流会の様子⚔️</strong></p>
+                                <p>私は大魔王が引けたのでウキウキでした！<br>他にも帯電ディッパーや壁美琴<br>テレパスHS吸収など<br>様々なネタデッキが見れました！</p>
+                            </div>
+
+                            <p class="footer-text">また定期的に交流会を企画していくので、<br>次回はぜひ皆さんもご参加ください！<br>エンジョイなので聞き専や<br>ネタデッキも大歓迎です👍</p>
+                        </div>
+                    </div>
+                        <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.08.22</span>
+                            <span class="news-badge event">別ゲー交流会</span>
+                        </div>
+                        <h2 class="news-title">ポケモン対戦交流会をしました！🎱</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">投票で2番目に多かったポケモン対戦交流会を<br>開催しました！<br>みんなでワイワイポケモンチャンピオンズを<br>楽しみました！</p>
+
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/pokech1.webp" alt="ポケモン対戦交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                <img src="images/pokech2.webp" alt="ポケモン対戦交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>👾 交流会の様子</strong></p>
+                                <p>スカウトバトルで<br>メガシンカからのみちづれや<br>マイナーケケンカニの大活躍！<br>最後にりゅうせいぐん縛りというお題で<br>奥深いバトルを楽しめました！</p>
+                            </div>
+
+                            <p class="footer-text">来月は統合版マイクラをやります！<br>定期的に別ゲー交流会も開催するので<br>良ければご参加ください！<br>やったことない初心者でも大歓迎です👍</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.08.29</span>
+                            <span class="news-badge event">別ゲー交流会</span>
+                        </div>
+                        <h2 class="news-title">お絵描きガーティックフォン交流会をしました！🖼️</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">お絵描き民が多いので思い付きで企画しました！<br>趣味でやってなくてもなんとかなリました！</p>
+
+                            <div class="news-image-wrapper" style="margin: 20px 0; text-align: center;">
+                                <img src="images/gatic2.webp" alt="お絵描きガーティックフォン交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                <img src="images/gatic1.webp" alt="お絵描きガーティックフォン交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                <img src="images/gatic4.webp" alt="お絵描きガーティックフォン交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                <img src="images/gatic3.webp" alt="お絵描きガーティックフォン交流会" loading="lazy" decoding="async" width="360" height="180" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                            </div>
+
+                            <div class="news-highlight-box">
+                                <p><strong>👾 交流会の様子</strong></p>
+                                <p>推しを他人に描かせたり<br>とんでもないお題から<br>なんとか絵で意図を伝えられました！<br>私はロキシーというお題を魔法使いと答え<br>恥をかくのでした、、</p>
+                            </div>
+
+                            <p class="footer-text">また、定期的にやります！<br>今度は別のWebアプリを使うかもですが<br>良ければご参加ください！<br>お絵描き苦手でも大歓迎です👍</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-meta">
+                            <span class="news-date">2026.09.01</span>
+                            <span class="news-badge recruitment">メンバー募集</span>
+                        </div>
+                        <h2 class="news-title">【9月度】<br>ギルドメンバー募集開始！✨</h2>
+
+                        <div class="news-body">
+                            <p class="lead-text">ただいま当コミュニティでは<br>9月で新しい仲間を募集しています！<br>ギルドをもっと盛り上げていきましょう！</p>
+
+                            <div class="news-highlight-box">
+                                <p><strong>🎮 こんな方は大歓迎です！</strong></p>
+                                <p>#コンパスが大好きな方はもちろん、<br>Discordでワイワイいろんなゲームを<br>一緒にエンジョイしたい方も大歓迎！<br>年齢層は一切関係ありません！</p>
+                            </div>
+
+                            <div class="news-action-call">
+                                <p><strong>🔗 誘い方について</strong><br>
+                                「一緒に遊びたい！」というお友達がいたら<br>コンパスのTL勧誘や<strong>ホームページのリンク</strong>を<br>自由にシェアして招待してあげてください。<br>マナーを守って楽しく絡める方を<br>お待ちしています！👍⭐️</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -267,211 +440,211 @@
 
                 <div class="screenshot-grid">
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/card.webp" alt="Screenshot 1" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/card.webp" alt="最強のカード" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">最強のカード</h3><p class="art-author">元画像　壁の教祖</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/ouse.webp" alt="Screenshot 2" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/ouse.webp" alt="ルチアーノ大好き" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">ルチアーノ大好き</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/megu.webp" alt="Screenshot 3" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/megu.webp" alt="めぐめぐに愛されている" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">めぐめぐに愛されている</h3><p class="art-author">元画像　壁の教祖</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/alice.webp" alt="Screenshot 4" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/alice.webp" alt="アリスに捧げる一コマ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">アリスに捧げる一コマ</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Ken.webp" alt="Screenshot 5" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Ken.webp" alt="アリス大好き" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">アリス大好き</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Rockman.webp" alt="Screenshot 6" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Rockman.webp" alt="修学旅行でもコンパス" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">修学旅行でもコンパス</h3><p class="art-author">元画像　<br>アスパラゴボウ</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/ruti.webp" alt="Screenshot 7" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/ruti.webp" alt="ルチバナナ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">ルチバナナ</h3><p class="art-author">元画像　壁の教祖</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/JK.webp" alt="Screenshot 8" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/JK.webp" alt="来い！ペルソナ！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">来い！ペルソナ！</h3><p class="art-author">元画像　コッペパン</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/HsJas.webp" alt="Screenshot 9" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/HsJas.webp" alt="HS最強！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">HS最強！</h3><p class="art-author">元画像　紅海</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/kitunemm.webp" alt="Screenshot 10" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/kitunemm.webp" alt="絶壁" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">絶壁</h3><p class="art-author">元画像　<br>アラサー太郎5歳</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/dezu.webp" alt="Screenshot 11" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/dezu.webp" alt="デズで勝率6割ま？" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">デズで勝率6割ま？</h3><p class="art-author">元画像　れ！</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/derumin.webp" alt="Screenshot 12" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/derumin.webp" alt="デルミン最高！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge compass">#コンパス</span><h3 class="shot-title">デルミン最高！</h3><p class="art-author">元画像　<br>エアプハイトラル</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Genshin1.webp" alt="Screenshot 13" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Genshin1.webp" alt="HP1耐え" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#原神</span><h3 class="shot-title">HP1耐え</h3><p class="art-author">元画像　れ！</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/genshin.webp" alt="Screenshot 14" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/genshin.webp" alt="神聖遺物" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#原神</span><h3 class="shot-title">神聖遺物</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/eimes.webp" alt="Screenshot 16" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/eimes.webp" alt="エイメス完凸" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#鳴潮</span><h3 class="shot-title">エイメス完凸</h3><p class="art-author">元画像　mezian</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/chisa.webp" alt="Screenshot 17" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/chisa.webp" alt="千咲完凸" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#鳴潮</span><h3 class="shot-title">千咲完凸</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/yuki.webp" alt="Screenshot 18" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/yuki.webp" alt="緋雪完凸" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#鳴潮
                         </span><h3 class="shot-title">緋雪完凸</h3><p class="art-author">元画像　如月アハト</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/FGOar.webp" alt="Screenshot 19" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/FGOar.webp" alt="あと３つ！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">あと３つ！</h3><p class="art-author">元画像　コッペパン</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/FGOCC.webp" alt="Screenshot 20" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/FGOCC.webp" alt="Myグランド統一感皆無" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">Myグランド統一感皆無</h3><p class="art-author">元画像 きり</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/FGOss.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/FGOss.webp" alt="ぐだぐだグランドパーティ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#FGO</span><h3 class="shot-title">ぐだぐだグランドパーティ</h3><p class="art-author">元画像　いいむ</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/monster.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/monster.webp" alt="黎絶キャローネ攻略" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#モンスト</span><h3 class="shot-title">黎絶キャローネ攻略</h3><p class="art-author">元画像　コッペパン</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/arknight.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/arknight.webp" alt="癖パ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#アークナイツ</span><h3 class="shot-title">癖パ</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/DDFF.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/DDFF.webp" alt="DDFFやってるよ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#DDFF</span><h3 class="shot-title">DDFFやってるよ</h3><p class="art-author">元画像　八神</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/endfi.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/endfi.webp" alt="10連神" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#エンドフィールド</span><h3 class="shot-title">10連神</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/endpp.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/endpp.webp" alt="野良3オプ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#エンドフィールド</span><h3 class="shot-title">野良3オプ</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/prose.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/prose.webp" alt="これが限界" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#プロセカ</span><h3 class="shot-title">これが限界</h3><p class="art-author">元画像　レダー</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/PROSEKA.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/PROSEKA.webp" alt="コンパス民はやろう" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#プロセカ</span><h3 class="shot-title">コンパス民はやろう</h3><p class="art-author">元画像　コッペパン</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/ZZZ.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/ZZZ.webp" alt="すり抜けなし" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#ゼンゼロ</span><h3 class="shot-title">すり抜けなし</h3><p class="art-author">元画像　シャルル</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/star.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/star.webp" alt="ロビン完凸だぞ！水着こい" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#スターレイル</span><h3 class="shot-title">ロビン完凸だぞ！水着こい</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Zantamap.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Zantamap.webp" alt="早朝麻雀最高" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#雀魂</span><h3 class="shot-title">早朝麻雀最高</h3><p class="art-author">元画像　shinoji</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/zantama.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/zantama.webp" alt="国士無双しろと？" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#雀魂</span><h3 class="shot-title">国士無双しろと？</h3><p class="art-author">元画像 いいむ</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/TUSB.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/TUSB.webp" alt="ダンジョン攻略" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#マイクラ</span><h3 class="shot-title">ダンジョン攻略</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/mineclaft.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/mineclaft.webp" alt="ars Nouveau mod" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#マイクラ</span><h3 class="shot-title">ars Nouveau mod</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Spki.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Spki.webp" alt="ﾁｮｱﾖ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#トリッカル</span><h3 class="shot-title">ﾁｮｱﾖ</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/shadoba.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/shadoba.webp" alt="エピックきたー" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#シャドバ</span><h3 class="shot-title">エピックきたー</h3><p class="art-author">元画像　もっち〜</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Grabu.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Grabu.webp" alt="ﾃﾞﾙｼﾞﾊﾞｾﾞﾖ！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#グラブル</span><h3 class="shot-title">ﾃﾞﾙｼﾞﾊﾞｾﾞﾖ！</h3><p class="art-author">元画像　お宇佐</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/rinami.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/rinami.webp" alt="最高の莉波" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#学マス</span><h3 class="shot-title">最高の莉波</h3><p class="art-author">元画像　もち</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/D5uni.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/D5uni.webp" alt="第五やってるよん" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">第五やってるよん</h3><p class="art-author">元画像　うに</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/D5Melon.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/D5Melon.webp" alt="フレンド募集" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">フレンド募集</h3><p class="art-author">元画像　Melon</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/D5tubu.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/D5tubu.webp" alt="よろしくお願いします" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#第五人格</span><h3 class="shot-title">よろしくお願いします</h3><p class="art-author">元画像 つぶまる</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Pokech.PNG" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Pokech.PNG" alt="バトルしようぜ！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#ポケモン</span><h3 class="shot-title">バトルしようぜ！</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/LimbusCompany.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/LimbusCompany.webp" alt="初めて15層クリア" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#リンバス</span><h3 class="shot-title">初めて15層クリア</h3><p class="art-author">元画像　かよゆ</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/nte.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/nte.webp" alt="みんなNTEやろう！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#NTE</span><h3 class="shot-title">みんなNTEやろう！</h3><p class="art-author">元画像　かべ(kabe)</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/NTE_2026-04-29-13-21-10.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/NTE_2026-04-29-13-21-10.webp" alt="楽しい" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#NTE</span><h3 class="shot-title">楽しい</h3><p class="art-author">元画像 うに</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Master_Duel_2026-02-07-05-05-21.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Master_Duel_2026-02-07-05-05-21.webp" alt="遊戯王やりませんか！" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#マスターデュエル</span><h3 class="shot-title">遊戯王やりませんか！</h3><p class="art-author">元画像　お宇佐</p></div>
                     </div>
 
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/TRPG.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/TRPG.webp" alt="ルールブックを買いました" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#TRPG</span><h3 class="shot-title">ルールブックを買いました</h3><p class="art-author">元画像　<br>みかんせいみかん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/rock.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/rock.webp" alt="ゲームを作ったぜ" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#スクラッチ</span><h3 class="shot-title">ゲームを作ったぜ</h3><p class="art-author">元画像　<br>ューちゃ&壁の教祖</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/code.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/code.webp" alt="Discordでコンパスコードネーム" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#コードネーム</span><h3 class="shot-title">Discordでコンパスコードネーム</h3><p class="art-author">元画像　たっけん</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/uma.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/uma.webp" alt="名鑑100" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#ウマ娘</span><h3 class="shot-title">名鑑100</h3><p class="art-author">元画像　きり</p></div>
                     </div>
                     <div class="shot-card">
-                        <div class="shot-image-wrapper"><img src="images/Dueru.webp" alt="Screenshot 21" loading="lazy" decoding="async" width="360" height="180"></div>
+                        <div class="shot-image-wrapper"><img src="images/Dueru.webp" alt="沼ったけど初マスター" loading="lazy" decoding="async" width="360" height="180"></div>
                         <div class="shot-info"><span class="shot-badge other-game">#デュエマ</span><h3 class="shot-title">沼ったけど初マスター</h3><p class="art-author">元画像　さとつん</p></div>
                     </div>
                 </div>
@@ -484,7 +657,7 @@
                 <div class="movie-grid">
                     <div class="movie-card">
                         <div class="movie-wrapper">
-                            <iframe class="youtube-iframe" data-src="https://youtube.com/shorts/H5KWLhMYNUY?si=l_RAvCwbrBzkbo-x" title="YouTube video player" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+                            <iframe class="youtube-iframe" data-src="https://youtube.com/shorts/H5KWLhMYNUY?si=l_RAvCwbrBzkbo-x" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                         </div>
                         <div class="movie-info">
                             <span class="movie-badge youtube">YouTube</span>
