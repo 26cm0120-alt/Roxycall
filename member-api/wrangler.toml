@@ -1,6 +1,6 @@
 name = "roxycall-member-api"
 main = "src/index.js"
-compatibility_date = "2026-10-30"
+compatibility_date = "2026-10-29"
 workers_dev = true
 
 [vars]
