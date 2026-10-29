@@ -104,7 +104,7 @@ async function main() {
     const names = [member.nick, user.global_name, user.username].map(normalizeName);
     if (
       EXCLUDED_MEMBER_IDS.has(user.id) ||
-      names.some(name => EXCLUDED_MEMBER_NAMES.has(name)) ||
+      names.some(name => [...EXCLUDED_MEMBER_NAMES].some(excludedName => name.includes(excludedName))) ||
       member.roles.some(id => hiddenRoleIds.has(id))
     ) {
       delete overrides[user.id];
