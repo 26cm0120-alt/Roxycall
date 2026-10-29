@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <!-- og:imageは個人の顔写真ではなく、ギルドロゴ等の専用画像を用意してから設定することをおすすめします -->
     <!-- <meta property="og:image" content="images/og-image.png"> -->
+    <script defer src="member-api-config.js"></script>
     <script defer src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://www.youtube.com">
@@ -771,9 +772,23 @@
                 <h1>ギルドメンバー紹介</h1>
                 <div class="subtitle">当コミュニティに所属している頼もしいプレイヤーたちです</div>
             </header>
-            <section class="member-intro-request" aria-label="自己紹介文の申請">
-                <p>申請内容は公開Issueとして投稿されます。自己紹介文は管理者が確認してから掲載します。</p>
-                <a class="member-intro-request-button" href="https://github.com/26cm0120-alt/Roxycall/issues/new?template=member-introduction.yml" target="_blank" rel="noopener noreferrer">自己紹介文を申請・変更する</a>
+            <section class="member-self-edit" id="memberSelfEdit" aria-label="自己紹介文の編集">
+                <div class="member-self-edit-copy">
+                    <h2>自己紹介文を編集</h2>
+                    <p>Discordでログインすると、自分の紹介文を編集できます。保存するとすぐに公開されます。</p>
+                </div>
+                <div class="member-self-edit-controls">
+                    <button class="member-intro-request-button" id="discordIntroLogin" type="button">Discordでログイン</button>
+                    <div id="discordIntroForm" hidden>
+                        <label for="discordIntroText">自己紹介文（500文字以内）</label>
+                        <textarea id="discordIntroText" maxlength="500" rows="4" placeholder="自己紹介文を入力してください"></textarea>
+                        <div class="member-intro-actions">
+                            <button class="member-intro-request-button" id="discordIntroSave" type="button">保存する</button>
+                            <button class="member-intro-logout" id="discordIntroLogout" type="button">ログアウト</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="member-intro-status" id="discordIntroStatus" role="status" aria-live="polite"></p>
             </section>
             <div class="member-list member-grid-3x3" id="allMemberList"></div>
         </div>

@@ -1,0 +1,15 @@
+name = "roxycall-member-api"
+main = "src/index.js"
+compatibility_date = "2026-10-30"
+workers_dev = true
+
+[vars]
+DISCORD_CLIENT_ID = "1451911816014860309"
+DISCORD_GUILD_ID = "1387350967628075101"
+SITE_ORIGIN = "https://26cm0120-alt.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "roxycall-member-introductions"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"

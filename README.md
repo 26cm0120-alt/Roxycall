@@ -52,8 +52,21 @@ GitHub Actionsが1日1回（UTC 18:17、JST 03:17）と手動実行時に、Disc
 
 同期データは `data/members.json`、コメントのID別管理は `data/member-overrides.json` に保存されます。初回同期時は現在のプロフィール名とDiscordのサーバーニックネーム／表示名が一致した場合にコメントを引き継ぎ、その後はDiscordユーザーIDで紐づけます。コメントを編集する場合は `data/member-overrides.json` の該当IDの `comment` を変更してください。アバター画像はDiscordのCDN URLを使います。Bot tokenはActions内でのみ使われ、サイトへ送信されません。
 
-## 自己紹介文の申請
+## Discordログインで自己紹介文を即時編集
 
-メンバー紹介ページの「自己紹介文を申請・変更する」からGitHub Issueを作成できます。申請にはGitHubアカウントが必要です。申請内容はGitHub上の公開Issueとして投稿されるため、個人情報は記載しないでください。サイトへの掲載は管理者が確認してから行います。掲載内容は `data/member-overrides.json` のDiscordユーザーIDに紐づく `comment` で管理します。
+メンバー紹介ページからDiscordでログインすると、本人の自己紹介文を編集できます。変更はCloudflare D1へ保存され、すぐに公開プロフィールへ反映されます。編集できるのは対象サーバーの本人の紹介文だけです。対象サーバーにいないアカウント、非掲載アカウント、「サブ垢」ロールのアカウントは編集できません。自己紹介文は公開情報として表示されます。
 
-メンバー一覧は従来のプロフィール順を優先し、追加メンバーは名前順にせずDiscordユーザーID順で末尾に表示します。サブ垢用ロールと指定された非掲載アカウントは同期データから除外します。
+### Cloudflare Workerの初回設定
+
+1. Cloudflareアカウントでログインできる環境から `npx wrangler@latest login` を実行します。
+2. `member-api/` へ移動し、`npx wrangler@latest d1 create roxycall-member-introductions` を実行します。表示されたDatabase IDを `member-api/wrangler.toml` の `database_id` に設定します。
+3. D1へテーブルを作成します: `npx wrangler@latest d1 migrations apply roxycall-member-introductions --remote`
+4. WorkerのSecretを登録します。各コマンドの入力欄へDiscord Developer PortalのOAuth2 Client Secret、既存のBot Token、32文字以上のランダムなセッション鍵を入力します。
+   - `npx wrangler@latest secret put DISCORD_CLIENT_SECRET`
+   - `npx wrangler@latest secret put DISCORD_BOT_TOKEN`
+   - `npx wrangler@latest secret put SESSION_SECRET`
+5. `npx wrangler@latest deploy` でWorkerを公開します。表示されたWorker URLを使って次の設定を行います。
+6. Discord Developer Portalの **OAuth2 → General** にRedirect URI `https://<Workerのホスト>/auth/callback` を登録します。
+7. `member-api-config.js` の空欄をWorker URL（例: `https://roxycall-member-api.<アカウント>.workers.dev`）に置き換えてコミットします。
+
+GitHub PagesのOriginは `https://26cm0120-alt.github.io` に設定済みです。独自ドメインに変更する場合は `member-api/wrangler.toml` の `SITE_ORIGIN` も同じOriginへ変更してください。DiscordのBot TokenとOAuth Client SecretはWorkerのSecretだけに保存し、ブラウザーへは渡しません。OAuthは `identify` のみを要求し、Worker側でBot APIを使ってサーバー所属を確認します。
