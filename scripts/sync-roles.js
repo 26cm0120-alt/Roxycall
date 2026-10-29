@@ -113,8 +113,9 @@ async function main() {
     const names = [member.nick, user.global_name, user.username].map(normalizeName);
     const oldProfile = names.map(name => profileByName.get(name)).find(Boolean);
     const oldOrder = names.map(name => profileOrderByName.get(name)).find(Number.isInteger);
+    const alreadyHasOverride = Object.hasOwn(overrides, user.id);
     const saved = overrides[user.id] || (overrides[user.id] = {});
-    if (!saved.comment && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
+    if (!alreadyHasOverride && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
     if (!Number.isInteger(saved.order)) {
       saved.order = oldOrder !== undefined ? oldOrder : legacyProfiles.length + apiOrderById.get(user.id);
     }
