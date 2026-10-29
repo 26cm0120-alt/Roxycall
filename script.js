@@ -470,8 +470,17 @@ async function loadSyncedMembers() {
             name: member.name,
             image: member.avatar,
             roles: Array.isArray(member.roles) ? member.roles : [],
-            comment: member.comment || ''
-        }));
+            comment: member.comment || '',
+            joinedAt: member.joinedAt || null
+        })).sort((a, b) => {
+            const aTime = Date.parse(a.joinedAt || '');
+            const bTime = Date.parse(b.joinedAt || '');
+            const aHasDate = Number.isFinite(aTime);
+            const bHasDate = Number.isFinite(bTime);
+            if (aHasDate && bHasDate && aTime !== bTime) return aTime - bTime;
+            if (aHasDate !== bHasDate) return aHasDate ? -1 : 1;
+            return String(a.id).localeCompare(String(b.id));
+        });
         ALL_DISCORD_ROLES = payload.roles;
     } catch (error) {
         // Keep the bundled profile list available when opening the site offline.
