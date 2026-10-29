@@ -13,3 +13,7 @@ binding = "DB"
 database_name = "roxycall-member-introductions"
 database_id = "7f8d37b8-3290-45bb-8848-66232b838962"
 migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "AVATARS"
+bucket_name = "roxycall-member-avatars"
