@@ -212,12 +212,14 @@ async function handleCallback(request, env) {
   }
 
   try {
+    const clientCredentials = btoa(env.DISCORD_CLIENT_ID + ':' + env.DISCORD_CLIENT_SECRET);
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'Authorization': 'Basic ' + clientCredentials,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       body: new URLSearchParams({
-        client_id: env.DISCORD_CLIENT_ID,
-        client_secret: env.DISCORD_CLIENT_SECRET,
         grant_type: 'authorization_code',
         code,
         redirect_uri: redirectUri(request)
