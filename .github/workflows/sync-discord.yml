@@ -2,6 +2,14 @@ name: Sync Discord members and roles
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'script.js'
+      - 'scripts/sync-roles.js'
+      - 'member-api/src/index.js'
+      - '.github/workflows/sync-discord.yml'
   schedule:
     - cron: '17 18 * * *'
 
