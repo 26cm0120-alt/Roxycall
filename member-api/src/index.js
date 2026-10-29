@@ -224,7 +224,16 @@ async function handleCallback(request, env) {
       })
     });
     if (!tokenResponse.ok) {
-      return popupResponse(env, { type: 'roxycall-discord-auth', error: 'Discordログインに失敗しました。設定を確認してください。' }, true);
+      const tokenError = await tokenResponse.json().catch(() => ({}));
+      const errorCode = typeof tokenError.error === 'string' && /^[a-z_]+$/.test(tokenError.error)
+        ? tokenError.error
+        : String(tokenResponse.status);
+      const message = errorCode === 'invalid_client'
+        ? 'DiscordのOAuth Client IDまたはClient Secretが拒否されました（invalid_client）。'
+        : errorCode === 'invalid_grant'
+          ? '認証コードまたはRedirect URIが一致しません（invalid_grant）。'
+          : 'Discord OAuthでエラーが返りました（' + errorCode + '）。';
+      return popupResponse(env, { type: 'roxycall-discord-auth', error: message }, true);
     }
     const tokenData = await tokenResponse.json();
     const userResponse = await fetch(DISCORD_API + '/users/@me', {
