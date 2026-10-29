@@ -1,6 +1,7 @@
 const DISCORD_API = 'https://discord.com/api/v10';
 const SESSION_LIFETIME_SECONDS = 4 * 60 * 60;
 const INTRODUCTION_MAX_LENGTH = 500;
+const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932", "633635966275420160"]);
 const EXCLUDED_MEMBER_NAMES = new Set(["256です", "ゆるうさ"].map(normalizeMemberName));
 
@@ -70,7 +71,7 @@ function corsHeaders(request, env) {
   const origin = request.headers.get('Origin');
   if (origin && origin === env.SITE_ORIGIN) {
     headers.set('Access-Control-Allow-Origin', origin);
-    headers.set('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+    headers.set('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
     headers.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     headers.set('Access-Control-Max-Age', '600');
   }
@@ -168,6 +169,17 @@ async function checkGuildMembership(userId, env) {
     roles.filter(role => role.name === 'サブ垢').map(role => role.id)
   );
   return !member.roles.some(roleId => privateRoleIds.has(roleId));
+}
+
+async function detectAvatarContentType(file) {
+  const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+  if (bytes.length >= 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47 &&
+      bytes[4] === 0x0d && bytes[5] === 0x0a && bytes[6] === 0x1a && bytes[7] === 0x0a) return 'image/png';
+  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return 'image/jpeg';
+  if (bytes.length >= 12 &&
+      String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF' &&
+      String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP') return 'image/webp';
+  return '';
 }
 
 async function handleLogin(request, env) {
@@ -277,6 +289,22 @@ async function handleApi(request, env, url) {
     return new Response(null, { status: 204, headers: corsHeaders(request, env) });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/avatar-overrides') {
+    const ids = (url.searchParams.get('ids') || '').split(',').filter(Boolean);
+    if (!ids.length || ids.length > 100 || ids.some(id => !/^\d{17,20}$/.test(id))) {
+      return jsonResponse(request, env, { error: 'Provide between 1 and 100 valid member IDs.' }, 400);
+    }
+    const placeholders = ids.map(() => '?').join(',');
+    const result = await env.DB.prepare(
+      'SELECT user_id, updated_at FROM member_avatars WHERE user_id IN (' + placeholders + ')'
+    ).bind(...ids).all();
+    const avatars = {};
+    for (const row of result.results || []) {
+      avatars[row.user_id] = '/avatars/' + row.user_id + '?v=' + Date.parse(row.updated_at);
+    }
+    return jsonResponse(request, env, { avatars }, 200);
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/intros') {
     const ids = (url.searchParams.get('ids') || '').split(',').filter(Boolean);
     if (!ids.length || ids.length > 100 || ids.some(id => !/^\d{17,20}$/.test(id))) {
@@ -295,6 +323,63 @@ async function handleApi(request, env, url) {
     const session = await readSession(request, env);
     if (!session) return jsonResponse(request, env, { error: 'Please sign in again.' }, 401);
     return jsonResponse(request, env, { userId: session.userId }, 200);
+  }
+
+  if (url.pathname === '/api/me/avatar' && request.method === 'PUT') {
+    const session = await readSession(request, env);
+    if (!session) return jsonResponse(request, env, { error: 'Please sign in again.' }, 401);
+    const isMember = await checkGuildMembership(session.userId, env);
+    if (!isMember) return jsonResponse(request, env, { error: '対象サーバーのメンバーのみ編集できます。' }, 403);
+
+    const contentLength = Number(request.headers.get('Content-Length') || 0);
+    if (contentLength > AVATAR_MAX_BYTES + 65536) {
+      return jsonResponse(request, env, { error: '画像は2MB以下にしてください。' }, 413);
+    }
+
+    let form;
+    try {
+      form = await request.formData();
+    } catch {
+      return jsonResponse(request, env, { error: '画像を読み取れませんでした。' }, 400);
+    }
+    const file = form.get('avatar');
+    if (!file || typeof file.slice !== 'function' || !file.size) {
+      return jsonResponse(request, env, { error: 'アップロードする画像を選択してください。' }, 400);
+    }
+    if (file.size > AVATAR_MAX_BYTES) {
+      return jsonResponse(request, env, { error: '画像は2MB以下にしてください。' }, 413);
+    }
+    const contentType = await detectAvatarContentType(file);
+    if (!contentType) {
+      return jsonResponse(request, env, { error: 'PNG、JPG、WebP形式の画像を選択してください。' }, 415);
+    }
+
+    const key = 'avatars/' + session.userId;
+    await env.AVATARS.put(key, file.stream(), {
+      httpMetadata: {
+        contentType,
+        cacheControl: 'public, max-age=31536000, immutable'
+      }
+    });
+    const updatedAt = new Date().toISOString();
+    await env.DB.prepare(
+      'INSERT INTO member_avatars (user_id, updated_at) VALUES (?, ?) ' +
+      'ON CONFLICT(user_id) DO UPDATE SET updated_at = excluded.updated_at'
+    ).bind(session.userId, updatedAt).run();
+    return jsonResponse(request, env, {
+      avatarUrl: '/avatars/' + session.userId + '?v=' + Date.parse(updatedAt)
+    }, 200);
+  }
+
+  if (url.pathname === '/api/me/avatar' && request.method === 'DELETE') {
+    const session = await readSession(request, env);
+    if (!session) return jsonResponse(request, env, { error: 'Please sign in again.' }, 401);
+    const isMember = await checkGuildMembership(session.userId, env);
+    if (!isMember) return jsonResponse(request, env, { error: '対象サーバーのメンバーのみ編集できます。' }, 403);
+    await env.AVATARS.delete('avatars/' + session.userId);
+    await env.DB.prepare('DELETE FROM member_avatars WHERE user_id = ?')
+      .bind(session.userId).run();
+    return jsonResponse(request, env, { removed: true }, 200);
   }
 
   if (url.pathname === '/api/me/introduction' && request.method === 'GET') {
@@ -347,6 +432,16 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/healthz' && request.method === 'GET') {
       return new Response('ok', { headers: { 'Cache-Control': 'no-store' } });
+    }
+    const avatarMatch = url.pathname.match(/^\/avatars\/(\d{17,20})$/);
+    if (avatarMatch && request.method === 'GET') {
+      const object = await env.AVATARS.get('avatars/' + avatarMatch[1]);
+      if (!object) return new Response('Not found.', { status: 404 });
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+      headers.set('X-Content-Type-Options', 'nosniff');
+      return new Response(object.body, { headers });
     }
     if (url.pathname === '/auth/login' && request.method === 'GET') {
       return handleLogin(request, env);
