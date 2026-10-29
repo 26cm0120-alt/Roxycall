@@ -7,14 +7,15 @@
 - コミュニティのルール・マナー案内
 - ニュースのカテゴリ絞り込みと本文の開閉
 - 画像・動画による活動紹介
-- メンバーのプロフィール表示
+- メンバーのプロフィール表示とDiscord加入日順の一覧
+- Discordログイン後の自己紹介文・プロフィール画像の本人編集（PNG / JPG / WebP、2MB以下）
 - ゲームや活動時間帯などのロール別メンバー検索
 
 ## 使用技術
 
-HTML / CSS / JavaScript（フレームワーク不使用）
+HTML / CSS / JavaScript（フレームワーク不使用）、Cloudflare Workers、D1、R2
 
-バックエンドやデータベースを使わない静的サイトです。
+WebサイトはGitHub Pagesで配信し、Discord認証・自己紹介文の保存・プロフィール画像の保存はCloudflare Worker、D1、R2を使います。
 
 ## 実装の工夫
 
@@ -54,18 +55,19 @@ GitHub Actionsが1日1回（UTC 18:17、JST 03:17）と手動実行時に、Disc
 
 ## Discordログインで自己紹介文を即時編集
 
-メンバー紹介ページからDiscordでログインすると、本人の自己紹介文を編集できます。変更はCloudflare D1へ保存され、すぐに公開プロフィールへ反映されます。編集できるのは対象サーバーの本人の紹介文だけです。対象サーバーにいないアカウント、非掲載アカウント、「サブ垢」ロールのアカウントは編集できません。自己紹介文は公開情報として表示されます。
+メンバー紹介ページからDiscordでログインすると、本人の自己紹介文とプロフィール画像を編集できます。自己紹介文はCloudflare D1、画像ファイルはR2へ保存され、すぐに公開プロフィールへ反映されます。画像はPNG / JPG / WebP形式、2MB以下です。アップロード画像を削除するとDiscordアバターに戻ります。編集できるのは対象サーバーの掲載メンバー本人だけです。自己紹介文と画像は公開情報として表示されます。
 
 ### Cloudflare Workerの初回設定
 
-1. Cloudflareアカウントでログインできる環境から `npx wrangler@latest login` を実行します。
-2. `member-api/` へ移動し、`npx wrangler@latest d1 create roxycall-member-introductions` を実行します。表示されたDatabase IDを `member-api/wrangler.toml` の `database_id` に設定します。
-3. D1へテーブルを作成します: `npx wrangler@latest d1 migrations apply roxycall-member-introductions --remote`
-4. WorkerのSecretを登録します。各コマンドの入力欄へDiscord Developer PortalのOAuth2 Client Secret、既存のBot Token、32文字以上のランダムなセッション鍵を入力します。
-   - `npx wrangler@latest secret put DISCORD_CLIENT_SECRET`
-   - `npx wrangler@latest secret put DISCORD_BOT_TOKEN`
-   - `npx wrangler@latest secret put SESSION_SECRET`
-5. `npx wrangler@latest deploy` でWorkerを公開します。表示されたWorker URLを使って次の設定を行います。
+1. Cloudflareアカウントでログインできる環境から `npx.cmd wrangler@latest login` を実行します（PowerShellでは `npx.cmd` を使います）。
+2. `member-api/` へ移動し、既存D1の設定が済んでいることを確認します。新規作成の場合は `npx.cmd wrangler@latest d1 create roxycall-member-introductions` を実行し、表示されたDatabase IDを `member-api/wrangler.toml` に設定します。
+3. 画像用R2バケットを作成します: `npx.cmd wrangler@latest r2 bucket create roxycall-member-avatars`。すでに同名バケットがある場合は作成をスキップします。
+4. D1マイグレーションを適用します: `npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote`
+5. WorkerのSecretを登録します。各コマンドの入力欄へDiscord Developer PortalのOAuth2 Client Secret、既存のBot Token、32文字以上のランダムなセッション鍵を入力します。
+   - `npx.cmd wrangler@latest secret put DISCORD_CLIENT_SECRET`
+   - `npx.cmd wrangler@latest secret put DISCORD_BOT_TOKEN`
+   - `npx.cmd wrangler@latest secret put SESSION_SECRET`
+6. `npx.cmd wrangler@latest deploy` でWorkerを公開します。表示されたWorker URLを使って次の設定を行います。
 6. Discord Developer Portalの **OAuth2 → General** にRedirect URI `https://<Workerのホスト>/auth/callback` を登録します。
 7. `member-api-config.js` の空欄をWorker URL（例: `https://roxycall-member-api.<アカウント>.workers.dev`）に置き換えてコミットします。
 
