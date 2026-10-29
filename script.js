@@ -294,6 +294,26 @@ function applyPageFromHash() {
 window.addEventListener('hashchange', applyPageFromHash);
 
 
+async function loadUploadedAvatarOverrides() {
+    if (!MEMBER_API_URL) return;
+    const memberIds = members.map(member => member.id).filter(Boolean);
+    if (!memberIds.length) return;
+    try {
+        const response = await fetch(MEMBER_API_URL + '/api/avatar-overrides?ids=' + encodeURIComponent(memberIds.join(',')), { cache: 'no-store' });
+        if (!response.ok) return;
+        const payload = await response.json();
+        if (!payload.avatars || typeof payload.avatars !== 'object') return;
+        members.forEach(member => {
+            if (member.id && Object.prototype.hasOwnProperty.call(payload.avatars, member.id)) {
+                member.image = MEMBER_API_URL + payload.avatars[member.id];
+                member.hasUploadedAvatar = true;
+            }
+        });
+    } catch (error) {
+        console.info('Member avatar overrides are temporarily unavailable.');
+    }
+}
+
 async function loadSavedIntroductions() {
     if (!MEMBER_API_URL) return;
     const memberIds = members.map(member => member.id).filter(Boolean);
@@ -332,7 +352,9 @@ async function memberApiRequest(path, options) {
     const headers = new Headers(requestOptions.headers || {});
     const token = memberSessionToken();
     if (token) headers.set('Authorization', 'Bearer ' + token);
-    if (requestOptions.body) headers.set('Content-Type', 'application/json');
+    if (requestOptions.body && !(requestOptions.body instanceof FormData)) {
+        headers.set('Content-Type', 'application/json');
+    }
     return fetch(MEMBER_API_URL + path, { ...requestOptions, headers, cache: 'no-store' });
 }
 
@@ -345,7 +367,12 @@ function initializeMemberIntroEditor() {
     const saveButton = document.getElementById('discordIntroSave');
     const logoutButton = document.getElementById('discordIntroLogout');
     const status = document.getElementById('discordIntroStatus');
+    const avatarFile = document.getElementById('discordAvatarFile');
+    const avatarPreview = document.getElementById('discordAvatarPreview');
+    const avatarUploadButton = document.getElementById('discordAvatarUpload');
+    const avatarRemoveButton = document.getElementById('discordAvatarRemove');
     let currentUserId = '';
+    let previewObjectUrl = '';
     let loginPopup = null;
 
     const setStatus = message => { status.textContent = message; };
@@ -376,6 +403,12 @@ function initializeMemberIntroEditor() {
         }
         const saved = await introResponse.json();
         textArea.value = saved.introduction || '';
+        const ownMember = members.find(member => member.id === currentUserId);
+        avatarPreview.src = ownMember?.image || ownMember?.discordAvatar || '';
+        avatarPreview.hidden = !avatarPreview.src;
+        avatarRemoveButton.hidden = !ownMember?.hasUploadedAvatar;
+        avatarFile.value = '';
+        avatarUploadButton.disabled = true;
         loginButton.hidden = true;
         form.hidden = false;
         setStatus('ログイン中です。保存した内容はすぐにページへ反映されます。');
@@ -406,6 +439,90 @@ function initializeMemberIntroEditor() {
         loginPopup = window.open(MEMBER_API_URL + '/auth/login', 'roxycall-discord-login', 'popup,width=520,height=720');
         if (!loginPopup) setStatus('ポップアップがブロックされました。許可してからもう一度お試しください。');
         else setStatus('Discordログインを開いています。');
+    });
+
+    avatarFile.addEventListener('change', () => {
+        const file = avatarFile.files && avatarFile.files[0];
+        avatarUploadButton.disabled = !file;
+        if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = '';
+        if (file) {
+            previewObjectUrl = URL.createObjectURL(file);
+            avatarPreview.src = previewObjectUrl;
+            avatarPreview.hidden = false;
+        }
+    });
+
+    avatarUploadButton.addEventListener('click', async () => {
+        const file = avatarFile.files && avatarFile.files[0];
+        if (!file) return;
+        avatarUploadButton.disabled = true;
+        setStatus('画像をアップロードしています…');
+        try {
+            const formData = new FormData();
+            formData.append('avatar', file);
+            const response = await memberApiRequest('/api/me/avatar', {
+                method: 'PUT',
+                body: formData
+            });
+            const payload = await response.json();
+            if (response.status === 401) {
+                clearMemberSession();
+                form.hidden = true;
+                loginButton.hidden = false;
+                setStatus('ログインの有効期限が切れました。もう一度ログインしてください。');
+                return;
+            }
+            if (!response.ok) {
+                setStatus(payload.error || '画像をアップロードできませんでした。');
+                return;
+            }
+            const ownMember = members.find(member => member.id === currentUserId);
+            if (ownMember) {
+                ownMember.image = MEMBER_API_URL + payload.avatarUrl;
+                ownMember.hasUploadedAvatar = true;
+            }
+            avatarFile.value = '';
+            avatarPreview.src = ownMember?.image || '';
+            avatarPreview.hidden = !avatarPreview.src;
+            avatarRemoveButton.hidden = false;
+            displayMembers();
+            displayAllMembersPage();
+            setStatus('プロフィール画像を更新しました。');
+        } catch {
+            setStatus('画像の保存先に接続できませんでした。時間をおいて再度お試しください。');
+        } finally {
+            avatarUploadButton.disabled = !(avatarFile.files && avatarFile.files[0]);
+        }
+    });
+
+    avatarRemoveButton.addEventListener('click', async () => {
+        avatarRemoveButton.disabled = true;
+        setStatus('プロフィール画像を削除しています…');
+        try {
+            const response = await memberApiRequest('/api/me/avatar', { method: 'DELETE' });
+            const payload = await response.json();
+            if (!response.ok) {
+                setStatus(payload.error || 'プロフィール画像を削除できませんでした。');
+                return;
+            }
+            const ownMember = members.find(member => member.id === currentUserId);
+            if (ownMember) {
+                ownMember.image = ownMember.discordAvatar || '';
+                ownMember.hasUploadedAvatar = false;
+            }
+            avatarFile.value = '';
+            avatarPreview.src = ownMember?.image || '';
+            avatarPreview.hidden = !avatarPreview.src;
+            avatarRemoveButton.hidden = true;
+            displayMembers();
+            displayAllMembersPage();
+            setStatus('Discordのプロフィール画像に戻しました。');
+        } catch {
+            setStatus('画像の保存先に接続できませんでした。時間をおいて再度お試しください。');
+        } finally {
+            avatarRemoveButton.disabled = false;
+        }
     });
 
     saveButton.addEventListener('click', async () => {
@@ -469,6 +586,7 @@ async function loadSyncedMembers() {
             id: member.id,
             name: member.name,
             image: member.avatar,
+            discordAvatar: member.avatar,
             roles: Array.isArray(member.roles) ? member.roles : [],
             comment: member.comment || '',
             joinedAt: member.joinedAt || null
@@ -490,6 +608,7 @@ async function loadSyncedMembers() {
 
 loadSyncedMembers().then(async () => {
     await loadSavedIntroductions();
+    await loadUploadedAvatarOverrides();
     generateFilterButtons();
     displayMembers();
     displayAllMembersPage();
