@@ -141,12 +141,12 @@ async function main() {
     .sort((a, b) => a.position - b.position)
     .map(role => role.name);
 
-  await fs.writeFile(overridesPath, JSON.stringify(overrides, null, 2) + '\\n');
+  await fs.writeFile(overridesPath, JSON.stringify(overrides, null, 2) + '\n');
   await fs.writeFile(path.join(dataDir, 'members.json'), JSON.stringify({
     updatedAt: new Date().toISOString(),
     roles: publishedRoles,
     members: outputMembers
-  }, null, 2) + '\\n');
+  }, null, 2) + '\n');
   console.log(`Synced ${outputMembers.length} members and ${publishedRoles.length} roles.`);
 }
 
