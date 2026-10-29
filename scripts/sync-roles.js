@@ -6,11 +6,14 @@ const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..');
 const dataDir = path.join(root, 'data');
-const guildId = process.env.DISCORD_GUILD_ID;
+const guildId = (process.env.DISCORD_GUILD_ID || '').trim();
 const token = process.env.DISCORD_BOT_TOKEN;
 
-if (!guildId || !/^\d{17,20}$/.test(guildId)) {
-  throw new Error('DISCORD_GUILD_ID must be a Discord snowflake.');
+if (!guildId) {
+  throw new Error('DISCORD_GUILD_ID is missing from the workflow environment.');
+}
+if (!/^\d{17,20}$/.test(guildId)) {
+  throw new Error('DISCORD_GUILD_ID must contain only 17–20 digits.');
 }
 if (!token) throw new Error('DISCORD_BOT_TOKEN is required.');
 
