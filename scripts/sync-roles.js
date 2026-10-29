@@ -98,9 +98,12 @@ async function main() {
     if (!profileOrderByName.has(key)) profileOrderByName.set(key, index);
   });
   const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
+  const apiOrderById = new Map([...guildMembers]
+    .sort((a, b) => BigInt(a.user.id) < BigInt(b.user.id) ? -1 : BigInt(a.user.id) > BigInt(b.user.id) ? 1 : 0)
+    .map((member, index) => [member.user.id, index]));
   const keptMembers = [];
 
-  guildMembers.forEach((member, apiOrder) => {
+  guildMembers.forEach(member => {
     const user = member.user;
     if (EXCLUDED_MEMBER_IDS.has(user.id) || member.roles.some(id => hiddenRoleIds.has(id))) {
       delete overrides[user.id];
@@ -113,7 +116,7 @@ async function main() {
     const saved = overrides[user.id] || (overrides[user.id] = {});
     if (!saved.comment && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
     if (!Number.isInteger(saved.order)) {
-      saved.order = oldOrder !== undefined ? oldOrder : legacyProfiles.length + apiOrder;
+      saved.order = oldOrder !== undefined ? oldOrder : legacyProfiles.length + apiOrderById.get(user.id);
     }
     keptMembers.push(member);
   });
