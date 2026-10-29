@@ -21,7 +21,7 @@ jobs:
       - name: Sync Discord data
         run: node scripts/sync-roles.js
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_BOT_TOKEN: ${{ secrets.GG }}
           DISCORD_GUILD_ID: '1387350967628075101'
       - name: Commit updated data
         run: |
