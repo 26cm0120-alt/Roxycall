@@ -4,7 +4,7 @@ compatibility_date = "2026-10-29"
 workers_dev = true
 
 [vars]
-DISCORD_CLIENT_ID = "1451911816014860309"
+DISCORD_CLIENT_ID = "1565436761763479692"
 DISCORD_GUILD_ID = "1387350967628075101"
 SITE_ORIGIN = "https://26cm0120-alt.github.io"
 
