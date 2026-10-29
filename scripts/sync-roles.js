@@ -67,7 +67,7 @@ async function readMembers() {
     if (page.length < 1000) break;
     after = page[page.length - 1].user.id;
   }
-  return members.filter(member => member.user && !member.user.bot);
+  return members.filter(member => member.user);
 }
 
 const EXCLUDED_MEMBER_IDS = new Set([
@@ -80,7 +80,8 @@ async function main() {
   await fs.mkdir(dataDir, { recursive: true });
   const roles = await discord(`/guilds/${guildId}/roles`);
   if (!Array.isArray(roles)) throw new Error('Discord returned an invalid role list.');
-  const guildMembers = await readMembers();
+  const allGuildMembers = await readMembers();
+  const guildMembers = allGuildMembers.filter(member => !member.user.bot);
 
   const overridesPath = path.join(dataDir, 'member-overrides.json');
   let overrides = {};
@@ -118,8 +119,9 @@ async function main() {
     keptMembers.push(member);
   });
 
+  const humanRoleIds = new Set(keptMembers.flatMap(member => member.roles));
   const roleNamesById = new Map(roles
-    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢')
+    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢' && !role.managed && humanRoleIds.has(role.id))
     .map(role => [role.id, role.name]));
   const outputMembers = keptMembers.map(member => {
     const user = member.user;
@@ -141,7 +143,7 @@ async function main() {
     return BigInt(a.id) < BigInt(b.id) ? -1 : BigInt(a.id) > BigInt(b.id) ? 1 : 0;
   });
   const publishedRoles = roles
-    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢')
+    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢' && !role.managed && humanRoleIds.has(role.id))
     .sort((a, b) => a.position - b.position)
     .map(role => role.name);
 
