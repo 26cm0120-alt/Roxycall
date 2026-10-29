@@ -74,6 +74,7 @@ const EXCLUDED_MEMBER_IDS = new Set([
   '713394116456611932',
   '633635966275420160'
 ]);
+const EXCLUDED_MEMBER_NAMES = new Set(['256です', 'ゆるうさ'].map(normalizeName));
 
 async function main() {
   await fs.mkdir(dataDir, { recursive: true });
@@ -91,34 +92,29 @@ async function main() {
 
   const legacyProfiles = await readLegacyProfiles();
   const profileByName = new Map();
-  const profileOrderByName = new Map();
-  legacyProfiles.forEach((profile, index) => {
+  legacyProfiles.forEach(profile => {
     const key = normalizeName(profile.name);
     if (!profileByName.has(key)) profileByName.set(key, profile);
-    if (!profileOrderByName.has(key)) profileOrderByName.set(key, index);
   });
   const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
-  const apiOrderById = new Map([...guildMembers]
-    .sort((a, b) => BigInt(a.user.id) < BigInt(b.user.id) ? -1 : BigInt(a.user.id) > BigInt(b.user.id) ? 1 : 0)
-    .map((member, index) => [member.user.id, index]));
   const keptMembers = [];
 
   guildMembers.forEach(member => {
     const user = member.user;
-    if (EXCLUDED_MEMBER_IDS.has(user.id) || member.roles.some(id => hiddenRoleIds.has(id))) {
+    const names = [member.nick, user.global_name, user.username].map(normalizeName);
+    if (
+      EXCLUDED_MEMBER_IDS.has(user.id) ||
+      names.some(name => EXCLUDED_MEMBER_NAMES.has(name)) ||
+      member.roles.some(id => hiddenRoleIds.has(id))
+    ) {
       delete overrides[user.id];
       return;
     }
 
-    const names = [member.nick, user.global_name, user.username].map(normalizeName);
     const oldProfile = names.map(name => profileByName.get(name)).find(Boolean);
-    const oldOrder = names.map(name => profileOrderByName.get(name)).find(Number.isInteger);
     const alreadyHasOverride = Object.hasOwn(overrides, user.id);
     const saved = overrides[user.id] || (overrides[user.id] = {});
     if (!alreadyHasOverride && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
-    if (!Number.isInteger(saved.order)) {
-      saved.order = oldOrder !== undefined ? oldOrder : legacyProfiles.length + apiOrderById.get(user.id);
-    }
     keptMembers.push(member);
   });
 
@@ -133,9 +129,17 @@ async function main() {
       avatar: avatarUrl(member),
       roles: member.roles.map(id => roleNamesById.get(id)).filter(Boolean),
       comment: overrides[user.id]?.comment || '',
-      order: overrides[user.id].order
+      joinedAt: member.joined_at || null
     };
-  }).sort((a, b) => a.order - b.order).map(({ order, ...member }) => member);
+  }).sort((a, b) => {
+    const aTime = Date.parse(a.joinedAt || '');
+    const bTime = Date.parse(b.joinedAt || '');
+    const aHasDate = Number.isFinite(aTime);
+    const bHasDate = Number.isFinite(bTime);
+    if (aHasDate && bHasDate && aTime !== bTime) return aTime - bTime;
+    if (aHasDate !== bHasDate) return aHasDate ? -1 : 1;
+    return BigInt(a.id) < BigInt(b.id) ? -1 : BigInt(a.id) > BigInt(b.id) ? 1 : 0;
+  });
   const publishedRoles = roles
     .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢')
     .sort((a, b) => a.position - b.position)
