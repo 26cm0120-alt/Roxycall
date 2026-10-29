@@ -1,5 +1,5 @@
 // 全Discordロールマスターリスト
-const ALL_DISCORD_ROLES = [
+let ALL_DISCORD_ROLES = [
     "深夜帯メンション可⭕", "深夜帯メンション不可❌", "原神民", "FGO民", "ポケモン民",
     "マイクラ民", "モンスト民", "第五人格民", "スタレ民", "雀魂民",
     "プロセカ民", "エンドフィールド民", "シャドバ民", "ゼンゼロ民", "TRPG民",
@@ -20,7 +20,7 @@ const ALL_DISCORD_ROLES = [
     "エルデンリング民", "グラセフ民", "朝活の民☀️", "夜活の民🌙", "サブ垢", "壁の教祖","アルチキ民","無限大の民","刀剣乱舞の民"
 ];
 
-const members = [
+let members = [
     { name: "たっけん", image: "images/IMG_0626.PNG", roles: ["深夜帯メンション可⭕", "原神民", "ポケモン民","マイクラ民","REPO民","FGO民","モンスト民","アークナイツ民","スプラ民","モンハン民","ガルパ民","雀魂民","アルチキ民","SAO民","鳴潮民","トリッカル民","PUBGモバイル民","にゃんこ大戦争の民","無限大の民","お絵描き民","夜活の民🌙"], comment: "コンパスが絶望的に下手なギルマスです！🎋" },
     { name: "はとぽっち", image: "images/Hatopo.webp", roles: ["深夜帯メンション不可❌", "原神民", "学マス民","FGO民", "夜活の民🌙"], comment: "ドリフトチーちゃんで相手を翻弄！🏍️" },
     { name: "エアプハイトラル", image: "images/eapuDeru.webp", roles: ["深夜帯メンション可⭕", "アークナイツ民","TRPG民","リンバス民","お絵描き民", "DRAPLINE民", "マイクラ民"], comment: "お前をエアプにしてやるペルねえ！🪶👹" },
@@ -132,13 +132,16 @@ function generateFilterButtons() {
     const activeRoles = new Set();
     members.forEach(m => m.roles.forEach(r => activeRoles.add(r)));
     const roleCounts = getRoleMemberCounts();
-    let html = '<button class="btn' + (currentFilter === 'ALL' ? ' active' : '') + '" onclick="filterGame(\'ALL\', this)">すべて <span class=\"role-user-count\">' + members.length + '</span></button>';
+    let html = '<button class="btn' + (currentFilter === 'ALL' ? ' active' : '') + '" data-role="ALL">すべて <span class="role-user-count">' + members.length + '</span></button>';
     ALL_DISCORD_ROLES.forEach(role => {
         if (activeRoles.has(role)) {
-            html += '<button class="btn' + (currentFilter === role ? ' active' : '') + '" onclick="filterGame(\'' + role.replace(/'/g, "\\'") + '\', this)">' + role + ' <span class="role-user-count">' + roleCounts[role] + '人</span></button>';
+            html += '<button class="btn' + (currentFilter === role ? ' active' : '') + '" data-role="' + escapeHtml(role) + '">' + escapeHtml(role) + ' <span class="role-user-count">' + (roleCounts[role] || 0) + '人</span></button>';
         }
     });
     btnContainer.innerHTML = html;
+    btnContainer.querySelectorAll('button[data-role]').forEach(button => {
+        button.addEventListener('click', () => filterGame(button.dataset.role, button));
+    });
 }
 
 function createCardHTML(member, index) {
@@ -172,7 +175,7 @@ function displayRoleStats() {
     const gridEl = document.getElementById('allRolesGrid');
     if (gridEl) {
         const counts = getRoleMemberCounts();
-        gridEl.innerHTML = ALL_DISCORD_ROLES.map(r => '<span class="tag">' + r + ' <span class="role-user-count">' + counts[r] + '</span></span>').join('');
+        gridEl.innerHTML = ALL_DISCORD_ROLES.map(r => '<span class="tag">' + escapeHtml(r) + ' <span class="role-user-count">' + (counts[r] || 0) + '</span></span>').join('');
     }
 }
 
@@ -289,10 +292,31 @@ function applyPageFromHash() {
 }
 window.addEventListener('hashchange', applyPageFromHash);
 
-generateFilterButtons();
-displayMembers();
-displayAllMembersPage();
-displayRoleStats();
+async function loadSyncedMembers() {
+    try {
+        const response = await fetch('data/members.json', { cache: 'no-cache' });
+        if (!response.ok) return;
+        const payload = await response.json();
+        if (!Array.isArray(payload.members) || !Array.isArray(payload.roles)) return;
+        members = payload.members.map(member => ({
+            name: member.name,
+            image: member.avatar,
+            roles: Array.isArray(member.roles) ? member.roles : [],
+            comment: member.comment || ''
+        }));
+        ALL_DISCORD_ROLES = payload.roles;
+    } catch (error) {
+        // Keep the bundled profile list available when opening the site offline.
+        console.info('Discord member data is unavailable; using the bundled member list.');
+    }
+}
+
+loadSyncedMembers().then(() => {
+    generateFilterButtons();
+    displayMembers();
+    displayAllMembersPage();
+    displayRoleStats();
+});
 initYouTubeIframes();
 initNews();
 applyPageFromHash();
