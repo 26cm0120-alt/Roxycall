@@ -156,7 +156,7 @@ async function checkGuildMembership(userId, env) {
   const member = await memberResponse.json();
   const memberNames = [member.nick, member.user?.global_name, member.user?.username]
     .map(normalizeMemberName);
-  if (memberNames.some(name => EXCLUDED_MEMBER_NAMES.has(name))) return false;
+  if (memberNames.some(name => [...EXCLUDED_MEMBER_NAMES].some(excludedName => name.includes(excludedName)))) return false;
 
   const rolesResponse = await fetch(
     DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/roles',
