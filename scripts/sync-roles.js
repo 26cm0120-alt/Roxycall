@@ -70,6 +70,11 @@ async function readMembers() {
   return members.filter(member => member.user && !member.user.bot);
 }
 
+const EXCLUDED_MEMBER_IDS = new Set([
+  '713394116456611932',
+  '633635966275420160'
+]);
+
 async function main() {
   await fs.mkdir(dataDir, { recursive: true });
   const roles = await discord(`/guilds/${guildId}/roles`);
@@ -84,43 +89,61 @@ async function main() {
     if (error.code !== 'ENOENT') throw error;
   }
 
-  // On the first run, carry profile comments forward by matching old display names.
   const legacyProfiles = await readLegacyProfiles();
-  const profileByName = new Map(legacyProfiles.map(profile => [normalizeName(profile.name), profile]));
-  for (const member of guildMembers) {
+  const profileByName = new Map();
+  const profileOrderByName = new Map();
+  legacyProfiles.forEach((profile, index) => {
+    const key = normalizeName(profile.name);
+    if (!profileByName.has(key)) profileByName.set(key, profile);
+    if (!profileOrderByName.has(key)) profileOrderByName.set(key, index);
+  });
+  const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
+  const keptMembers = [];
+
+  guildMembers.forEach((member, apiOrder) => {
     const user = member.user;
-    if (overrides[user.id]) continue;
-    const oldProfile = [
-      member.nick,
-      user.global_name,
-      user.username
-    ].map(normalizeName).map(name => profileByName.get(name)).find(Boolean);
-    if (oldProfile && oldProfile.comment) {
-      overrides[user.id] = { comment: oldProfile.comment };
+    if (EXCLUDED_MEMBER_IDS.has(user.id) || member.roles.some(id => hiddenRoleIds.has(id))) {
+      delete overrides[user.id];
+      return;
     }
-  }
+
+    const names = [member.nick, user.global_name, user.username].map(normalizeName);
+    const oldProfile = names.map(name => profileByName.get(name)).find(Boolean);
+    const oldOrder = names.map(name => profileOrderByName.get(name)).find(Number.isInteger);
+    const saved = overrides[user.id] || (overrides[user.id] = {});
+    if (!saved.comment && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
+    if (!Number.isInteger(saved.order)) {
+      saved.order = oldOrder !== undefined ? oldOrder : legacyProfiles.length + apiOrder;
+    }
+    keptMembers.push(member);
+  });
 
   const roleNamesById = new Map(roles
-    .filter(role => role.name !== '@everyone')
+    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢')
     .map(role => [role.id, role.name]));
-  const outputMembers = guildMembers.map(member => {
+  const outputMembers = keptMembers.map(member => {
     const user = member.user;
     return {
       id: user.id,
       name: member.nick || user.global_name || user.username,
       avatar: avatarUrl(member),
       roles: member.roles.map(id => roleNamesById.get(id)).filter(Boolean),
-      comment: overrides[user.id]?.comment || ''
+      comment: overrides[user.id]?.comment || '',
+      order: overrides[user.id].order
     };
-  }).sort((a, b) => a.name.localeCompare(b.name, 'ja'));
+  }).sort((a, b) => a.order - b.order).map(({ order, ...member }) => member);
+  const publishedRoles = roles
+    .filter(role => role.name !== '@everyone' && role.name !== 'サブ垢')
+    .sort((a, b) => a.position - b.position)
+    .map(role => role.name);
 
-  await fs.writeFile(overridesPath, JSON.stringify(overrides, null, 2) + '\n');
+  await fs.writeFile(overridesPath, JSON.stringify(overrides, null, 2) + '\\n');
   await fs.writeFile(path.join(dataDir, 'members.json'), JSON.stringify({
     updatedAt: new Date().toISOString(),
-    roles: roles.filter(role => role.name !== '@everyone').sort((a, b) => a.position - b.position).map(role => role.name),
+    roles: publishedRoles,
     members: outputMembers
-  }, null, 2) + '\n');
-  console.log(`Synced ${outputMembers.length} members and ${roles.length - 1} roles.`);
+  }, null, 2) + '\\n');
+  console.log(`Synced ${outputMembers.length} members and ${publishedRoles.length} roles.`);
 }
 
 main().catch(error => {

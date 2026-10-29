@@ -51,3 +51,9 @@ GitHub Actionsが1日1回（UTC 18:17、JST 03:17）と手動実行時に、Disc
 4. **Actions → Sync Discord members and roles → Run workflow** を一度実行します。
 
 同期データは `data/members.json`、コメントのID別管理は `data/member-overrides.json` に保存されます。初回同期時は現在のプロフィール名とDiscordのサーバーニックネーム／表示名が一致した場合にコメントを引き継ぎ、その後はDiscordユーザーIDで紐づけます。コメントを編集する場合は `data/member-overrides.json` の該当IDの `comment` を変更してください。アバター画像はDiscordのCDN URLを使います。Bot tokenはActions内でのみ使われ、サイトへ送信されません。
+
+## 自己紹介文の申請
+
+メンバー紹介ページの「自己紹介文を申請・変更する」からGitHub Issueを作成できます。申請にはGitHubアカウントが必要です。内容は管理者が確認してから掲載します。掲載内容は `data/member-overrides.json` のDiscordユーザーIDに紐づく `comment` で管理します。
+
+メンバー一覧は従来のプロフィール順を優先し、追加メンバーは名前順にせずDiscordユーザーID順で末尾に表示します。サブ垢用ロールと指定された非掲載アカウントは同期データから除外します。
