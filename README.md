@@ -47,7 +47,7 @@ GitHub Actionsが1日1回（UTC 18:17、JST 03:17）と手動実行時に、Disc
 
 1. Discord Developer PortalでBotを作成し、Bot設定の **SERVER MEMBERS INTENT** を有効にします。
 2. Botを対象サーバー（ID: `1387350967628075101`）へ追加します。Botトークンは公開しないでください。
-3. GitHubリポジトリの **Settings → Secrets and variables → Actions** にRepository secret `DISCORD_BOT_TOKEN`（Bot token）を登録します。サーバーID `1387350967628075101` はワークフローに設定済みです。
+3. GitHubリポジトリの **Settings → Secrets and variables → Actions** にRepository secret `GG`（Bot token）を登録します。サーバーID `1387350967628075101` はワークフローに設定済みです。
 4. **Actions → Sync Discord members and roles → Run workflow** を一度実行します。
 
 同期データは `data/members.json`、コメントのID別管理は `data/member-overrides.json` に保存されます。初回同期時は現在のプロフィール名とDiscordのサーバーニックネーム／表示名が一致した場合にコメントを引き継ぎ、その後はDiscordユーザーIDで紐づけます。コメントを編集する場合は `data/member-overrides.json` の該当IDの `comment` を変更してください。アバター画像はDiscordのCDN URLを使います。Bot tokenはActions内でのみ使われ、サイトへ送信されません。
