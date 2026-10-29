@@ -780,6 +780,13 @@
                 <div class="member-self-edit-controls">
                     <button class="member-intro-request-button" id="discordIntroLogin" type="button">Discordでログイン</button>
                     <div id="discordIntroForm" hidden>
+                        <label for="discordAvatarFile">プロフィール画像（PNG / JPG / WebP、2MB以下）</label>
+                        <input id="discordAvatarFile" type="file" accept="image/png,image/jpeg,image/webp">
+                        <img id="discordAvatarPreview" class="member-avatar-preview" alt="プロフィール画像のプレビュー" hidden>
+                        <div class="member-avatar-actions">
+                            <button class="member-intro-request-button" id="discordAvatarUpload" type="button" disabled>画像をアップロード</button>
+                            <button class="member-intro-logout" id="discordAvatarRemove" type="button" hidden>Discord画像に戻す</button>
+                        </div>
                         <label for="discordIntroText">自己紹介文（500文字以内）</label>
                         <textarea id="discordIntroText" maxlength="500" rows="4" placeholder="自己紹介文を入力してください"></textarea>
                         <div class="member-intro-actions">
