@@ -1,4 +1,5 @@
 // 全Discordロールマスターリスト
+const MEMBER_API_URL = String(window.ROXYCALL_MEMBER_API_URL || '').replace(/\/+$/, '');
 let ALL_DISCORD_ROLES = [
     "深夜帯メンション可⭕", "深夜帯メンション不可❌", "原神民", "FGO民", "ポケモン民",
     "マイクラ民", "モンスト民", "第五人格民", "スタレ民", "雀魂民",
@@ -292,6 +293,172 @@ function applyPageFromHash() {
 }
 window.addEventListener('hashchange', applyPageFromHash);
 
+
+async function loadSavedIntroductions() {
+    if (!MEMBER_API_URL) return;
+    const memberIds = members.map(member => member.id).filter(Boolean);
+    if (!memberIds.length) return;
+    try {
+        const response = await fetch(MEMBER_API_URL + '/api/intros?ids=' + encodeURIComponent(memberIds.join(',')), { cache: 'no-store' });
+        if (!response.ok) return;
+        const payload = await response.json();
+        if (!payload.introductions || typeof payload.introductions !== 'object') return;
+        members.forEach(member => {
+            if (member.id && Object.prototype.hasOwnProperty.call(payload.introductions, member.id)) {
+                member.comment = payload.introductions[member.id];
+            }
+        });
+    } catch (error) {
+        console.info('Member introductions are temporarily unavailable.');
+    }
+}
+
+function memberSessionToken() {
+    try {
+        return sessionStorage.getItem('roxycall_member_session') || '';
+    } catch {
+        return '';
+    }
+}
+
+function clearMemberSession() {
+    try {
+        sessionStorage.removeItem('roxycall_member_session');
+    } catch {}
+}
+
+async function memberApiRequest(path, options) {
+    const requestOptions = options || {};
+    const headers = new Headers(requestOptions.headers || {});
+    const token = memberSessionToken();
+    if (token) headers.set('Authorization', 'Bearer ' + token);
+    if (requestOptions.body) headers.set('Content-Type', 'application/json');
+    return fetch(MEMBER_API_URL + path, { ...requestOptions, headers, cache: 'no-store' });
+}
+
+function initializeMemberIntroEditor() {
+    const panel = document.getElementById('memberSelfEdit');
+    if (!panel) return;
+    const loginButton = document.getElementById('discordIntroLogin');
+    const form = document.getElementById('discordIntroForm');
+    const textArea = document.getElementById('discordIntroText');
+    const saveButton = document.getElementById('discordIntroSave');
+    const logoutButton = document.getElementById('discordIntroLogout');
+    const status = document.getElementById('discordIntroStatus');
+    let currentUserId = '';
+    let loginPopup = null;
+
+    const setStatus = message => { status.textContent = message; };
+    if (!MEMBER_API_URL) {
+        loginButton.disabled = true;
+        setStatus('オンライン編集の保存先がまだ設定されていません。');
+        return;
+    }
+
+    async function loadOwnIntroduction() {
+        const meResponse = await memberApiRequest('/api/me');
+        if (!meResponse.ok) {
+            clearMemberSession();
+            form.hidden = true;
+            loginButton.hidden = false;
+            setStatus('Discordに再ログインしてください。');
+            return;
+        }
+        const me = await meResponse.json();
+        currentUserId = me.userId;
+        const introResponse = await memberApiRequest('/api/me/introduction');
+        if (!introResponse.ok) {
+            clearMemberSession();
+            form.hidden = true;
+            loginButton.hidden = false;
+            setStatus('自己紹介文を読み込めませんでした。再ログインしてください。');
+            return;
+        }
+        const saved = await introResponse.json();
+        textArea.value = saved.introduction || '';
+        loginButton.hidden = true;
+        form.hidden = false;
+        setStatus('ログイン中です。保存した内容はすぐにページへ反映されます。');
+    }
+
+    window.addEventListener('message', async event => {
+        if (event.origin !== new URL(MEMBER_API_URL).origin || event.source !== loginPopup) return;
+        if (!event.data || event.data.type !== 'roxycall-discord-auth') return;
+        loginPopup = null;
+        if (event.data.error) {
+            setStatus(event.data.error);
+            return;
+        }
+        if (!event.data.token) {
+            setStatus('Discordログインに失敗しました。もう一度お試しください。');
+            return;
+        }
+        try {
+            sessionStorage.setItem('roxycall_member_session', event.data.token);
+            await loadOwnIntroduction();
+        } catch {
+            clearMemberSession();
+            setStatus('ログイン情報を保存できませんでした。このブラウザーの設定を確認してください。');
+        }
+    });
+
+    loginButton.addEventListener('click', () => {
+        loginPopup = window.open(MEMBER_API_URL + '/auth/login', 'roxycall-discord-login', 'popup,width=520,height=720');
+        if (!loginPopup) setStatus('ポップアップがブロックされました。許可してからもう一度お試しください。');
+        else setStatus('Discordログインを開いています。');
+    });
+
+    saveButton.addEventListener('click', async () => {
+        saveButton.disabled = true;
+        setStatus('保存しています…');
+        try {
+            const response = await memberApiRequest('/api/me/introduction', {
+                method: 'PUT',
+                body: JSON.stringify({ introduction: textArea.value })
+            });
+            const payload = await response.json();
+            if (response.status === 401) {
+                clearMemberSession();
+                form.hidden = true;
+                loginButton.hidden = false;
+                setStatus('ログインの有効期限が切れました。もう一度ログインしてください。');
+                return;
+            }
+            if (!response.ok) {
+                setStatus(payload.error || '保存できませんでした。');
+                return;
+            }
+            const ownMember = members.find(member => member.id === currentUserId);
+            if (ownMember) ownMember.comment = payload.introduction;
+            displayMembers();
+            displayAllMembersPage();
+            setStatus(payload.introduction ? '保存しました。自己紹介文を公開しました。' : '自己紹介文を削除しました。');
+        } catch {
+            setStatus('保存先に接続できませんでした。時間をおいて再度お試しください。');
+        } finally {
+            saveButton.disabled = false;
+        }
+    });
+
+    logoutButton.addEventListener('click', () => {
+        clearMemberSession();
+        currentUserId = '';
+        textArea.value = '';
+        form.hidden = true;
+        loginButton.hidden = false;
+        setStatus('ログアウトしました。');
+    });
+
+    if (memberSessionToken()) {
+        loginButton.hidden = true;
+        loadOwnIntroduction().catch(() => {
+            clearMemberSession();
+            loginButton.hidden = false;
+            setStatus('Discordログインを確認できませんでした。もう一度ログインしてください。');
+        });
+    }
+}
+
 async function loadSyncedMembers() {
     try {
         const response = await fetch('data/members.json', { cache: 'no-cache' });
@@ -299,6 +466,7 @@ async function loadSyncedMembers() {
         const payload = await response.json();
         if (!Array.isArray(payload.members) || !Array.isArray(payload.roles)) return;
         members = payload.members.map(member => ({
+            id: member.id,
             name: member.name,
             image: member.avatar,
             roles: Array.isArray(member.roles) ? member.roles : [],
@@ -311,11 +479,13 @@ async function loadSyncedMembers() {
     }
 }
 
-loadSyncedMembers().then(() => {
+loadSyncedMembers().then(async () => {
+    await loadSavedIntroductions();
     generateFilterButtons();
     displayMembers();
     displayAllMembersPage();
     displayRoleStats();
+    initializeMemberIntroEditor();
 });
 initYouTubeIframes();
 initNews();
