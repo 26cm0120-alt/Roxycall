@@ -11,5 +11,5 @@ SITE_ORIGIN = "https://26cm0120-alt.github.io"
 [[d1_databases]]
 binding = "DB"
 database_name = "roxycall-member-introductions"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "7f8d37b8-3290-45bb-8848-66232b838962"
 migrations_dir = "migrations"
