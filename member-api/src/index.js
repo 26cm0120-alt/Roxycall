@@ -1,7 +1,12 @@
 const DISCORD_API = 'https://discord.com/api/v10';
 const SESSION_LIFETIME_SECONDS = 4 * 60 * 60;
 const INTRODUCTION_MAX_LENGTH = 500;
-const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932","633635966275420160"]);
+const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932", "633635966275420160"]);
+const EXCLUDED_MEMBER_NAMES = new Set(["256です", "ゆるうさ"].map(normalizeMemberName));
+
+function normalizeMemberName(value) {
+  return String(value || "").normalize("NFKC").trim().toLocaleLowerCase("ja-JP");
+}
 
 function encodeBase64Url(bytes) {
   let binary = '';
@@ -149,6 +154,9 @@ async function checkGuildMembership(userId, env) {
   if (memberResponse.status === 404) return false;
   if (!memberResponse.ok) throw new Error('Discord membership check failed.');
   const member = await memberResponse.json();
+  const memberNames = [member.nick, member.user?.global_name, member.user?.username]
+    .map(normalizeMemberName);
+  if (memberNames.some(name => EXCLUDED_MEMBER_NAMES.has(name))) return false;
 
   const rolesResponse = await fetch(
     DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/roles',
