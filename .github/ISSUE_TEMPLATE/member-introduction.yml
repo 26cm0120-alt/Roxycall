@@ -2,6 +2,10 @@ name: 自己紹介文の掲載・変更申請
 description: 自己紹介文の新規掲載、変更、取り下げを申請します
 title: "[自己紹介申請] "
 body:
+  - type: markdown
+    attributes:
+      value: |
+        申請内容は公開Issueとして投稿されます。個人情報は記載しないでください。サイトへの掲載は管理者が確認してから行います。
   - type: input
     id: discord_name
     attributes:
