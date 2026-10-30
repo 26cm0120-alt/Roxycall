@@ -787,6 +787,9 @@
                             <button class="member-intro-request-button" id="discordAvatarUpload" type="button" disabled>画像をアップロード</button>
                             <button class="member-intro-logout" id="discordAvatarRemove" type="button" hidden>Discord画像に戻す</button>
                         </div>
+                        <label for="discordDisplayName">メンバー一覧の表示名（32文字以内）</label>
+                        <input id="discordDisplayName" type="text" maxlength="32" autocomplete="nickname" placeholder="空欄でDiscordの名前を表示">
+                        <button class="member-intro-request-button" id="discordDisplayNameSave" type="button">表示名を保存</button>
                         <label for="discordIntroText">自己紹介文（500文字以内）</label>
                         <textarea id="discordIntroText" maxlength="500" rows="4" placeholder="自己紹介文を入力してください"></textarea>
                         <div class="member-intro-actions">

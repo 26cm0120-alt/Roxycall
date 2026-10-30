@@ -1,6 +1,7 @@
 const DISCORD_API = 'https://discord.com/api/v10';
 const SESSION_LIFETIME_SECONDS = 4 * 60 * 60;
 const INTRODUCTION_MAX_LENGTH = 500;
+const DISPLAY_NAME_MAX_LENGTH = 32;
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932", "633635966275420160"]);
 const EXCLUDED_MEMBER_NAMES = new Set(["256です", "ゆるうさ"].map(normalizeMemberName));
@@ -302,7 +303,12 @@ async function handleApi(request, env, url) {
     for (const row of result.results || []) {
       avatars[row.user_id] = '/avatars/' + row.user_id + '?v=' + Date.parse(row.updated_at);
     }
-    return jsonResponse(request, env, { avatars }, 200);
+    const nameResult = await env.DB.prepare(
+      'SELECT user_id, display_name FROM member_display_names WHERE user_id IN (' + placeholders + ')'
+    ).bind(...ids).all();
+    const displayNames = {};
+    for (const row of nameResult.results || []) displayNames[row.user_id] = row.display_name;
+    return jsonResponse(request, env, { avatars, displayNames }, 200);
   }
 
   if (request.method === 'GET' && url.pathname === '/api/intros') {
@@ -322,7 +328,43 @@ async function handleApi(request, env, url) {
   if (url.pathname === '/api/me' && request.method === 'GET') {
     const session = await readSession(request, env);
     if (!session) return jsonResponse(request, env, { error: 'Please sign in again.' }, 401);
-    return jsonResponse(request, env, { userId: session.userId }, 200);
+    const nameRow = await env.DB.prepare(
+      'SELECT display_name FROM member_display_names WHERE user_id = ?'
+    ).bind(session.userId).first();
+    return jsonResponse(request, env, {
+      userId: session.userId,
+      displayName: nameRow ? nameRow.display_name : ''
+    }, 200);
+  }
+
+  if (url.pathname === '/api/me/display-name' && request.method === 'PUT') {
+    const session = await readSession(request, env);
+    if (!session) return jsonResponse(request, env, { error: 'Please sign in again.' }, 401);
+    const isMember = await checkGuildMembership(session.userId, env);
+    if (!isMember) return jsonResponse(request, env, { error: '対象サーバーのメンバーのみ編集できます。' }, 403);
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return jsonResponse(request, env, { error: '入力内容を読み取れませんでした。' }, 400);
+    }
+    const displayName = typeof body.displayName === 'string' ? body.displayName.trim() : null;
+    if (displayName === null || Array.from(displayName).length > DISPLAY_NAME_MAX_LENGTH) {
+      return jsonResponse(request, env, { error: '表示名は32文字以内で入力してください。' }, 400);
+    }
+
+    if (!displayName) {
+      await env.DB.prepare('DELETE FROM member_display_names WHERE user_id = ?')
+        .bind(session.userId).run();
+      return jsonResponse(request, env, { displayName: '' }, 200);
+    }
+
+    await env.DB.prepare(
+      'INSERT INTO member_display_names (user_id, display_name, updated_at) VALUES (?, ?, ?) ' +
+      'ON CONFLICT(user_id) DO UPDATE SET display_name = excluded.display_name, updated_at = excluded.updated_at'
+    ).bind(session.userId, displayName, new Date().toISOString()).run();
+    return jsonResponse(request, env, { displayName }, 200);
   }
 
   if (url.pathname === '/api/me/avatar' && request.method === 'PUT') {

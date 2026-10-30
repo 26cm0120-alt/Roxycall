@@ -146,7 +146,7 @@ function generateFilterButtons() {
 }
 
 function createCardHTML(member, index) {
-    const safeName = escapeHtml(member.name);
+    const safeName = escapeHtml(member.displayName || member.name);
     const tags = member.roles.map(r => '<span class="tag">' + escapeHtml(r) + '</span>').join('');
     const colorIndex = index % 10;
     const comment = member.comment ? '<div class="member-comment">' + escapeHtml(member.comment) + '</div>' : '';
@@ -302,11 +302,14 @@ async function loadUploadedAvatarOverrides() {
         const response = await fetch(MEMBER_API_URL + '/api/avatar-overrides?ids=' + encodeURIComponent(memberIds.join(',')), { cache: 'no-store' });
         if (!response.ok) return;
         const payload = await response.json();
-        if (!payload.avatars || typeof payload.avatars !== 'object') return;
         members.forEach(member => {
-            if (member.id && Object.prototype.hasOwnProperty.call(payload.avatars, member.id)) {
+            if (!member.id) return;
+            if (payload.avatars && Object.prototype.hasOwnProperty.call(payload.avatars, member.id)) {
                 member.image = MEMBER_API_URL + payload.avatars[member.id];
                 member.hasUploadedAvatar = true;
+            }
+            if (payload.displayNames && Object.prototype.hasOwnProperty.call(payload.displayNames, member.id)) {
+                member.displayName = payload.displayNames[member.id];
             }
         });
     } catch (error) {
@@ -371,6 +374,8 @@ function initializeMemberIntroEditor() {
     const avatarPreview = document.getElementById('discordAvatarPreview');
     const avatarUploadButton = document.getElementById('discordAvatarUpload');
     const avatarRemoveButton = document.getElementById('discordAvatarRemove');
+    const displayNameInput = document.getElementById('discordDisplayName');
+    const displayNameSaveButton = document.getElementById('discordDisplayNameSave');
     let currentUserId = '';
     let previewObjectUrl = '';
     let loginPopup = null;
@@ -393,6 +398,7 @@ function initializeMemberIntroEditor() {
         }
         const me = await meResponse.json();
         currentUserId = me.userId;
+        displayNameInput.value = me.displayName || '';
         const introResponse = await memberApiRequest('/api/me/introduction');
         if (!introResponse.ok) {
             clearMemberSession();
@@ -522,6 +528,39 @@ function initializeMemberIntroEditor() {
             setStatus('画像の保存先に接続できませんでした。時間をおいて再度お試しください。');
         } finally {
             avatarRemoveButton.disabled = false;
+        }
+    });
+
+    displayNameSaveButton.addEventListener('click', async () => {
+        displayNameSaveButton.disabled = true;
+        setStatus('表示名を保存しています…');
+        try {
+            const response = await memberApiRequest('/api/me/display-name', {
+                method: 'PUT',
+                body: JSON.stringify({ displayName: displayNameInput.value })
+            });
+            const payload = await response.json();
+            if (response.status === 401) {
+                clearMemberSession();
+                form.hidden = true;
+                loginButton.hidden = false;
+                setStatus('ログインの有効期限が切れました。もう一度ログインしてください。');
+                return;
+            }
+            if (!response.ok) {
+                setStatus(payload.error || '表示名を保存できませんでした。');
+                return;
+            }
+            const ownMember = members.find(member => member.id === currentUserId);
+            if (ownMember) ownMember.displayName = payload.displayName;
+            displayNameInput.value = payload.displayName;
+            displayMembers();
+            displayAllMembersPage();
+            setStatus(payload.displayName ? '表示名を更新しました。' : 'Discordの名前に戻しました。');
+        } catch {
+            setStatus('保存先に接続できませんでした。時間をおいて再度お試しください。');
+        } finally {
+            displayNameSaveButton.disabled = false;
         }
     });
 
