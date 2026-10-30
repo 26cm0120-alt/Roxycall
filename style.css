@@ -2177,3 +2177,58 @@ h2, h3 {
     cursor: not-allowed;
     opacity: 0.65;
 }
+
+
+/* Keep self-service profile controls inside narrow mobile viewports. */
+.member-self-edit,
+.member-self-edit-copy,
+.member-self-edit-controls,
+#discordIntroForm {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+
+#discordIntroForm {
+    width: 100%;
+}
+
+#discordIntroLogin,
+#discordAvatarFile,
+#discordDisplayName,
+#discordIntroText,
+.member-intro-request-button,
+.member-intro-logout {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+#discordDisplayName {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 10px;
+}
+
+#discordIntroText {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.member-avatar-actions,
+.member-intro-actions {
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .member-self-edit {
+        padding: 16px 14px;
+    }
+
+    #discordIntroLogin,
+    #discordDisplayNameSave {
+        width: 100%;
+        white-space: normal;
+    }
+}
