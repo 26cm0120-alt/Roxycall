@@ -74,7 +74,6 @@ const EXCLUDED_MEMBER_IDS = new Set([
   '713394116456611932',
   '633635966275420160'
 ]);
-const EXCLUDED_MEMBER_NAMES = new Set(['256です', 'ゆるうさ'].map(normalizeName));
 
 async function main() {
   await fs.mkdir(dataDir, { recursive: true });
@@ -105,7 +104,6 @@ async function main() {
     const names = [member.nick, user.global_name, user.username].map(normalizeName);
     if (
       EXCLUDED_MEMBER_IDS.has(user.id) ||
-      names.some(name => [...EXCLUDED_MEMBER_NAMES].some(excludedName => name.includes(excludedName))) ||
       member.roles.some(id => hiddenRoleIds.has(id))
     ) {
       delete overrides[user.id];
