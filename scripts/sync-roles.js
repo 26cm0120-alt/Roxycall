@@ -75,6 +75,16 @@ const EXCLUDED_MEMBER_IDS = new Set([
   '633635966275420160'
 ]);
 
+async function writeFileIfChanged(filePath, content) {
+  try {
+    if (await fs.readFile(filePath, 'utf8') === content) return false;
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  await fs.writeFile(filePath, content);
+  return true;
+}
+
 async function main() {
   await fs.mkdir(dataDir, { recursive: true });
   const roles = await discord(`/guilds/${guildId}/roles`);
@@ -98,6 +108,7 @@ async function main() {
   });
   const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
   const keptMembers = [];
+  let removedOverrideCount = 0;
 
   guildMembers.forEach(member => {
     const user = member.user;
@@ -106,7 +117,10 @@ async function main() {
       EXCLUDED_MEMBER_IDS.has(user.id) ||
       member.roles.some(id => hiddenRoleIds.has(id))
     ) {
-      delete overrides[user.id];
+      if (Object.hasOwn(overrides, user.id)) {
+        delete overrides[user.id];
+        removedOverrideCount += 1;
+      }
       return;
     }
 
@@ -145,13 +159,33 @@ async function main() {
     .sort((a, b) => a.position - b.position)
     .map(role => role.name);
 
-  await fs.writeFile(overridesPath, JSON.stringify(overrides, null, 2) + '\n');
-  await fs.writeFile(path.join(dataDir, 'members.json'), JSON.stringify({
-    updatedAt: new Date().toISOString(),
+  const membersPath = path.join(dataDir, 'members.json');
+  let previousPayload = null;
+  try {
+    previousPayload = JSON.parse(await fs.readFile(membersPath, 'utf8'));
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+
+  const dataChanged = !previousPayload ||
+    JSON.stringify(previousPayload.roles) !== JSON.stringify(publishedRoles) ||
+    JSON.stringify(previousPayload.members) !== JSON.stringify(outputMembers);
+  const updatedAt = dataChanged || !previousPayload.updatedAt
+    ? new Date().toISOString()
+    : previousPayload.updatedAt;
+  const membersContent = JSON.stringify({
+    updatedAt,
     roles: publishedRoles,
     members: outputMembers
-  }, null, 2) + '\n');
+  }, null, 2) + '\n';
+
+  await writeFileIfChanged(overridesPath, JSON.stringify(overrides, null, 2) + '\n');
+  const membersChanged = await writeFileIfChanged(membersPath, membersContent);
   console.log(`Synced ${outputMembers.length} members and ${publishedRoles.length} roles.`);
+  if (removedOverrideCount) {
+    console.warn(`Removed saved profile data for ${removedOverrideCount} excluded member(s). If this was unintended, restore it from Git history.`);
+  }
+  if (!membersChanged) console.log('Member data is unchanged; kept its previous updatedAt value.');
 }
 
 main().catch(error => {

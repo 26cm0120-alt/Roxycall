@@ -140,6 +140,32 @@ async function readSession(request, env) {
   }
 }
 
+const PRIVATE_ROLE_CACHE_TTL_MS = 5 * 60 * 1000;
+let privateRoleCache = { guildId: '', expiresAt: 0, ids: new Set() };
+
+async function getPrivateRoleIds(env) {
+  const now = Date.now();
+  if (privateRoleCache.guildId === env.DISCORD_GUILD_ID && privateRoleCache.expiresAt > now) {
+    return privateRoleCache.ids;
+  }
+
+  const response = await fetch(
+    DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/roles',
+    { headers: { Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN } }
+  );
+  if (!response.ok) throw new Error('Discord role check failed.');
+  const roles = await response.json();
+  if (!Array.isArray(roles)) throw new Error('Discord returned an invalid role list.');
+
+  const ids = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
+  privateRoleCache = {
+    guildId: env.DISCORD_GUILD_ID,
+    expiresAt: now + PRIVATE_ROLE_CACHE_TTL_MS,
+    ids
+  };
+  return ids;
+}
+
 async function checkGuildMembership(userId, env) {
   if (EXCLUDED_MEMBER_IDS.has(userId)) return false;
   const headers = { Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN };
@@ -150,15 +176,7 @@ async function checkGuildMembership(userId, env) {
   if (memberResponse.status === 404) return false;
   if (!memberResponse.ok) throw new Error('Discord membership check failed.');
   const member = await memberResponse.json();
-  const rolesResponse = await fetch(
-    DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/roles',
-    { headers }
-  );
-  if (!rolesResponse.ok) throw new Error('Discord role check failed.');
-  const roles = await rolesResponse.json();
-  const privateRoleIds = new Set(
-    roles.filter(role => role.name === 'サブ垢').map(role => role.id)
-  );
+  const privateRoleIds = await getPrivateRoleIds(env);
   return !member.roles.some(roleId => privateRoleIds.has(roleId));
 }
 
