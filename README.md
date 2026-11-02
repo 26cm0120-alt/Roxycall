@@ -34,6 +34,8 @@
 - `data/members.json` はDiscordから同期した公開メンバー・ロール情報です。プロフィール画像はDiscordのアバターを使います。
 - `data/member-overrides.json` はDiscordユーザーIDごとの既存紹介文を引き継ぐためのデータです。表示順の管理には使いません。
 - 本人がサイトで変更した表示名、自己紹介文、プロフィール画像はCloudflare D1/R2に保存され、公開一覧へ反映されます。
+- 自己紹介文が未入力のメンバーには「自己紹介は準備中です。」と表示します。本人の情報を推測した文章ではありません。
+- APIは現在の公開メンバーだけにプロフィール情報を返します。
 - 自己紹介文が未入力のメンバーには「自己紹介は準備中です。」と表示します。これは本人の経歴や好みを推測した文章ではありません。
 - APIは現在の公開メンバーに含まれるユーザーだけにプロフィール情報を返します。公開対象から外れたメンバーのD1情報は、追加された個別マイグレーションで削除します。
 - Botアカウント、サブ垢ロールが付いたメンバー、および設定されたDiscordユーザーIDは同期対象から除外します。名前の部分一致では除外しません。
@@ -137,7 +139,13 @@ cd member-api
 npx.cmd wrangler@latest deploy
 ```
 
-PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わりに `npx.cmd` を使います。新しいD1マイグレーションが追加された場合は、デプロイ前にリモートへ適用してください。今回追加した `0004_remove_stale_profile.sql` も、次のコマンドで適用します。
+PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わりに `npx.cmd` を使います。新しいD1マイグレーションが追加された場合は、デプロイ前にリモートへ適用してください。今回の `0004_remove_stale_profile.sql` も、次のコマンドで適用します。
+
+```powershell
+npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
+```
+
+この一度限りのマイグレーションは、一覧外の該当プロフィールの自己紹介文、表示名、R2の管理行を削除します。該当者のR2画像オブジェクトが残っている場合は、Cloudflare R2の `roxycall-member-avatars` バケットから `avatars/<DiscordユーザーID>` を削除してください。Worker更新後は一覧外画像は配信されません。今回追加した `0004_remove_stale_profile.sql` も、次のコマンドで適用します。
 
 ```powershell
 npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
