@@ -2,7 +2,6 @@
 // Pull public guild roles and members into the static site's JSON data.
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..');
 const dataDir = path.join(root, 'data');
@@ -28,10 +27,6 @@ async function discord(pathname) {
   return response.json();
 }
 
-function normalizeName(value) {
-  return String(value || '').normalize('NFKC').trim().toLocaleLowerCase('ja-JP');
-}
-
 function defaultAvatarUrl(user) {
   const index = Number((BigInt(user.id) >> 22n) % 6n);
   return `https://cdn.discordapp.com/embed/avatars/${index}.png`;
@@ -48,13 +43,6 @@ function avatarUrl(member) {
     return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}?size=128`;
   }
   return defaultAvatarUrl(user);
-}
-
-async function readLegacyProfiles() {
-  const source = await fs.readFile(path.join(root, 'script.js'), 'utf8');
-  const match = source.match(/(?:const|let) members\s*=\s*(\[[\s\S]*?\n\]);/);
-  if (!match) return [];
-  return vm.runInNewContext(`(${match[1]})`);
 }
 
 async function readMembers() {
@@ -100,19 +88,12 @@ async function main() {
     if (error.code !== 'ENOENT') throw error;
   }
 
-  const legacyProfiles = await readLegacyProfiles();
-  const profileByName = new Map();
-  legacyProfiles.forEach(profile => {
-    const key = normalizeName(profile.name);
-    if (!profileByName.has(key)) profileByName.set(key, profile);
-  });
   const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
   const keptMembers = [];
   let removedOverrideCount = 0;
 
   guildMembers.forEach(member => {
     const user = member.user;
-    const names = [member.nick, user.global_name, user.username].map(normalizeName);
     if (
       EXCLUDED_MEMBER_IDS.has(user.id) ||
       member.roles.some(id => hiddenRoleIds.has(id))
@@ -124,10 +105,7 @@ async function main() {
       return;
     }
 
-    const oldProfile = names.map(name => profileByName.get(name)).find(Boolean);
-    const alreadyHasOverride = Object.hasOwn(overrides, user.id);
-    const saved = overrides[user.id] || (overrides[user.id] = {});
-    if (!alreadyHasOverride && oldProfile && oldProfile.comment) saved.comment = oldProfile.comment;
+    if (!Object.hasOwn(overrides, user.id)) overrides[user.id] = {};
     keptMembers.push(member);
   });
 
