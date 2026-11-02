@@ -132,4 +132,4 @@ PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わ�
 
 ### 設定値
 
-現在のWorker設定は `member-api/wrangler.toml` にあります。GitHub PagesのOriginは `https://26cm0120-alt.github.io`、D1とR2のバインディングも設定済みです。サイトのドメインを変更する場合は、`SITE_ORIGIN` とOAuth Redirect URIも合わせて変更してください。
+現在のWorker設定は `member-api/wrangler.toml` にあります。GitHub PagesのOriginは `https://26cm0120-alt.github.io`、D1とR2のバインディングも設定済みです。サイトのドメインを変更する場合は、`SITE_ORIGIN` とOAuth Redirect URIも合わせて変更してください。Worker URLを変更した場合は、`member-api-config.js` と `index.html` のContent Security Policy（CSP）許可先も更新します。
