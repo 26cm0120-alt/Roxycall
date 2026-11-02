@@ -211,7 +211,11 @@ async function checkGuildMembership(userId, env) {
     { headers }
   );
   if (memberResponse.status === 404) return false;
-  if (!memberResponse.ok) throw new Error('Discord membership check failed.');
+  if (!memberResponse.ok) {
+    const errorPayload = await memberResponse.json().catch(() => ({}));
+    const discordCode = Number.isInteger(errorPayload.code) ? errorPayload.code : 'unknown';
+    throw new Error(`Discord membership check failed (HTTP ${memberResponse.status}, code ${discordCode}).`);
+  }
   const member = await memberResponse.json();
   const privateRoleIds = await getPrivateRoleIds(env);
   return !member.roles.some(roleId => privateRoleIds.has(roleId));
