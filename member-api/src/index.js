@@ -363,8 +363,9 @@ async function handleCallback(request, env) {
       token: sessionToken
     }, true);
   } catch (error) {
-    console.error('Discord OAuth callback failed.');
-    return popupResponse(env, { type: 'roxycall-discord-auth', error: 'Discordへの接続に失敗しました。時間をおいて再度お試しください。' }, true);
+    const detail = error instanceof Error ? error.message.slice(0, 200) : 'Unknown error';
+    console.error('Discord OAuth callback failed:', detail);
+    return popupResponse(env, { type: 'roxycall-discord-auth', error: 'Discordへの接続に失敗しました。CloudflareのWorkerログで原因を確認してください。' }, true);
   }
 }
 
