@@ -7,7 +7,7 @@
 ## サイトでできること
 
 - コミュニティのルール、ニュース、活動記録を確認
-- Discordのメンバーをサーバー参加日順に表示し、ロールで絞り込み
+- Discordメンバーをサーバー参加日順に表示し、ロールで絞り込み
 - Discordログイン後、自分の表示名・自己紹介文・プロフィール画像を編集
 - プロフィール画像をPNG、JPG、WebP形式でアップロード（2MB以下）
 
@@ -35,10 +35,8 @@
 - `data/member-overrides.json` はDiscordユーザーIDごとの既存紹介文を引き継ぐためのデータです。表示順の管理には使いません。
 - 本人がサイトで変更した表示名、自己紹介文、プロフィール画像はCloudflare D1/R2に保存され、公開一覧へ反映されます。
 - 自己紹介文が未入力のメンバーには「自己紹介は準備中です。」と表示します。本人の情報を推測した文章ではありません。
-- APIは現在の公開メンバーだけにプロフィール情報を返します。
-- 自己紹介文が未入力のメンバーには「自己紹介は準備中です。」と表示します。これは本人の経歴や好みを推測した文章ではありません。
-- APIは現在の公開メンバーに含まれるユーザーだけにプロフィール情報を返します。公開対象から外れたメンバーのD1情報は、追加された個別マイグレーションで削除します。
-- Botアカウント、サブ垢ロールが付いたメンバー、および設定されたDiscordユーザーIDは同期対象から除外します。名前の部分一致では除外しません。
+- APIは現在の公開メンバーに含まれるユーザーだけにプロフィール情報を返します。
+- Botアカウント、サブ垢ロールが付いたメンバー、Secretで指定したDiscordユーザーIDは同期対象から除外します。名前の部分一致では除外しません。
 - ロールやニックネームの更新は毎日の同期後に反映されます。本人が行うプロフィール変更は保存後すぐ反映されます。
 - 同期が成功しても内容に差分がなければ、不要なデータ更新やコミットは行いません。
 
@@ -76,7 +74,7 @@ GitHub Actionsは毎日 **18:17 UTC（日本時間 翌日03:17）** に同期し
 1. Discord Developer PortalでBotを作成し、Bot設定の **SERVER MEMBERS INTENT** を有効にします。
 2. Botを対象サーバーへ追加します。対象サーバーIDは `1387350967628075101` です。
 3. GitHubリポジトリの **Settings → Secrets and variables → Actions** でRepository secret `GG` にBotトークンを登録します。トークンは公開しないでください。
-4. 同じ画面でRepository secret `EXCLUDED_MEMBER_IDS` を作成し、同期から除外するDiscordユーザーIDをカンマ区切りで登録します。値が空・不正の場合、同期スクリプトは停止して除外対象が再掲載されるのを防ぎます。
+4. 同じ画面でRepository secret `EXCLUDED_MEMBER_IDS` を作成し、同期から除外するDiscordユーザーIDをカンマ区切りで登録します。値が空・不正の場合、同期スクリプトは停止し、除外対象が誤って再掲載されるのを防ぎます。
 5. GitHubの **Actions → Sync Discord members and roles → Run workflow** から手動同期できます。
 
 同期結果は `data/members.json` に保存され、差分があればGitHub Actionsがコミットします。自己紹介文の初期データは `data/member-overrides.json` で引き継がれます。その後、本人がサイトで編集した内容はD1に保存されます。
@@ -130,27 +128,18 @@ cd member-api
 
 ## Workerの更新
 
-GitHubから最新コードを取得し、Workerディレクトリでデプロイします。
+GitHubから最新コードを取得し、WorkerディレクトリでD1マイグレーションを適用してからデプロイします。
 
 ```powershell
 cd $env:USERPROFILE\Documents\Roxycall
 git pull
 cd member-api
+npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
 npx.cmd wrangler@latest deploy
 ```
 
-PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わりに `npx.cmd` を使います。新しいD1マイグレーションが追加された場合は、デプロイ前にリモートへ適用してください。今回の `0004_remove_stale_profile.sql` も、次のコマンドで適用します。
+今回追加した `0004_remove_stale_profile.sql` は、一覧外の該当プロフィールの自己紹介文、表示名、R2アバター管理行を削除します。これは一度だけ実行されるD1マイグレーションです。該当者のR2画像オブジェクトが残っている場合は、Cloudflare R2の `roxycall-member-avatars` バケットから `avatars/<DiscordユーザーID>` を削除してください。Worker更新後は、一覧外画像はAPIから配信されません。
 
-```powershell
-npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
-```
-
-この一度限りのマイグレーションは、一覧外の該当プロフィールの自己紹介文、表示名、R2の管理行を削除します。該当者のR2画像オブジェクトが残っている場合は、Cloudflare R2の `roxycall-member-avatars` バケットから `avatars/<DiscordユーザーID>` を削除してください。Worker更新後は一覧外画像は配信されません。今回追加した `0004_remove_stale_profile.sql` も、次のコマンドで適用します。
-
-```powershell
-npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
-```
-
-このマイグレーションは一覧外の該当プロフィールの自己紹介文、表示名、R2アバター管理行を削除します。R2オブジェクト自体が存在する場合は、Cloudflare R2の `roxycall-member-avatars` バケットで `avatars/<DiscordユーザーID>` を削除してください。Worker更新後は一覧外の画像はAPIから配信されません。
+PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わりに `npx.cmd` を使います。
 
 Worker URLを変更した場合は、Discord OAuth2 Redirect URI、`member-api-config.js`、`member-api/wrangler.toml`、`index.html` のContent Security Policy（CSP）許可先を合わせて更新します。
