@@ -66,7 +66,7 @@ function createCardHTML(member, index) {
     const tags = member.roles.map(r => '<span class="tag">' + escapeHtml(r) + '</span>').join('');
     const colorIndex = index % 10;
     const comment = member.comment ? '<div class="member-comment">' + escapeHtml(member.comment) + '</div>' : '';
-    const imgSrc = escapeHtml(member.image || 'images/IMG_0626.png');
+    const imgSrc = escapeHtml(member.image || 'images/IMG_0626.PNG');
     return '<div class="card color-' + colorIndex + '"><div class="card-content"><div class="member-avatar"><img src="' + imgSrc + '" alt="' + safeName + '" loading="lazy" decoding="async" width="100" height="100"></div><div class="card-text"><div class="member-name colorful">' + safeName + '</div><div class="tags">' + tags + '</div>' + comment + '</div></div></div>';
 }
 
@@ -556,8 +556,7 @@ async function loadSyncedMembers() {
         });
         ALL_DISCORD_ROLES = payload.roles;
     } catch (error) {
-        // Keep the bundled profile list available when opening the site offline.
-        console.info('Discord member data is unavailable; using the bundled member list.');
+        console.info('Discord member data is unavailable; the member list could not be loaded.');
     }
 }
 
