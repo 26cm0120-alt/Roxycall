@@ -87,6 +87,9 @@ async function main() {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
+  for (const profile of Object.values(overrides)) {
+    if (profile && typeof profile === 'object') delete profile.order;
+  }
 
   const hiddenRoleIds = new Set(roles.filter(role => role.name === 'サブ垢').map(role => role.id));
   const keptMembers = [];
