@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-01T22:07:01.545Z",
+  "updatedAt": "2026-11-02T16:49:25.891Z",
   "roles": [
     "壁の教祖",
     "夜活の民🌙",
@@ -209,7 +209,7 @@
     },
     {
       "id": "600015347491274773",
-      "name": "ちえる/きり",
+      "name": "レクイエム",
       "avatar": "https://cdn.discordapp.com/avatars/600015347491274773/1c4fc5d7f73885134778161093dad4a9.png?size=128",
       "roles": [
         "深夜帯メンション可⭕️",
@@ -824,7 +824,7 @@
     {
       "id": "1498313843548618773",
       "name": "かべ(kabe)",
-      "avatar": "https://cdn.discordapp.com/avatars/1498313843548618773/13c7a4a90c6c6e49dec2811708b8aa45.png?size=128",
+      "avatar": "https://cdn.discordapp.com/avatars/1498313843548618773/27c9bdc43f6a00ebc6744a1cc5a05a99.png?size=128",
       "roles": [
         "深夜帯メンション可⭕️",
         "DDFFの民",
@@ -1146,6 +1146,18 @@
       ],
       "comment": "自己紹介は準備中です。",
       "joinedAt": "2026-10-11T03:10:38.294000+00:00"
+    },
+    {
+      "id": "1174061339900121141",
+      "name": "まりまり",
+      "avatar": "https://cdn.discordapp.com/avatars/1174061339900121141/3d4178a309ba052467ad3f3d0e4c3d79.png?size=128",
+      "roles": [
+        "スタレ民",
+        "雀魂民",
+        "FGO民"
+      ],
+      "comment": "自己紹介は準備中です。",
+      "joinedAt": "2026-11-02T13:30:05.886000+00:00"
     }
   ]
 }
