@@ -3,6 +3,8 @@ const SESSION_LIFETIME_SECONDS = 4 * 60 * 60;
 const INTRODUCTION_MAX_LENGTH = 500;
 const DISPLAY_NAME_MAX_LENGTH = 32;
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
+const ROSTER_NAME_CACHE_TTL_MS = 5 * 60 * 1000;
+let rosterNameCache = { siteOrigin: '', expiresAt: 0, members: [] };
 const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932", "633635966275420160"]);
 function encodeBase64Url(bytes) {
   let binary = '';
@@ -164,6 +166,34 @@ async function getPrivateRoleIds(env) {
     ids
   };
   return ids;
+}
+
+function normalizeDisplayName(value) {
+  return String(value || '').normalize('NFKC').trim().toLocaleLowerCase('ja-JP');
+}
+
+async function getPublishedMembers(env) {
+  const now = Date.now();
+  if (rosterNameCache.siteOrigin === env.SITE_ORIGIN && rosterNameCache.expiresAt > now) {
+    return rosterNameCache.members;
+  }
+
+  const response = await fetch(new URL('/data/members.json', env.SITE_ORIGIN), {
+    headers: { Accept: 'application/json' }
+  });
+  if (!response.ok) throw new Error('Published member list is unavailable.');
+  const payload = await response.json();
+  if (!Array.isArray(payload.members)) throw new Error('Published member list is invalid.');
+
+  const members = payload.members.filter(member =>
+    member && /^\\d{17,20}$/.test(String(member.id || '')) && typeof member.name === 'string'
+  );
+  rosterNameCache = {
+    siteOrigin: env.SITE_ORIGIN,
+    expiresAt: now + ROSTER_NAME_CACHE_TTL_MS,
+    members
+  };
+  return members;
 }
 
 async function checkGuildMembership(userId, env) {
@@ -398,7 +428,7 @@ async function handleApi(request, env, url) {
     } catch {
       return jsonResponse(request, env, { error: '入力内容を読み取れませんでした。' }, 400);
     }
-    const displayName = typeof body.displayName === 'string' ? body.displayName.trim() : null;
+    const displayName = body && typeof body.displayName === 'string' ? body.displayName.trim() : null;
     if (displayName === null || Array.from(displayName).length > DISPLAY_NAME_MAX_LENGTH) {
       return jsonResponse(request, env, { error: '表示名は32文字以内で入力してください。' }, 400);
     }
@@ -407,6 +437,30 @@ async function handleApi(request, env, url) {
       await env.DB.prepare('DELETE FROM member_display_names WHERE user_id = ?')
         .bind(session.userId).run();
       return jsonResponse(request, env, { displayName: '' }, 200);
+    }
+
+    let publishedMembers;
+    try {
+      publishedMembers = await getPublishedMembers(env);
+    } catch {
+      return jsonResponse(request, env, { error: '表示名の重複を確認できませんでした。時間をおいて再度お試しください。' }, 503);
+    }
+    const activeMemberIds = new Set(publishedMembers.map(member => String(member.id)));
+    const otherNames = new Set(
+      publishedMembers
+        .filter(member => String(member.id) !== session.userId)
+        .map(member => normalizeDisplayName(member.name))
+    );
+    const savedNames = await env.DB.prepare(
+      'SELECT user_id, display_name FROM member_display_names'
+    ).all();
+    for (const row of savedNames.results || []) {
+      if (row.user_id !== session.userId && activeMemberIds.has(row.user_id)) {
+        otherNames.add(normalizeDisplayName(row.display_name));
+      }
+    }
+    if (otherNames.has(normalizeDisplayName(displayName))) {
+      return jsonResponse(request, env, { error: '他のメンバーが使用中の表示名です。別の名前を入力してください。' }, 409);
     }
 
     await env.DB.prepare(
