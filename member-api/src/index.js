@@ -4,7 +4,7 @@ const INTRODUCTION_MAX_LENGTH = 500;
 const DISPLAY_NAME_MAX_LENGTH = 32;
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const ROSTER_NAME_CACHE_TTL_MS = 5 * 60 * 1000;
-let rosterNameCache = { siteOrigin: '', expiresAt: 0, members: [] };
+let rosterNameCache = { siteBaseUrl: '', expiresAt: 0, members: [] };
 function encodeBase64Url(bytes) {
   let binary = '';
   for (const byte of bytes) binary += String.fromCharCode(byte);
@@ -173,11 +173,12 @@ function normalizeDisplayName(value) {
 
 async function getPublishedMembers(env) {
   const now = Date.now();
-  if (rosterNameCache.siteOrigin === env.SITE_ORIGIN && rosterNameCache.expiresAt > now) {
+  const siteBaseUrl = String(env.SITE_BASE_URL || env.SITE_ORIGIN).replace(/\/+$/, '') + '/';
+  if (rosterNameCache.siteBaseUrl === siteBaseUrl && rosterNameCache.expiresAt > now) {
     return rosterNameCache.members;
   }
 
-  const response = await fetch(new URL('/data/members.json', env.SITE_ORIGIN), {
+  const response = await fetch(new URL('data/members.json', siteBaseUrl), {
     headers: { Accept: 'application/json' }
   });
   if (!response.ok) throw new Error('Published member list is unavailable.');
@@ -185,10 +186,10 @@ async function getPublishedMembers(env) {
   if (!Array.isArray(payload.members)) throw new Error('Published member list is invalid.');
 
   const members = payload.members.filter(member =>
-    member && /^\\d{17,20}$/.test(String(member.id || '')) && typeof member.name === 'string'
+    member && /^\d{17,20}$/.test(String(member.id || '')) && typeof member.name === 'string'
   );
   rosterNameCache = {
-    siteOrigin: env.SITE_ORIGIN,
+    siteBaseUrl,
     expiresAt: now + ROSTER_NAME_CACHE_TTL_MS,
     members
   };
