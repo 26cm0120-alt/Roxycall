@@ -180,6 +180,47 @@ async function checkGuildMembership(userId, env) {
   return !member.roles.some(roleId => privateRoleIds.has(roleId));
 }
 
+async function readMultipartFormDataWithLimit(request, maxBytes) {
+  if (!request.body) throw new Error('Request body is missing.');
+  const contentType = request.headers.get('Content-Type') || '';
+  if (!contentType.toLowerCase().startsWith('multipart/form-data;')) {
+    throw new Error('Expected multipart form data.');
+  }
+
+  const reader = request.body.getReader();
+  const chunks = [];
+  let totalBytes = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > maxBytes) {
+        try { await reader.cancel(); } catch {}
+        const error = new Error('Request body is too large.');
+        error.code = 'BODY_TOO_LARGE';
+        throw error;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const body = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    body.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  const replayRequest = new Request(request.url, {
+    method: 'POST',
+    headers: { 'Content-Type': contentType },
+    body
+  });
+  return replayRequest.formData();
+}
+
 async function detectAvatarContentType(file) {
   const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
   if (bytes.length >= 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47 &&
@@ -388,8 +429,11 @@ async function handleApi(request, env, url) {
 
     let form;
     try {
-      form = await request.formData();
-    } catch {
+      form = await readMultipartFormDataWithLimit(request, AVATAR_MAX_BYTES + 65536);
+    } catch (error) {
+      if (error.code === 'BODY_TOO_LARGE') {
+        return jsonResponse(request, env, { error: 'アップロード全体は2MBを超えないようにしてください。' }, 413);
+      }
       return jsonResponse(request, env, { error: '画像を読み取れませんでした。' }, 400);
     }
     const file = form.get('avatar');
