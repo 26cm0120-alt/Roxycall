@@ -7,6 +7,18 @@ const root = path.resolve(__dirname, '..');
 const dataDir = path.join(root, 'data');
 const guildId = (process.env.DISCORD_GUILD_ID || '').trim();
 const token = process.env.DISCORD_BOT_TOKEN;
+const excludedMemberIdsRaw = (process.env.EXCLUDED_MEMBER_IDS || '').trim();
+if (!excludedMemberIdsRaw) {
+  throw new Error('EXCLUDED_MEMBER_IDS is missing. Add the comma-separated IDs as a GitHub Actions secret.');
+}
+const excludedMemberIds = excludedMemberIdsRaw.split(/[\s,]+/).filter(Boolean);
+if (excludedMemberIds.some(id => !/^\d{17,20}$/.test(id))) {
+  throw new Error('EXCLUDED_MEMBER_IDS must contain only comma-separated Discord snowflakes.');
+}
+const excludedMemberIdSet = new Set(excludedMemberIds);
+if (excludedMemberIdSet.size !== excludedMemberIds.length) {
+  throw new Error('EXCLUDED_MEMBER_IDS contains duplicate IDs.');
+}
 
 if (!guildId) {
   throw new Error('DISCORD_GUILD_ID is missing from the workflow environment.');
@@ -58,11 +70,6 @@ async function readMembers() {
   return members.filter(member => member.user);
 }
 
-const EXCLUDED_MEMBER_IDS = new Set([
-  '713394116456611932',
-  '633635966275420160'
-]);
-
 async function writeFileIfChanged(filePath, content) {
   try {
     if (await fs.readFile(filePath, 'utf8') === content) return false;
@@ -98,7 +105,7 @@ async function main() {
   guildMembers.forEach(member => {
     const user = member.user;
     if (
-      EXCLUDED_MEMBER_IDS.has(user.id) ||
+      excludedMemberIdSet.has(user.id) ||
       member.roles.some(id => hiddenRoleIds.has(id))
     ) {
       if (Object.hasOwn(overrides, user.id)) {
@@ -123,7 +130,7 @@ async function main() {
       name: member.nick || user.global_name || user.username,
       avatar: avatarUrl(member),
       roles: member.roles.map(id => roleNamesById.get(id)).filter(Boolean),
-      comment: overrides[user.id]?.comment || '',
+      comment: overrides[user.id]?.comment || '自己紹介は準備中です。',
       joinedAt: member.joined_at || null
     };
   }).sort((a, b) => {

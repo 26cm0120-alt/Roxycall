@@ -5,7 +5,6 @@ const DISPLAY_NAME_MAX_LENGTH = 32;
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const ROSTER_NAME_CACHE_TTL_MS = 5 * 60 * 1000;
 let rosterNameCache = { siteOrigin: '', expiresAt: 0, members: [] };
-const EXCLUDED_MEMBER_IDS = new Set(["713394116456611932", "633635966275420160"]);
 function encodeBase64Url(bytes) {
   let binary = '';
   for (const byte of bytes) binary += String.fromCharCode(byte);
@@ -196,8 +195,15 @@ async function getPublishedMembers(env) {
   return members;
 }
 
+async function getListedMembersForIds(ids, env) {
+  const publishedMembers = await getPublishedMembers(env);
+  const activeIds = new Set(publishedMembers.map(member => String(member.id)));
+  return ids.filter(id => activeIds.has(id));
+}
+
 async function checkGuildMembership(userId, env) {
-  if (EXCLUDED_MEMBER_IDS.has(userId)) return false;
+  const publishedMembers = await getPublishedMembers(env);
+  if (!publishedMembers.some(member => String(member.id) === userId)) return false;
   const headers = { Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN };
   const memberResponse = await fetch(
     DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/members/' + userId,
@@ -374,17 +380,19 @@ async function handleApi(request, env, url) {
     if (!ids.length || ids.length > 100 || ids.some(id => !/^\d{17,20}$/.test(id))) {
       return jsonResponse(request, env, { error: 'Provide between 1 and 100 valid member IDs.' }, 400);
     }
-    const placeholders = ids.map(() => '?').join(',');
+    const listedIds = await getListedMembersForIds(ids, env);
+    if (!listedIds.length) return jsonResponse(request, env, { avatars: {}, displayNames: {} }, 200);
+    const placeholders = listedIds.map(() => '?').join(',');
     const result = await env.DB.prepare(
       'SELECT user_id, updated_at FROM member_avatars WHERE user_id IN (' + placeholders + ')'
-    ).bind(...ids).all();
+    ).bind(...listedIds).all();
     const avatars = {};
     for (const row of result.results || []) {
       avatars[row.user_id] = '/avatars/' + row.user_id + '?v=' + Date.parse(row.updated_at);
     }
     const nameResult = await env.DB.prepare(
       'SELECT user_id, display_name FROM member_display_names WHERE user_id IN (' + placeholders + ')'
-    ).bind(...ids).all();
+    ).bind(...listedIds).all();
     const displayNames = {};
     for (const row of nameResult.results || []) displayNames[row.user_id] = row.display_name;
     return jsonResponse(request, env, { avatars, displayNames }, 200);
@@ -395,10 +403,12 @@ async function handleApi(request, env, url) {
     if (!ids.length || ids.length > 100 || ids.some(id => !/^\d{17,20}$/.test(id))) {
       return jsonResponse(request, env, { error: 'Provide between 1 and 100 valid member IDs.' }, 400);
     }
-    const placeholders = ids.map(() => '?').join(',');
+    const listedIds = await getListedMembersForIds(ids, env);
+    if (!listedIds.length) return jsonResponse(request, env, { introductions: {} }, 200);
+    const placeholders = listedIds.map(() => '?').join(',');
     const result = await env.DB.prepare(
       'SELECT user_id, introduction FROM member_introductions WHERE user_id IN (' + placeholders + ')'
-    ).bind(...ids).all();
+    ).bind(...listedIds).all();
     const introductions = {};
     for (const row of result.results || []) introductions[row.user_id] = row.introduction;
     return jsonResponse(request, env, { introductions }, 200);
@@ -583,7 +593,14 @@ export default {
     }
     const avatarMatch = url.pathname.match(/^\/avatars\/(\d{17,20})$/);
     if (avatarMatch && request.method === 'GET') {
-      const object = await env.AVATARS.get('avatars/' + avatarMatch[1]);
+      const userId = avatarMatch[1];
+      const publishedMembers = await getPublishedMembers(env);
+      if (!publishedMembers.some(member => String(member.id) === userId)) {
+        return new Response('Not found.', { status: 404 });
+      }
+      const avatarRow = await env.DB.prepare('SELECT user_id FROM member_avatars WHERE user_id = ?').bind(userId).first();
+      if (!avatarRow) return new Response('Not found.', { status: 404 });
+      const object = await env.AVATARS.get('avatars/' + userId);
       if (!object) return new Response('Not found.', { status: 404 });
       const headers = new Headers();
       object.writeHttpMetadata(headers);
