@@ -1,74 +1,135 @@
-# Roxycall｜コミュニティポータル
+# Roxycall コミュニティポータル
 
-ゲームコミュニティ「ネトゲ廃人ロキシーコール」の情報をまとめたWebサイトです。ルールや活動記録の確認、一緒に遊ぶメンバー探しをスマートフォン・PCから行えます。
+ゲームコミュニティ「ネトゲ廃人ロキシーコール」の公式ポータルです。コミュニティのルール、ニュース、活動記録、メンバー情報を掲載しています。
 
-## 主な機能
+**サイト:** [https://26cm0120-alt.github.io](https://26cm0120-alt.github.io)
 
-- コミュニティのルール・マナー案内
-- ニュースのカテゴリ絞り込みと本文の開閉
-- 画像・動画による活動紹介
-- メンバーのプロフィール表示とDiscord加入日順の一覧
-- Discordログイン後の自己紹介文・プロフィール画像の本人編集（PNG / JPG / WebP、2MB以下）
-- ゲームや活動時間帯などのロール別メンバー検索
+## サイトでできること
 
-## 使用技術
+- コミュニティのルールやニュースを確認
+- 画像・動画で活動記録を閲覧
+- メンバーをDiscord参加日順に確認し、ロールで検索
+- Discordログイン後、自分の表示名・自己紹介文・プロフィール画像を編集
+- プロフィール画像はPNG / JPG / WebP、2MB以下
 
-HTML / CSS / JavaScript（フレームワーク不使用）、Cloudflare Workers、D1、R2
+## 掲載情報と削除依頼
 
-WebサイトはGitHub Pagesで配信し、Discord認証・自己紹介文の保存・プロフィール画像の保存はCloudflare Worker、D1、R2を使います。
+メンバー一覧と公開データには、DiscordユーザーID、サーバー表示名、プロフィール画像、サーバー参加日、ロールが含まれます。本人が設定した表示名・自己紹介文・アップロード画像も公開されます。
 
-## 実装の工夫
+掲載停止や情報の修正を希望する本人は、Discordでギルドマスターの **@takken4649** へDMしてください。対象アカウントと希望内容をお知らせください。確認後、メンバー一覧からの除外または情報の修正を行います。
 
-- メンバー情報を配列で管理し、カード表示と検索に共通利用
-- URLのハッシュによる画面切り替えと、戻る・進むへの対応
-- レスポンシブレイアウトとハンバーガーメニュー
-- 画像の遅延読み込みとサイズ指定
-- 動的に表示するメンバー名・コメントのHTMLエスケープ
+## 仕組み
+
+| サービス | 役割 |
+| --- | --- |
+| GitHub Pages | HTML・CSS・JavaScriptで作られたサイトを配信 |
+| GitHub Actions | Discordのメンバー情報とロールを定期同期 |
+| Cloudflare Workers | Discordログインとプロフィール更新API |
+| Cloudflare D1 | 自己紹介文、表示名、プロフィール画像情報を保存 |
+| Cloudflare R2 | アップロードされたプロフィール画像を保存 |
+
+フロントエンドはフレームワークを使わない静的サイトです。DiscordのBotトークンやOAuth Client SecretはWorkerのSecretに保存し、ブラウザーには渡しません。
 
 ## ファイル構成
 
-| ファイル | 役割 |
+| パス | 内容 |
 | --- | --- |
-| index.html | ページ構造・ニュース・活動内容 |
-| style.css | デザイン・レスポンシブ対応 |
-| script.js | メンバーデータ・検索・画面切り替え |
-| images/・videos/ | 掲載画像・動画 |
+| `index.html` | ページ構造、ニュース、活動紹介、メンバー編集フォーム |
+| `style.css` | デザインとレスポンシブ表示 |
+| `script.js` | 画面切り替え、メンバー表示、検索、プロフィール編集 |
+| `member-api-config.js` | Cloudflare Workerの接続先 |
+| `data/members.json` | Discordから同期した公開メンバー・ロール情報 |
+| `data/member-overrides.json` | 旧プロフィールから引き継ぐ紹介文や表示順 |
+| `scripts/sync-roles.js` | Discordのメンバー・ロールを取得してJSONを更新 |
+| `.github/workflows/sync-discord.yml` | Discord同期を定期・手動実行するワークフロー |
+| `member-api/` | Cloudflare Worker、D1マイグレーション、設定 |
+| `images/`・`videos/` | サイトで使用する画像・動画 |
 
-## 起動方法
+## ローカルで表示する
 
-Python 3がある環境で、プロジェクトフォルダ内から
-`python3 -m http.server 8000` を実行し、
-ブラウザで `http://localhost:8000` を開きます。
+Python 3をインストールした環境で、リポジトリのルートから実行します。
 
-パッケージのインストールやビルドは不要です。
+```powershell
+python -m http.server 8000
+```
 
-## Discord同期の設定
+ブラウザーで [http://localhost:8000](http://localhost:8000) を開きます。サイトの表示にNode.jsやパッケージのインストールは不要です。Discordログインやプロフィール保存は、設定済みのCloudflare Workerへ接続します。
 
-GitHub Actionsが1日1回（UTC 18:17、JST 03:17）と手動実行時に、Discordのメンバー名・アバター・ロールを静的JSONへ反映します。
+## Discordメンバー同期
+
+GitHub Actionsは毎日 **18:17 UTC（日本時間 翌日03:17）** に同期します。また、コード変更時と手動実行時にも起動します。
+
+同期対象からはBotアカウント、サブ垢ロールが付いたメンバー、設定されたDiscordユーザーIDが除外されます。名前による除外は行いません。
+
+### BotとGitHub Actionsの設定
 
 1. Discord Developer PortalでBotを作成し、Bot設定の **SERVER MEMBERS INTENT** を有効にします。
-2. Botを対象サーバー（ID: `1387350967628075101`）へ追加します。Botトークンは公開しないでください。
-3. GitHubリポジトリの **Settings → Secrets and variables → Actions** にRepository secret `GG`（Bot token）を登録します。サーバーID `1387350967628075101` はワークフローに設定済みです。
-4. **Actions → Sync Discord members and roles → Run workflow** を一度実行します。
+2. Botを対象サーバーへ追加します。サーバーIDは `1387350967628075101` です。
+3. GitHubリポジトリの **Settings → Secrets and variables → Actions** でRepository secret `GG` にBotトークンを登録します。トークンは公開しないでください。
+4. GitHubの **Actions → Sync Discord members and roles → Run workflow** から手動同期できます。
 
-同期データは `data/members.json`、コメントのID別管理は `data/member-overrides.json` に保存されます。初回同期時は現在のプロフィール名とDiscordのサーバーニックネーム／表示名が一致した場合にコメントを引き継ぎ、その後はDiscordユーザーIDで紐づけます。コメントを編集する場合は `data/member-overrides.json` の該当IDの `comment` を変更してください。アバター画像はDiscordのCDN URLを使います。Bot tokenはActions内でのみ使われ、サイトへ送信されません。
+同期結果は `data/members.json` に保存されます。プロフィールの自己紹介文と表示名はD1に保存され、本人がページから更新できます。古いプロフィール情報を手作業で調整する場合は `data/member-overrides.json` を編集します。
 
-## Discordログインで自己紹介文を即時編集
+## Cloudflare Workerの設定・デプロイ
 
-メンバー紹介ページからDiscordでログインすると、本人の自己紹介文とプロフィール画像を編集できます。自己紹介文はCloudflare D1、画像ファイルはR2へ保存され、すぐに公開プロフィールへ反映されます。画像はPNG / JPG / WebP形式、2MB以下です。アップロード画像を削除するとDiscordアバターに戻ります。編集できるのは対象サーバーの掲載メンバー本人だけです。自己紹介文と画像は公開情報として表示されます。
+Cloudflareの既存環境を更新する場合は、PowerShellでリポジトリを最新にしてからWorkerのディレクトリへ移動します。
 
-### Cloudflare Workerの初回設定
+```powershell
+cd $env:USERPROFILE\Documents\Roxycall
+git pull
+cd member-api
+```
 
-1. Cloudflareアカウントでログインできる環境から `npx.cmd wrangler@latest login` を実行します（PowerShellでは `npx.cmd` を使います）。
-2. `member-api/` へ移動し、既存D1の設定が済んでいることを確認します。新規作成の場合は `npx.cmd wrangler@latest d1 create roxycall-member-introductions` を実行し、表示されたDatabase IDを `member-api/wrangler.toml` に設定します。
-3. 画像用R2バケットを作成します: `npx.cmd wrangler@latest r2 bucket create roxycall-member-avatars`。すでに同名バケットがある場合は作成をスキップします。
-4. D1マイグレーションを適用します: `npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote`
-5. WorkerのSecretを登録します。各コマンドの入力欄へDiscord Developer PortalのOAuth2 Client Secret、既存のBot Token、32文字以上のランダムなセッション鍵を入力します。
-   - `npx.cmd wrangler@latest secret put DISCORD_CLIENT_SECRET`
-   - `npx.cmd wrangler@latest secret put DISCORD_BOT_TOKEN`
-   - `npx.cmd wrangler@latest secret put SESSION_SECRET`
-6. `npx.cmd wrangler@latest deploy` でWorkerを公開します。表示されたWorker URLを使って次の設定を行います。
-6. Discord Developer Portalの **OAuth2 → General** にRedirect URI `https://<Workerのホスト>/auth/callback` を登録します。
-7. `member-api-config.js` の空欄をWorker URL（例: `https://roxycall-member-api.<アカウント>.workers.dev`）に置き換えてコミットします。
+### 初回のみ
 
-GitHub PagesのOriginは `https://26cm0120-alt.github.io` に設定済みです。独自ドメインに変更する場合は `member-api/wrangler.toml` の `SITE_ORIGIN` も同じOriginへ変更してください。DiscordのBot TokenとOAuth Client SecretはWorkerのSecretだけに保存し、ブラウザーへは渡しません。OAuthは `identify` のみを要求し、Worker側でBot APIを使ってサーバー所属を確認します。
+1. Wranglerにログインします。
+
+   ```powershell
+   npx.cmd wrangler@latest login
+   ```
+
+2. R2バケットがまだない場合に限り、作成します。
+
+   ```powershell
+   npx.cmd wrangler@latest r2 bucket create roxycall-member-avatars
+   ```
+
+3. Workerに必要なSecretを登録します。コマンド実行後の入力欄に値を貼り付けます。
+
+   ```powershell
+   npx.cmd wrangler@latest secret put DISCORD_CLIENT_SECRET
+   npx.cmd wrangler@latest secret put DISCORD_BOT_TOKEN
+   npx.cmd wrangler@latest secret put SESSION_SECRET
+   ```
+
+   - `DISCORD_CLIENT_SECRET`: Discord Developer PortalのOAuth2 Client Secret
+   - `DISCORD_BOT_TOKEN`: Discord Botのトークン
+   - `SESSION_SECRET`: 32文字以上のランダムな鍵
+
+4. D1マイグレーションを適用します。
+
+   ```powershell
+   npx.cmd wrangler@latest d1 migrations apply roxycall-member-introductions --remote
+   ```
+
+5. Discord Developer Portalの **OAuth2 → General** に次のRedirect URIを登録します。
+
+   ```
+   https://roxycall-member-api.roxycall261020.workers.dev/auth/callback
+   ```
+
+6. `member-api-config.js` にWorker URLが設定されていることを確認します。WorkerのURLを変更した場合は、このファイルとOAuth Redirect URIを更新します。
+
+### Workerの更新
+
+`member-api/` ディレクトリで実行します。
+
+```powershell
+npx.cmd wrangler@latest deploy
+```
+
+PowerShellでは実行ポリシーの影響を避けるため、`npx` の代わりに `npx.cmd` を使います。新しいD1マイグレーションが追加された場合は、デプロイ前にマイグレーションを適用してください。
+
+### 設定値
+
+現在のWorker設定は `member-api/wrangler.toml` にあります。GitHub PagesのOriginは `https://26cm0120-alt.github.io`、D1とR2のバインディングも設定済みです。サイトのドメインを変更する場合は、`SITE_ORIGIN` とOAuth Redirect URIも合わせて変更してください。
