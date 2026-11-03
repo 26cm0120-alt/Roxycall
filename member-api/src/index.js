@@ -217,10 +217,12 @@ async function checkGuildMembership(userId, env) {
     try { errorPayload = JSON.parse(errorText); } catch {}
     const parsedCode = Number(errorPayload.code);
     const discordCode = Number.isSafeInteger(parsedCode) && parsedCode > 0 ? parsedCode : 'unknown';
-    const discordMessage = typeof errorPayload.message === 'string'
+    const contentType = memberResponse.headers.get('Content-Type') || 'unknown';
+    const message = typeof errorPayload.message === 'string'
       ? errorPayload.message.replace(/[\\r\\n]+/g, ' ').slice(0, 160)
-      : 'No JSON error message.';
-    throw new Error(`Discord membership check failed (HTTP ${memberResponse.status}, code ${discordCode}): ${discordMessage}`);
+      : errorText.replace(/[\\r\\n\\t]+/g, ' ').slice(0, 160) || 'Empty response body.';
+    const rayId = memberResponse.headers.get('cf-ray') || 'unavailable';
+    throw new Error(`Discord membership check failed (HTTP ${memberResponse.status}, code ${discordCode}, content-type ${contentType}, cf-ray ${rayId}): ${message}`);
   }
   const member = await memberResponse.json();
   const privateRoleIds = await getPrivateRoleIds(env);
