@@ -152,7 +152,10 @@ async function getPrivateRoleIds(env) {
 
   const response = await fetch(
     DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/roles',
-    { headers: { Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN } }
+    { headers: {
+      Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN,
+      'User-Agent': 'DiscordBot (https://26cm0120-alt.github.io/Roxycall, 1.0)'
+    } }
   );
   if (!response.ok) throw new Error('Discord role check failed.');
   const roles = await response.json();
@@ -205,7 +208,10 @@ async function getListedMembersForIds(ids, env) {
 async function checkGuildMembership(userId, env) {
   const publishedMembers = await getPublishedMembers(env);
   if (!publishedMembers.some(member => String(member.id) === userId)) return false;
-  const headers = { Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN };
+  const headers = {
+    Authorization: 'Bot ' + env.DISCORD_BOT_TOKEN,
+    'User-Agent': 'DiscordBot (https://26cm0120-alt.github.io/Roxycall, 1.0)'
+  };
   const memberResponse = await fetch(
     DISCORD_API + '/guilds/' + env.DISCORD_GUILD_ID + '/members/' + userId,
     { headers }
