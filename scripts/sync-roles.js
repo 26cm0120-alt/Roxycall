@@ -30,7 +30,10 @@ if (!token) throw new Error('DISCORD_BOT_TOKEN is required.');
 
 async function discord(pathname) {
   const response = await fetch(`https://discord.com/api/v10${pathname}`, {
-    headers: { Authorization: `Bot ${token}` }
+    headers: {
+      Authorization: `Bot ${token}`,
+      'User-Agent': 'DiscordBot (https://26cm0120-alt.github.io/Roxycall, 1.0)'
+    }
   });
   if (!response.ok) {
     const detail = await response.text();
