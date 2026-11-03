@@ -323,17 +323,17 @@ async function handleCallback(request, env) {
   }
 
   try {
-    const clientCredentials = btoa(env.DISCORD_CLIENT_ID + ':' + env.DISCORD_CLIENT_SECRET);
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
       headers: {
-        'Authorization': 'Basic ' + clientCredentials,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: redirectUri(request)
+        redirect_uri: redirectUri(request),
+        client_id: env.DISCORD_CLIENT_ID,
+        client_secret: String(env.DISCORD_CLIENT_SECRET || '').trim()
       })
     });
     if (!tokenResponse.ok) {
